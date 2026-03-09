@@ -1,0 +1,13 @@
+http:
+  routers:
+    erpnext-file:
+      entryPoints:
+        - web
+      rule: Host(`erp.cityos.local`)
+      service: erpnext-file
+
+  services:
+    erpnext-file:
+      loadBalancer:
+        servers:
+          - url: http://frontend:8080
