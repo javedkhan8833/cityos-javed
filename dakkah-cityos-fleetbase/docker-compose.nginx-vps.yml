@@ -1,0 +1,98 @@
+services:
+  cache:
+    image: redis:7-alpine
+    container_name: fleetbase-redis
+    restart: unless-stopped
+    networks:
+      - ${CITYOS_NETWORK}
+
+  socket:
+    image: socketcluster/socketcluster:v17.4.0
+    platform: linux/amd64
+    container_name: fleetbase-socket
+    restart: unless-stopped
+    environment:
+      SOCKETCLUSTER_WORKERS: 4
+      SOCKETCLUSTER_BROKERS: 4
+    networks:
+      - ${CITYOS_NETWORK}
+
+  application:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: app-dev
+    container_name: fleetbase-api
+    command: [ "frankenphp", "run", "--config", "/fleetbase/Caddyfile" ]
+    restart: unless-stopped
+    volumes:
+      - ./api/.env:/fleetbase/api/.env
+      - ./api/config/database.php:/fleetbase/api/config/database.php
+    environment:
+      QUEUE_CONNECTION: redis
+      CACHE_DRIVER: redis
+      REDIS_HOST: cache
+      REDIS_PORT: 6379
+    depends_on:
+      - cache
+    networks:
+      - ${CITYOS_NETWORK}
+
+  queue:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: events-dev
+    container_name: fleetbase-queue
+    command: [ "php", "artisan", "queue:work" ]
+    restart: unless-stopped
+    healthcheck:
+      disable: true
+    depends_on:
+      - application
+    networks:
+      - ${CITYOS_NETWORK}
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: scheduler-dev
+    container_name: fleetbase-scheduler
+    command: [ "go-crond", "--verbose", "root:./crontab" ]
+    restart: unless-stopped
+    healthcheck:
+      disable: true
+    depends_on:
+      - application
+    networks:
+      - ${CITYOS_NETWORK}
+
+  console:
+    image: fleetbase/fleetbase-console:latest
+    container_name: fleetbase-console
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:14200:4200"
+    volumes:
+      - ./docker/console/default.conf.template:/etc/nginx/templates/default.conf.template:ro
+    networks:
+      - ${CITYOS_NETWORK}
+
+  httpd:
+    build:
+      context: .
+      dockerfile: docker/httpd/Dockerfile
+    container_name: fleetbase-http
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:18000:80"
+    depends_on:
+      - application
+    networks:
+      - ${CITYOS_NETWORK}
+
+networks:
+  cityos-network:
+    name: ${CITYOS_NETWORK}
+    external: true

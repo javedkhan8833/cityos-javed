@@ -1,0 +1,154 @@
+x-erpnext-image: &erpnext-image
+  image: frappe/erpnext:${ERPNEXT_IMAGE_TAG:-latest}
+  pull_policy: if_not_present
+
+x-erpnext-volumes: &erpnext-volumes
+  - ./sites:/home/frappe/frappe-bench/sites
+  - ./logs:/home/frappe/frappe-bench/logs
+
+x-backend-service: &backend-service
+  <<: *erpnext-image
+  restart: unless-stopped
+  volumes: *erpnext-volumes
+  networks:
+    - ${CITYOS_NETWORK}
+  depends_on:
+    erp-db:
+      condition: service_healthy
+    redis-cache:
+      condition: service_started
+    redis-queue:
+      condition: service_started
+    configurator:
+      condition: service_completed_successfully
+
+services:
+  erp-db:
+    image: mariadb:10.6
+    restart: unless-stopped
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --skip-innodb-read-only-compressed
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ERPNEXT_DB_ROOT_PASSWORD}
+    volumes:
+      - erp_db_data:/var/lib/mysql
+    healthcheck:
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - -h
+        - localhost
+        - --password=${ERPNEXT_DB_ROOT_PASSWORD}
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ${CITYOS_NETWORK}
+
+  redis-cache:
+    image: redis:7-alpine
+    restart: unless-stopped
+    networks:
+      - ${CITYOS_NETWORK}
+
+  redis-queue:
+    image: redis:7-alpine
+    restart: unless-stopped
+    networks:
+      - ${CITYOS_NETWORK}
+
+  configurator:
+    <<: *backend-service
+    restart: "no"
+    depends_on:
+      erp-db:
+        condition: service_healthy
+      redis-cache:
+        condition: service_started
+      redis-queue:
+        condition: service_started
+    entrypoint:
+      - bash
+      - -lc
+    command:
+      - >
+        ls -1 apps > sites/apps.txt &&
+        bench set-config -g db_host ${DB_HOST} &&
+        bench set-config -g db_port ${DB_PORT} &&
+        bench set-config -g redis_cache "${REDIS_CACHE}" &&
+        bench set-config -g redis_queue "${REDIS_QUEUE}" &&
+        bench set-config -g redis_socketio "${REDIS_SOCKETIO}" &&
+        bench set-config -g socketio_port 9000 &&
+        bench set-config -g default_site ${ERPNEXT_SITE_NAME} &&
+        bench set-config -g serve_default_site 1
+
+  backend:
+    <<: *backend-service
+    container_name: erpnext-app
+
+  frontend:
+    image: frappe/erpnext-nginx:${ERPNEXT_NGINX_IMAGE_TAG:-latest}
+    pull_policy: if_not_present
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_started
+      websocket:
+        condition: service_started
+    environment:
+      BACKEND: backend:8000
+      FRAPPE_SITE_NAME_HEADER: ${ERPNEXT_SITE_NAME}
+      SOCKETIO: websocket:9000
+      UPSTREAM_REAL_IP_ADDRESS: 127.0.0.1
+      UPSTREAM_REAL_IP_HEADER: X-Forwarded-For
+      UPSTREAM_REAL_IP_RECURSIVE: "off"
+      CLIENT_MAX_BODY_SIZE: 50m
+      PROXY_READ_TIMEOUT: 120
+    volumes:
+      - ./sites:/home/frappe/frappe-bench/sites
+      - ./logs:/home/frappe/frappe-bench/logs
+      - ./sites/assets:/usr/share/nginx/html/assets:ro
+    ports:
+      - "127.0.0.1:18080:8080"
+    networks:
+      - ${CITYOS_NETWORK}
+
+  websocket:
+    <<: *backend-service
+    command:
+      - node
+      - /home/frappe/frappe-bench/apps/frappe/socketio.js
+
+  queue-short:
+    <<: *backend-service
+    command:
+      - bench
+      - worker
+      - --queue
+      - short,default
+
+  queue-long:
+    <<: *backend-service
+    command:
+      - bench
+      - worker
+      - --queue
+      - long,default,short
+
+  scheduler:
+    <<: *backend-service
+    command:
+      - bench
+      - schedule
+
+volumes:
+  erp_db_data:
+
+networks:
+  cityos-network:
+    name: ${CITYOS_NETWORK}
+    external: true
