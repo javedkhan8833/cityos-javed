@@ -59,8 +59,8 @@ RUN sed -e 's/^expose_php.*/expose_php = Off/' "$PHP_INI_DIR/php.ini-production"
 RUN npm install -g chokidar pnpm ember-cli npm-cli-login
 
 # Install ssm-parent
-RUN wget -O- https://github.com/springload/ssm-parent/releases/download/1.8.0/ssm-parent_1.8.0_linux_amd64.tar.gz \
-    | tar xvzf - ssm-parent \
+RUN curl -fsSL https://github.com/springload/ssm-parent/releases/download/1.8.0/ssm-parent_1.8.0_linux_amd64.tar.gz \
+    | tar xzf - ssm-parent \
     && mv ssm-parent /sbin/ssm-parent \
     && chmod +x /sbin/ssm-parent
 
