@@ -48,6 +48,8 @@ services:
     container_name: fleetbase-queue
     command: [ "php", "artisan", "queue:work" ]
     restart: unless-stopped
+    healthcheck:
+      disable: true
     depends_on:
       - application
     networks:
@@ -61,6 +63,8 @@ services:
     container_name: fleetbase-scheduler
     command: [ "go-crond", "--verbose", "root:./crontab" ]
     restart: unless-stopped
+    healthcheck:
+      disable: true
     depends_on:
       - application
     networks:

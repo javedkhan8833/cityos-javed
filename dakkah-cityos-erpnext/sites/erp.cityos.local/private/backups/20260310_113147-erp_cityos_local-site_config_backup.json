@@ -1,0 +1,8 @@
+{
+ "db_host": "erp-db",
+ "db_name": "_9ad7499deaf882c8",
+ "db_password": "boo51wtndcepk9oe",
+ "db_type": "mariadb",
+ "db_user": "_9ad7499deaf882c8",
+ "maintenance_mode": 1
+}
