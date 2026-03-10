@@ -1,9 +1,9 @@
-2026-03-07 07:44:08,062 ERROR scheduler Exception in Enqueue Events for Site site1.local
+2026-03-07 20:08:08,148 ERROR scheduler Exception in Enqueue Events for Site site1.local
 Traceback (most recent call last):
   File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 65, in wrapper
     return _cache[func][args_key]
            ~~~~~~~~~~~~^^^^^^^^^^
-KeyError: ((), <object object at 0x73cdc778ce90>, frozenset({('_ensure_on_bench', True)}))
+KeyError: ((), <object object at 0x7b4009ee4e90>, frozenset({('_ensure_on_bench', True)}))
 
 During handling of the above exception, another exception occurred:
 
@@ -108,12 +108,12 @@ Traceback (most recent call last):
     conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
 psycopg2.OperationalError: could not translate host name "helium" to address: Name or service not known
 
-2026-03-07 07:48:14,991 ERROR scheduler Exception in Enqueue Events for Site site1.local
+2026-03-07 20:12:04,231 ERROR scheduler Exception in Enqueue Events for Site site1.local
 Traceback (most recent call last):
   File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 65, in wrapper
     return _cache[func][args_key]
            ~~~~~~~~~~~~^^^^^^^^^^
-KeyError: ((), <object object at 0x73cdc778ce90>, frozenset({('_ensure_on_bench', True)}))
+KeyError: ((), <object object at 0x7b4009ee4e90>, frozenset({('_ensure_on_bench', True)}))
 
 During handling of the above exception, another exception occurred:
 
@@ -218,12 +218,122 @@ Traceback (most recent call last):
     conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
 psycopg2.OperationalError: could not translate host name "helium" to address: Name or service not known
 
-2026-03-07 07:52:10,244 ERROR scheduler Exception in Enqueue Events for Site site1.local
+2026-03-07 20:16:08,746 ERROR scheduler Exception in Enqueue Events for Site site1.local
 Traceback (most recent call last):
   File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 65, in wrapper
     return _cache[func][args_key]
            ~~~~~~~~~~~~^^^^^^^^^^
-KeyError: ((), <object object at 0x73cdc778ce90>, frozenset({('_ensure_on_bench', True)}))
+KeyError: ((), <object object at 0x7b4009ee4e90>, frozenset({('_ensure_on_bench', True)}))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/scheduler.py", line 117, in enqueue_events_for_site
+    if is_scheduler_inactive():
+       ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/scheduler.py", line 161, in is_scheduler_inactive
+    if is_scheduler_disabled(verbose=verbose):
+       ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/scheduler.py", line 173, in is_scheduler_disabled
+    scheduler_disabled = not frappe.get_system_settings("enable_scheduler")
+                             ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/core/doctype/system_settings/system_settings.py", line 250, in get_system_settings
+    system_settings = frappe.client_cache.get_doc("System Settings")
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/redis_wrapper.py", line 566, in get_doc
+    return self.get_value(key, generator=lambda: frappe.get_doc(doctype, name))
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/redis_wrapper.py", line 529, in get_value
+    val = generator()
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/redis_wrapper.py", line 566, in <lambda>
+    return self.get_value(key, generator=lambda: frappe.get_doc(doctype, name))
+                                                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/model/utils/__init__.py", line 218, in wrapper
+    return dispatch(args[0])(*args, **kw)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/model/document.py", line 124, in get_doc_str
+    if controller := get_controller(doctype):
+                     ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/model/base_document.py", line 126, in get_controller
+    site_controllers[doctype] = import_controller(doctype)
+                                ~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/model/base_document.py", line 137, in import_controller
+    doctype_info = frappe.db.get_value("DocType", doctype, ("module", "custom", "is_tree"), as_dict=True)
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/database.py", line 563, in get_value
+    result = self.get_values(
+    	doctype,
+    ...<13 lines>...
+    	wait=wait,
+    )
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/database.py", line 666, in get_values
+    query = frappe.qb.get_query(
+    	table=doctype,
+    ...<7 lines>...
+    	limit=limit,
+    )
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/query_builder/utils.py", line 65, in get_query
+    return Engine().get_query(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/query.py", line 294, in get_query
+    self.apply_filters(filters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/query.py", line 384, in apply_filters
+    self.apply_dict_filters(filters, collect=collect)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/query.py", line 523, in apply_dict_filters
+    self._apply_filter(field, value, operator, collect=collect)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/query.py", line 534, in _apply_filter
+    criterion = self._build_criterion_for_simple_filter(field, value, operator, doctype)
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/query.py", line 552, in _build_criterion_for_simple_filter
+    additional_filters_config = get_additional_filters_from_hooks()
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/boot.py", line 427, in get_additional_filters_from_hooks
+    filter_hooks = frappe.get_hooks("filters_config")
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/__init__.py", line 992, in get_hooks
+    hooks = _load_app_hooks()
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/__init__.py", line 950, in _load_app_hooks
+    apps = [app_name] if app_name else get_installed_apps(_ensure_on_bench=True)
+                                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 71, in wrapper
+    return_val = func(*args, **kwargs)
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/__init__.py", line 920, in get_installed_apps
+    installed = orjson.loads(db.get_global("installed_apps") or "[]")
+                             ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/database.py", line 1141, in get_global
+    return self.get_default(key, user)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/database.py", line 1145, in get_default
+    d = self.get_defaults(key, parent)
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/database.py", line 1161, in get_defaults
+    defaults = frappe.defaults.get_defaults_for(parent)
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/defaults.py", line 249, in get_defaults_for
+    .run(as_dict=True)
+     ~~~^^^^^^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/query_builder/utils.py", line 131, in execute_query
+    result = frappe.local.db.sql(query, params, *args, **kwargs)  # nosemgrep
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 234, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/database.py", line 249, in sql
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 179, in connect
+    super().connect()
+    ~~~~~~~~~~~~~~~^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/database.py", line 147, in connect
+    self.get_connection()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 195, in get_connection
+    conn = psycopg2.connect(**conn_settings)
+  File "/home/frappe/frappe-bench/env/lib/python3.14/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "helium" to address: Name or service not known
+
+2026-03-07 20:20:10,339 ERROR scheduler Exception in Enqueue Events for Site site1.local
+Traceback (most recent call last):
+  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 65, in wrapper
+    return _cache[func][args_key]
+           ~~~~~~~~~~~~^^^^^^^^^^
+KeyError: ((), <object object at 0x7b4009ee4e90>, frozenset({('_ensure_on_bench', True)}))
 
 During handling of the above exception, another exception occurred:
 
@@ -328,12 +438,12 @@ Traceback (most recent call last):
     conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
 psycopg2.OperationalError: could not translate host name "helium" to address: Temporary failure in name resolution
 
-2026-03-07 07:56:11,985 ERROR scheduler Exception in Enqueue Events for Site site1.local
+2026-03-07 20:24:08,789 ERROR scheduler Exception in Enqueue Events for Site site1.local
 Traceback (most recent call last):
   File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 65, in wrapper
     return _cache[func][args_key]
            ~~~~~~~~~~~~^^^^^^^^^^
-KeyError: ((), <object object at 0x73cdc778ce90>, frozenset({('_ensure_on_bench', True)}))
+KeyError: ((), <object object at 0x7b4009ee4e90>, frozenset({('_ensure_on_bench', True)}))
 
 During handling of the above exception, another exception occurred:
 
@@ -438,12 +548,12 @@ Traceback (most recent call last):
     conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
 psycopg2.OperationalError: could not translate host name "helium" to address: Name or service not known
 
-2026-03-07 08:00:08,265 ERROR scheduler Exception in Enqueue Events for Site site1.local
+2026-03-07 20:28:07,987 ERROR scheduler Exception in Enqueue Events for Site site1.local
 Traceback (most recent call last):
   File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 65, in wrapper
     return _cache[func][args_key]
            ~~~~~~~~~~~~^^^^^^^^^^
-KeyError: ((), <object object at 0x73cdc778ce90>, frozenset({('_ensure_on_bench', True)}))
+KeyError: ((), <object object at 0x7b4009ee4e90>, frozenset({('_ensure_on_bench', True)}))
 
 During handling of the above exception, another exception occurred:
 
@@ -548,12 +658,12 @@ Traceback (most recent call last):
     conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
 psycopg2.OperationalError: could not translate host name "helium" to address: Name or service not known
 
-2026-03-07 08:21:34,795 ERROR scheduler Exception in Enqueue Events for Site site1.local
+2026-03-07 20:32:08,319 ERROR scheduler Exception in Enqueue Events for Site site1.local
 Traceback (most recent call last):
   File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 65, in wrapper
     return _cache[func][args_key]
            ~~~~~~~~~~~~^^^^^^^^^^
-KeyError: ((), <object object at 0x73cdc778ce90>, frozenset({('_ensure_on_bench', True)}))
+KeyError: ((), <object object at 0x7b4009ee4e90>, frozenset({('_ensure_on_bench', True)}))
 
 During handling of the above exception, another exception occurred:
 
@@ -658,12 +768,12 @@ Traceback (most recent call last):
     conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
 psycopg2.OperationalError: could not translate host name "helium" to address: Name or service not known
 
-2026-03-07 08:24:08,873 ERROR scheduler Exception in Enqueue Events for Site site1.local
+2026-03-07 20:36:09,606 ERROR scheduler Exception in Enqueue Events for Site site1.local
 Traceback (most recent call last):
   File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 65, in wrapper
     return _cache[func][args_key]
            ~~~~~~~~~~~~^^^^^^^^^^
-KeyError: ((), <object object at 0x73cdc778ce90>, frozenset({('_ensure_on_bench', True)}))
+KeyError: ((), <object object at 0x7b4009ee4e90>, frozenset({('_ensure_on_bench', True)}))
 
 During handling of the above exception, another exception occurred:
 
@@ -768,12 +878,12 @@ Traceback (most recent call last):
     conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
 psycopg2.OperationalError: could not translate host name "helium" to address: Name or service not known
 
-2026-03-07 08:28:11,496 ERROR scheduler Exception in Enqueue Events for Site site1.local
+2026-03-07 20:40:05,551 ERROR scheduler Exception in Enqueue Events for Site site1.local
 Traceback (most recent call last):
   File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 65, in wrapper
     return _cache[func][args_key]
            ~~~~~~~~~~~~^^^^^^^^^^
-KeyError: ((), <object object at 0x73cdc778ce90>, frozenset({('_ensure_on_bench', True)}))
+KeyError: ((), <object object at 0x7b4009ee4e90>, frozenset({('_ensure_on_bench', True)}))
 
 During handling of the above exception, another exception occurred:
 
@@ -878,12 +988,12 @@ Traceback (most recent call last):
     conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
 psycopg2.OperationalError: could not translate host name "helium" to address: Name or service not known
 
-2026-03-07 08:32:10,573 ERROR scheduler Exception in Enqueue Events for Site site1.local
+2026-03-07 20:44:05,898 ERROR scheduler Exception in Enqueue Events for Site site1.local
 Traceback (most recent call last):
   File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 65, in wrapper
     return _cache[func][args_key]
            ~~~~~~~~~~~~^^^^^^^^^^
-KeyError: ((), <object object at 0x73cdc778ce90>, frozenset({('_ensure_on_bench', True)}))
+KeyError: ((), <object object at 0x7b4009ee4e90>, frozenset({('_ensure_on_bench', True)}))
 
 During handling of the above exception, another exception occurred:
 
@@ -988,12 +1098,12 @@ Traceback (most recent call last):
     conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
 psycopg2.OperationalError: could not translate host name "helium" to address: Name or service not known
 
-2026-03-07 08:36:23,018 ERROR scheduler Exception in Enqueue Events for Site site1.local
+2026-03-10 06:08:05,218 ERROR scheduler Exception in Enqueue Events for Site site1.local
 Traceback (most recent call last):
   File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 65, in wrapper
     return _cache[func][args_key]
            ~~~~~~~~~~~~^^^^^^^^^^
-KeyError: ((), <object object at 0x73cdc778ce90>, frozenset({('_ensure_on_bench', True)}))
+KeyError: ((), <object object at 0x7c42da178e90>, frozenset({('_ensure_on_bench', True)}))
 
 During handling of the above exception, another exception occurred:
 
@@ -1096,14 +1206,14 @@ Traceback (most recent call last):
     conn = psycopg2.connect(**conn_settings)
   File "/home/frappe/frappe-bench/env/lib/python3.14/site-packages/psycopg2/__init__.py", line 122, in connect
     conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
-psycopg2.OperationalError: could not translate host name "helium" to address: Temporary failure in name resolution
+psycopg2.OperationalError: could not translate host name "helium" to address: No address associated with hostname
 
-2026-03-07 08:40:17,814 ERROR scheduler Exception in Enqueue Events for Site site1.local
+2026-03-10 06:12:04,741 ERROR scheduler Exception in Enqueue Events for Site site1.local
 Traceback (most recent call last):
   File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 65, in wrapper
     return _cache[func][args_key]
            ~~~~~~~~~~~~^^^^^^^^^^
-KeyError: ((), <object object at 0x73cdc778ce90>, frozenset({('_ensure_on_bench', True)}))
+KeyError: ((), <object object at 0x7c42da178e90>, frozenset({('_ensure_on_bench', True)}))
 
 During handling of the above exception, another exception occurred:
 
@@ -1206,14 +1316,14 @@ Traceback (most recent call last):
     conn = psycopg2.connect(**conn_settings)
   File "/home/frappe/frappe-bench/env/lib/python3.14/site-packages/psycopg2/__init__.py", line 122, in connect
     conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
-psycopg2.OperationalError: could not translate host name "helium" to address: Temporary failure in name resolution
+psycopg2.OperationalError: could not translate host name "helium" to address: No address associated with hostname
 
-2026-03-07 08:44:11,225 ERROR scheduler Exception in Enqueue Events for Site site1.local
+2026-03-10 06:16:07,394 ERROR scheduler Exception in Enqueue Events for Site site1.local
 Traceback (most recent call last):
   File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 65, in wrapper
     return _cache[func][args_key]
            ~~~~~~~~~~~~^^^^^^^^^^
-KeyError: ((), <object object at 0x73cdc778ce90>, frozenset({('_ensure_on_bench', True)}))
+KeyError: ((), <object object at 0x7c42da178e90>, frozenset({('_ensure_on_bench', True)}))
 
 During handling of the above exception, another exception occurred:
 
@@ -1316,115 +1426,5 @@ Traceback (most recent call last):
     conn = psycopg2.connect(**conn_settings)
   File "/home/frappe/frappe-bench/env/lib/python3.14/site-packages/psycopg2/__init__.py", line 122, in connect
     conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
-psycopg2.OperationalError: could not translate host name "helium" to address: Name or service not known
-
-2026-03-07 08:50:40,671 ERROR scheduler Exception in Enqueue Events for Site site1.local
-Traceback (most recent call last):
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 65, in wrapper
-    return _cache[func][args_key]
-           ~~~~~~~~~~~~^^^^^^^^^^
-KeyError: ((), <object object at 0x73cdc778ce90>, frozenset({('_ensure_on_bench', True)}))
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/scheduler.py", line 117, in enqueue_events_for_site
-    if is_scheduler_inactive():
-       ~~~~~~~~~~~~~~~~~~~~~^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/scheduler.py", line 161, in is_scheduler_inactive
-    if is_scheduler_disabled(verbose=verbose):
-       ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/scheduler.py", line 173, in is_scheduler_disabled
-    scheduler_disabled = not frappe.get_system_settings("enable_scheduler")
-                             ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/core/doctype/system_settings/system_settings.py", line 250, in get_system_settings
-    system_settings = frappe.client_cache.get_doc("System Settings")
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/redis_wrapper.py", line 566, in get_doc
-    return self.get_value(key, generator=lambda: frappe.get_doc(doctype, name))
-           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/redis_wrapper.py", line 529, in get_value
-    val = generator()
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/redis_wrapper.py", line 566, in <lambda>
-    return self.get_value(key, generator=lambda: frappe.get_doc(doctype, name))
-                                                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/model/utils/__init__.py", line 218, in wrapper
-    return dispatch(args[0])(*args, **kw)
-           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/model/document.py", line 124, in get_doc_str
-    if controller := get_controller(doctype):
-                     ~~~~~~~~~~~~~~^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/model/base_document.py", line 126, in get_controller
-    site_controllers[doctype] = import_controller(doctype)
-                                ~~~~~~~~~~~~~~~~~^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/model/base_document.py", line 137, in import_controller
-    doctype_info = frappe.db.get_value("DocType", doctype, ("module", "custom", "is_tree"), as_dict=True)
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/database.py", line 563, in get_value
-    result = self.get_values(
-    	doctype,
-    ...<13 lines>...
-    	wait=wait,
-    )
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/database.py", line 666, in get_values
-    query = frappe.qb.get_query(
-    	table=doctype,
-    ...<7 lines>...
-    	limit=limit,
-    )
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/query_builder/utils.py", line 65, in get_query
-    return Engine().get_query(*args, **kwargs)
-           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/query.py", line 294, in get_query
-    self.apply_filters(filters)
-    ~~~~~~~~~~~~~~~~~~^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/query.py", line 384, in apply_filters
-    self.apply_dict_filters(filters, collect=collect)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/query.py", line 523, in apply_dict_filters
-    self._apply_filter(field, value, operator, collect=collect)
-    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/query.py", line 534, in _apply_filter
-    criterion = self._build_criterion_for_simple_filter(field, value, operator, doctype)
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/query.py", line 552, in _build_criterion_for_simple_filter
-    additional_filters_config = get_additional_filters_from_hooks()
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/boot.py", line 427, in get_additional_filters_from_hooks
-    filter_hooks = frappe.get_hooks("filters_config")
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/__init__.py", line 992, in get_hooks
-    hooks = _load_app_hooks()
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/__init__.py", line 950, in _load_app_hooks
-    apps = [app_name] if app_name else get_installed_apps(_ensure_on_bench=True)
-                                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/utils/caching.py", line 71, in wrapper
-    return_val = func(*args, **kwargs)
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/__init__.py", line 920, in get_installed_apps
-    installed = orjson.loads(db.get_global("installed_apps") or "[]")
-                             ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/database.py", line 1141, in get_global
-    return self.get_default(key, user)
-           ~~~~~~~~~~~~~~~~^^^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/database.py", line 1145, in get_default
-    d = self.get_defaults(key, parent)
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/database.py", line 1161, in get_defaults
-    defaults = frappe.defaults.get_defaults_for(parent)
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/defaults.py", line 249, in get_defaults_for
-    .run(as_dict=True)
-     ~~~^^^^^^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/query_builder/utils.py", line 131, in execute_query
-    result = frappe.local.db.sql(query, params, *args, **kwargs)  # nosemgrep
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 234, in sql
-    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
-           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/database.py", line 249, in sql
-    self.connect()
-    ~~~~~~~~~~~~^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 179, in connect
-    super().connect()
-    ~~~~~~~~~~~~~~~^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/database.py", line 147, in connect
-    self.get_connection()
-    ~~~~~~~~~~~~~~~~~~~^^
-  File "/home/frappe/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 195, in get_connection
-    conn = psycopg2.connect(**conn_settings)
-  File "/home/frappe/frappe-bench/env/lib/python3.14/site-packages/psycopg2/__init__.py", line 122, in connect
-    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
-psycopg2.OperationalError: could not translate host name "helium" to address: Name or service not known
+psycopg2.OperationalError: could not translate host name "helium" to address: No address associated with hostname
 
