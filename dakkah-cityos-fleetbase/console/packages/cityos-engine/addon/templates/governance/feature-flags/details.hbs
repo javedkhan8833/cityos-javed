@@ -1,0 +1,54 @@
+<Layout::Section::Header @title="Feature Flag Detail" />
+<Layout::Section::Body>
+    <div class="p-6 space-y-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">General Information</h3>
+            </div>
+            <div class="p-4">
+                <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Key</dt>
+                        <dd class="mt-1 text-sm font-mono text-gray-900 dark:text-white">{{@model.key}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Name</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{@model.name}}</dd>
+                    </div>
+                    <div class="md:col-span-2">
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Description</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{@model.description}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Enabled</dt>
+                        <dd class="mt-1">
+                            <span class="px-2 py-1 rounded-full text-xs font-medium {{if @model.enabled "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300"}}">{{if @model.enabled "Yes" "No"}}</span>
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Status</dt>
+                        <dd class="mt-1">
+                            <span class="px-2 py-1 rounded-full text-xs font-medium {{if (eq @model.status "active") "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300"}}">{{@model.status}}</span>
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Created At</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{@model.created_at}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Updated At</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{@model.updated_at}}</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Conditions</h3>
+            </div>
+            <div class="p-4">
+                <pre class="text-sm text-gray-900 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 p-3 rounded-lg overflow-x-auto font-mono">{{@model.conditions}}</pre>
+            </div>
+        </div>
+    </div>
+</Layout::Section::Body>

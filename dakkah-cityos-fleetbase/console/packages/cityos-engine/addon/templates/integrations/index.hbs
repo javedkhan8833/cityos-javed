@@ -1,0 +1,99 @@
+<Layout::Section::Header @title="Integration Hub">
+    <div class="flex items-center space-x-2">
+        <Button @icon="rotate" @text="Refresh" @onClick={{this.loadStatus}} @isLoading={{this.isLoading}} @type="default" @size="sm" />
+    </div>
+</Layout::Section::Header>
+
+<Layout::Section::Body>
+    <div class="p-6">
+        {{#if this.isLoading}}
+            <div class="flex items-center justify-center py-12">
+                <FaIcon @icon="spinner" @spin={{true}} class="text-gray-400 text-2xl" />
+            </div>
+        {{else}}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <LinkTo @route="console.cityos.integrations.temporal" class="block bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6 hover:border-blue-500 dark:hover:border-blue-400 transition-colors">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg mr-3">
+                                <FaIcon @icon="clock" class="text-blue-600 dark:text-blue-300 text-lg" />
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Temporal Cloud</h3>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Workflow orchestration</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full {{if this.integrations.temporal.configured "bg-green-500" "bg-yellow-500"}} mr-2"></div>
+                            <span class="text-xs font-medium {{if this.integrations.temporal.configured "text-green-700 dark:text-green-300" "text-yellow-700 dark:text-yellow-300"}}">
+                                {{if this.integrations.temporal.configured "Connected" "Configured"}}
+                            </span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Manage workflows, view registry, and monitor executions</p>
+                </LinkTo>
+
+                <LinkTo @route="console.cityos.integrations.cms" class="block bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6 hover:border-green-500 dark:hover:border-green-400 transition-colors">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="p-2 bg-green-100 dark:bg-green-900 rounded-lg mr-3">
+                                <FaIcon @icon="file-alt" class="text-green-600 dark:text-green-300 text-lg" />
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Payload CMS</h3>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Content management</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full {{if this.integrations.payload_cms.connected "bg-green-500" "bg-red-500"}} mr-2"></div>
+                            <span class="text-xs font-medium {{if this.integrations.payload_cms.connected "text-green-700 dark:text-green-300" "text-red-700 dark:text-red-300"}}">
+                                {{if this.integrations.payload_cms.connected "Connected" "Disconnected"}}
+                            </span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">View collections, storage info, and health status</p>
+                </LinkTo>
+
+                <LinkTo @route="console.cityos.integrations.erpnext" class="block bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6 hover:border-yellow-500 dark:hover:border-yellow-400 transition-colors">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="p-2 bg-yellow-100 dark:bg-yellow-900 rounded-lg mr-3">
+                                <FaIcon @icon="calculator" class="text-yellow-600 dark:text-yellow-300 text-lg" />
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">ERPNext</h3>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Enterprise resource planning</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                            <span class="text-xs font-medium text-yellow-700 dark:text-yellow-300">
+                                {{if this.integrations.erpnext.mode this.integrations.erpnext.mode "Stub"}}
+                            </span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">ERP integration status and settlement management</p>
+                </LinkTo>
+
+                <LinkTo @route="console.cityos.integrations.outbox" class="block bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6 hover:border-purple-500 dark:hover:border-purple-400 transition-colors">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="p-2 bg-purple-100 dark:bg-purple-900 rounded-lg mr-3">
+                                <FaIcon @icon="envelope" class="text-purple-600 dark:text-purple-300 text-lg" />
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">CityBus Outbox</h3>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Event dispatching</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                            <span class="text-xs font-medium text-green-700 dark:text-green-300">Active</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Monitor event queue, dispatch pending, and view recent events</p>
+                </LinkTo>
+            </div>
+        {{/if}}
+    </div>
+</Layout::Section::Body>

@@ -1,0 +1,306 @@
+Understood. Below are **(1) ERPNext Phase Roadmap (P0–P12)**, **(2) deep Replit prompts per phase**, **(3) ERPNext ↔ Medusa ↔ Payload ↔ Temporal contract mappings**, and **(4) a strict ownership / overlap decision matrix** for what lives where.
+
+---
+
+## 1) `dakkah-cityos-erpnext` Phase Roadmap (P0–P12)
+
+### Phase P0 — Audit, Scope Lock, and Approach Decision
+
+* Inventory current ERP/commercial/finance implementations (if any)
+* Decide **multi-tenancy strategy** in ERPNext (single site + tenant scoping vs multi-site)
+* Decide integration pattern: **ERP as Authority** for finance/procurement/HR/assets
+* Produce “Ownership Matrix” + “Data Mastering Rules” + “Integration Contracts”
+
+### Phase P1 — Monorepo Scaffold + DevOps Baseline
+
+* Repo root structure + Docker-based ERPNext dev stack
+* Standard CityOS tooling: lint, CI, changesets, versioning (publishable packages)
+* Environment schemas + secrets layout
+
+### Phase P2 — CityOS Governance Kernel (NodeContext)
+
+* NodeContext schema + validation + propagation
+* NodeRegistry & hierarchical rules (country/city/tenant/sector/category/subcategory)
+* Policy hooks + audit envelope
+
+### Phase P3 — ERPNext Extension Framework (CityOS ERP App)
+
+* Create a CityOS ERPNext custom app (Frappe app) and extension layer
+* Implement shared NodeContext fields and hooks across doctypes
+* Add “CityOS standard metadata”: source refs, correlationId, workflowState, audit
+
+### Phase P4 — Database & Data Isolation Controls
+
+* Tenant scoping rules on ERP queries
+* Optional: partitioning strategy & indexing plan
+* Immutable audit storage (append-only)
+* Minimal reporting views
+
+### Phase P5 — Integration Backbone (Events + Outbox + SDK)
+
+* ERP Outbox model + publisher skeleton
+* Standard CityOS event envelope including NodeContext
+* `cityos-erp-sdk` for system-to-system calls
+
+### Phase P6 — Finance Domain Pack (Truth Layer)
+
+* Chart of accounts mapping strategy
+* Invoices / credit notes / payments / settlements
+* Vendor payout batch model (as a first-class object)
+* Multi-currency + tax placeholder hooks
+
+### Phase P7 — Procurement & Vendor Domain Pack
+
+* Vendor profiles + verification + contracts/SLA
+* PR/RFQ/PO flows with approval states
+* Integration points to Commerce marketplace vendors
+
+### Phase P8 — Inventory, Assets, and Maintenance Domain Pack
+
+* Warehousing/inventory truth and reconciliation with commerce fulfillment
+* Assets, facilities, maintenance tasks
+* Optional integration points to Fleetbase later
+
+### Phase P9 — HR, Projects, Cost Centers Domain Pack
+
+* Employees, roles, assignments
+* Cost centers and project accounting hooks
+* Separation of duties rules per role
+
+### Phase P10 — Temporal Workflows Integration (Execution Truth)
+
+* ERP triggers Temporal workflows (approval chains, settlement runs, onboarding)
+* Workflows signal ERP state transitions (approved/rejected/paid)
+* Human-in-the-loop for approvals
+
+### Phase P11 — Payload CMS + Commerce (Medusa) Synchronization
+
+* Payload ↔ ERP master data sync rules
+* Medusa ↔ ERP financial posting rules
+* Conflict resolution rules and idempotency strategy
+
+### Phase P12 — Hardening, Release, Docs, and Operations
+
+* Monitoring/health, runbooks
+* Publish packages, remove circular deps
+* E2E smoke tests: invoice → approval workflow → payment → settlement
+
+---
+
+## 2) Deep, Copy-Paste Replit Prompts per Phase (P0–P12)
+
+> Use these as **separate sequential prompts** to Replit (one per phase).
+> Each prompt assumes the previous phase is completed and committed.
+
+### ERP-P0 — Audit & Decision Prompt
+
+**Prompt:**
+
+* Create an `/apps/docs-site` page “ERP Scope & Ownership” that includes:
+
+  * What ERP owns vs Commerce vs CMS
+  * Tenancy approach recommendation for ERPNext
+  * Integration style recommendation (events/outbox, webhook, API)
+  * Risks & mitigations
+* Output: `docs/erp-ownership-matrix.md`, `docs/erp-integration-architecture.md`, `docs/erp-tenancy-decision.md`
+
+### ERP-P1 — Repo Scaffold Prompt
+
+**Prompt:**
+
+* Scaffold monorepo: root folders `/apps`, `/packages`, `/infra`, `/policies`, `/tools`, `/configs`
+* Add Docker dev stack for ERPNext (Frappe/ERPNext + DB + Redis) under `/infra/docker`
+* Add scripts: `pnpm dev`, `pnpm lint`, `pnpm test`, `pnpm release`
+* Add CI skeleton under `.github/workflows`
+
+### ERP-P2 — NodeContext Kernel Prompt
+
+**Prompt:**
+
+* Implement `/packages/cityos-erp-core`:
+
+  * NodeContext schema (Zod + TS)
+  * ctx validation middleware
+  * ctx propagation helpers
+  * ctx hashing for cache keys
+* Implement `/packages/cityos-erp-compliance`:
+
+  * residencyClass rules
+  * policy hooks (Cerbos-ready)
+* Ensure any request/operation can derive NodeContext from headers (X-CityOS-*), and supports internal overrides only for trusted service accounts.
+
+### ERP-P3 — ERPNext Custom App + CityOS Hooks Prompt
+
+**Prompt:**
+
+* Create an ERPNext/Frappe custom app under `/apps/erpnext-core` (CityOS ERP extension)
+* Add common custom fields to doctypes:
+
+  * tenant, country, cityOrTheme, sector, category, subcategory
+  * correlationId, sourceSystem, sourceRefId, workflowState
+* Add hooks to enforce:
+
+  * NodeContext required on create/update
+  * Tenant isolation in list/query operations
+  * Audit log writes on key transitions
+
+### ERP-P4 — Data Isolation & Audit Prompt
+
+**Prompt:**
+
+* Implement append-only audit log table/model
+* Add query filters enforcing tenant/country/city scoping
+* Add baseline indexes for NodeContext dimensions
+* Add “data export safety” redaction hooks for sensitive fields
+
+### ERP-P5 — Events + Outbox + SDK Prompt
+
+**Prompt:**
+
+* Implement `/packages/cityos-erp-events` and `/packages/cityos-erp-outbox`
+
+  * Outbox table/model
+  * Publisher stub (webhook + Kafka/Redpanda placeholder)
+  * Event envelope includes NodeContext + correlationId
+* Implement `/packages/cityos-erp-sdk`
+
+  * typed client factory
+  * NodeContext header propagation
+
+### ERP-P6 — Finance Pack Prompt
+
+**Prompt:**
+
+* Implement `/packages/cityos-erp-finance`:
+
+  * CityOS Invoice, Payment, Settlement, VendorPayoutBatch doctypes (or extensions)
+  * posting hooks and statuses
+  * idempotent “post from commerce” endpoint adapter
+* Provide at least one working scenario script:
+
+  * create invoice → post payment → generate settlement record
+
+### ERP-P7 — Procurement Pack Prompt
+
+**Prompt:**
+
+* Implement `/packages/cityos-erp-procurement`:
+
+  * Vendor, Contract, SLA, PurchaseRequest, RFQ, PO
+  * approval state machine fields (not logic)
+  * emits events on state changes
+* Include a sample: PR → RFQ → PO (minimal functional)
+
+### ERP-P8 — Assets/Inventory Pack Prompt
+
+**Prompt:**
+
+* Implement `/packages/cityos-erp-assets`:
+
+  * Asset, Facility, MaintenanceTask doctypes
+* Optional inventory scaffolding:
+
+  * Warehouse, StockLedger skeleton
+* Provide reconciliation hooks placeholders to commerce fulfillment later
+
+### ERP-P9 — HR/Projects Pack Prompt
+
+**Prompt:**
+
+* Implement `/packages/cityos-erp-hr` and `/packages/cityos-erp-projects`
+
+  * Employee, Assignment, Roles mapping
+  * CostCenter and Project tagging on financial docs
+* Enforce separation-of-duties via role flags (policy enforcement later)
+
+### ERP-P10 — Temporal Integration Prompt
+
+**Prompt:**
+
+* Implement `/packages/cityos-erp-integration` Temporal adapters:
+
+  * triggers workflows on ERP state transitions (approval requested, payout requested)
+  * receives workflow completion callbacks (approved/rejected/paid)
+* Provide 2 working flows:
+
+  * invoice approval workflow trigger + signal completion
+  * vendor onboarding approval workflow trigger + completion
+
+### ERP-P11 — Payload + Medusa Sync Prompt
+
+**Prompt:**
+
+* Implement:
+
+  * Payload → ERP master data sync (vendors, organizations, assets)
+  * Medusa → ERP financial posting (orders → invoices, payments)
+* Add conflict rules + idempotency keys
+* Add mapping docs under `/apps/docs-site`
+
+### ERP-P12 — Hardening + Release Prompt
+
+**Prompt:**
+
+* Add release pipeline (changesets)
+* Add smoke tests:
+
+  * commerce order → ERP invoice → Temporal approval → ERP payment record → settlement batch
+* Ensure no circular deps and run `pnpm build` successfully
+
+---
+
+## 3) Contract Mapping: ERPNext ↔ Medusa ↔ Payload ↔ Temporal
+
+### 3.1 Canonical Shared Contracts (must match across repos)
+
+| Contract                  | Owner Repo (Source of Truth)                | Used By          | Notes                                    |
+| ------------------------- | ------------------------------------------- | ---------------- | ---------------------------------------- |
+| NodeContext schema        | `cityos-core` (shared pattern)              | All              | Identical keys + validation rules        |
+| Event envelope            | `cityos-events` pattern                     | All              | Includes correlationId + ctx + actor     |
+| Workflow trigger contract | `dakkah-cityos-workflow`                    | ERP/CMS/Commerce | workflowId, version, ctx, idempotencyKey |
+| Audit event contract      | `dakkah-cityos-workflow` + `erp-compliance` | All              | Immutable append-only                    |
+
+### 3.2 Data Flow Contracts (high value)
+
+| Flow                    | Direction      | Trigger           | Payload                       | Idempotency Key                      |
+| ----------------------- | -------------- | ----------------- | ----------------------------- | ------------------------------------ |
+| Vendor master sync      | Payload → ERP  | webhook/event     | vendor profile + ctx          | `vendor:{tenant}:{vendorId}:{rev}`   |
+| Order financial posting | Medusa → ERP   | event/outbox      | order summary → invoice draft | `order:{tenant}:{orderId}:invoice`   |
+| Payment posting         | Medusa → ERP   | event/outbox      | payment record                | `payment:{tenant}:{paymentId}`       |
+| Refund / credit note    | Medusa → ERP   | event/outbox      | refund → credit note          | `refund:{tenant}:{refundId}`         |
+| Approval orchestration  | ERP → Temporal | state change      | approval request ctx          | `approval:{docType}:{docId}:{state}` |
+| Approval completion     | Temporal → ERP | callback/activity | approved/rejected + signer    | `decision:{docId}:{decision}`        |
+
+---
+
+## 4) Ownership / Overlap Decision Matrix (No Confusion, No Duplication)
+
+### 4.1 Who owns what (system of record)
+
+| Domain Object                          | System of Record                     | Why                  | Other Systems Role                     |
+| -------------------------------------- | ------------------------------------ | -------------------- | -------------------------------------- |
+| Editorial POI content, pages, blocks   | **Payload CMS**                      | content lifecycle    | ERP references only                    |
+| Orders, carts, checkout                | **Medusa**                           | transaction engine   | ERP receives postings                  |
+| Payments execution (gateway)           | **Medusa/Wallet**                    | real-time payments   | ERP mirrors/accounting                 |
+| Invoices, settlements, payouts batches | **ERPNext**                          | financial truth      | Medusa shows status                    |
+| Procurement (PR/RFQ/PO)                | **ERPNext**                          | governance & audit   | CMS can display                        |
+| Vendor commercial storefront profile   | **Payload/Commerce**                 | marketplace UX       | ERP is vendor compliance/finance truth |
+| Inventory truth                        | **ERPNext** (or dedicated WMS later) | accounting & control | Commerce consumes availability         |
+| HR, payroll, cost centers              | **ERPNext**                          | org truth            | other systems reference                |
+| Approvals & long-running processes     | **Temporal**                         | execution truth      | ERP/CMS/Commerce are state stores      |
+| Moderation escalation                  | **Temporal + Moderation system**     | HIL workflows        | CMS consumes decisions                 |
+
+### 4.2 “Hard rule” to prevent future chaos
+
+* **ERP records money, liabilities, settlements, payouts, and procurement approvals.**
+* **Medusa executes customer commerce and real-time payment flow.**
+* **Payload expresses content, catalog presentation, and editorial state.**
+* **Temporal orchestrates all long-running business processes and approvals.**
+
+---
+
+## Opinion (Footer)
+
+**My opinion:** For Dakkah CityOS scale, the only stable architecture is **clear truth layers** with **Temporal as the execution spine**. ERPNext should be implemented as the **financial and operational truth**, not as “an internal dashboard,” and Medusa should remain the **transaction engine**. If you enforce the ownership matrix and contract mapping above from day one, you will preserve your option to **migrate**, **swap engines**, or **run hybrid sync** without breaking governance.
+
+If you want the next deliverable immediately: I can produce **a single “ERP Master Roadmap Prompt Pack”** (P0 → P12) where each phase prompt includes exact folder/file names and acceptance checks, optimized for Replit’s master agent + sub-agents workflow.

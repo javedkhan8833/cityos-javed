@@ -1,0 +1,431 @@
+{
+    "name": "Maintenance Plan",
+    "module": "Assets Management",
+    "doctype": "DocType",
+    "document_type": "Document",
+    "engine": "InnoDB",
+    "naming_rule": "Random",
+    "autoname": "hash",
+    "field_order": [
+        "plan_name",
+        "plan_type",
+        "column_break_1",
+        "linked_asset",
+        "linked_facility",
+        "section_break_schedule",
+        "frequency",
+        "assigned_team",
+        "column_break_2",
+        "estimated_cost",
+        "priority",
+        "section_break_dates",
+        "last_executed",
+        "column_break_3",
+        "next_scheduled",
+        "status",
+        "section_break_details",
+        "description",
+        "section_break_checklist",
+        "checklist",
+        "section_break_completion",
+        "completion_notes",
+        "section_break_maint_type",
+        "maintenance_type",
+        "section_break_asset_link",
+        "asset",
+        "column_break_al1",
+        "facility",
+        "section_break_cost2",
+        "actual_cost",
+        "column_break_cost2",
+        "budget_program",
+        "section_break_assignment2",
+        "assigned_to",
+        "assigned_contractor",
+        "column_break_assign1",
+        "contractor_contract",
+        "section_break_schedule2",
+        "scheduled_date",
+        "completion_date",
+        "column_break_sch1",
+        "recurrence_pattern",
+        "next_scheduled_date",
+        "section_break_work",
+        "work_order_number",
+        "downtime_hours",
+        "section_break_parts",
+        "parts_used",
+        "section_break_maint_status",
+        "maintenance_status",
+        "section_break_node_context",
+        "cityos_tenant",
+        "cityos_country",
+        "column_break_nc1",
+        "cityos_city",
+        "cityos_sector",
+        "column_break_nc2",
+        "cityos_correlation_id",
+        "cityos_source_system",
+        "cityos_workflow_state"
+    ],
+    "fields": [
+        {
+            "fieldname": "plan_name",
+            "fieldtype": "Data",
+            "label": "Plan Name",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "plan_type",
+            "fieldtype": "Select",
+            "label": "Plan Type",
+            "options": "\nPreventive\nCorrective\nEmergency\nInspection",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "linked_asset",
+            "fieldtype": "Link",
+            "label": "Linked Asset",
+            "options": "Municipal Asset"
+        },
+        {
+            "fieldname": "linked_facility",
+            "fieldtype": "Link",
+            "label": "Linked Facility",
+            "options": "Municipal Facility"
+        },
+        {
+            "fieldname": "section_break_schedule",
+            "fieldtype": "Section Break",
+            "label": "Schedule & Cost"
+        },
+        {
+            "fieldname": "frequency",
+            "fieldtype": "Select",
+            "label": "Frequency",
+            "options": "\nDaily\nWeekly\nMonthly\nQuarterly\nSemi-Annual\nAnnual\nAs Needed",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "assigned_team",
+            "fieldtype": "Data",
+            "label": "Assigned Team"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "estimated_cost",
+            "fieldtype": "Currency",
+            "label": "Estimated Cost"
+        },
+        {
+            "fieldname": "priority",
+            "fieldtype": "Select",
+            "label": "Priority",
+            "options": "\nLow\nMedium\nHigh\nCritical",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_dates",
+            "fieldtype": "Section Break",
+            "label": "Execution"
+        },
+        {
+            "fieldname": "last_executed",
+            "fieldtype": "Date",
+            "label": "Last Executed"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "next_scheduled",
+            "fieldtype": "Date",
+            "label": "Next Scheduled"
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "\nActive\nPaused\nCompleted\nCancelled",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_details",
+            "fieldtype": "Section Break",
+            "label": "Description"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Text",
+            "label": "Description"
+        },
+        {
+            "fieldname": "section_break_checklist",
+            "fieldtype": "Section Break",
+            "label": "Checklist"
+        },
+        {
+            "fieldname": "checklist",
+            "fieldtype": "Text",
+            "label": "Checklist"
+        },
+        {
+            "fieldname": "section_break_completion",
+            "fieldtype": "Section Break",
+            "label": "Completion"
+        },
+        {
+            "fieldname": "completion_notes",
+            "fieldtype": "Text",
+            "label": "Completion Notes"
+        },
+        {
+            "fieldname": "section_break_maint_type",
+            "fieldtype": "Section Break",
+            "label": "Maintenance Type"
+        },
+        {
+            "fieldname": "maintenance_type",
+            "fieldtype": "Select",
+            "label": "Maintenance Type",
+            "options": "\nPreventive\nCorrective\nPredictive\nEmergency"
+        },
+        {
+            "fieldname": "section_break_asset_link",
+            "fieldtype": "Section Break",
+            "label": "Asset & Facility"
+        },
+        {
+            "fieldname": "asset",
+            "fieldtype": "Link",
+            "label": "Asset",
+            "options": "Municipal Asset"
+        },
+        {
+            "fieldname": "column_break_al1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "facility",
+            "fieldtype": "Link",
+            "label": "Facility",
+            "options": "Municipal Facility"
+        },
+        {
+            "fieldname": "section_break_cost2",
+            "fieldtype": "Section Break",
+            "label": "Costs"
+        },
+        {
+            "fieldname": "actual_cost",
+            "fieldtype": "Currency",
+            "label": "Actual Cost",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_cost2",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "budget_program",
+            "fieldtype": "Link",
+            "label": "Budget Program",
+            "options": "Budget Program"
+        },
+        {
+            "fieldname": "section_break_assignment2",
+            "fieldtype": "Section Break",
+            "label": "Assignment"
+        },
+        {
+            "fieldname": "assigned_to",
+            "fieldtype": "Link",
+            "label": "Assigned To",
+            "options": "User"
+        },
+        {
+            "fieldname": "assigned_contractor",
+            "fieldtype": "Link",
+            "label": "Assigned Contractor",
+            "options": "Supplier"
+        },
+        {
+            "fieldname": "column_break_assign1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "contractor_contract",
+            "fieldtype": "Link",
+            "label": "Contractor Contract",
+            "options": "Contract Register"
+        },
+        {
+            "fieldname": "section_break_schedule2",
+            "fieldtype": "Section Break",
+            "label": "Schedule"
+        },
+        {
+            "fieldname": "scheduled_date",
+            "fieldtype": "Date",
+            "label": "Scheduled Date"
+        },
+        {
+            "fieldname": "completion_date",
+            "fieldtype": "Date",
+            "label": "Completion Date"
+        },
+        {
+            "fieldname": "column_break_sch1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "recurrence_pattern",
+            "fieldtype": "Select",
+            "label": "Recurrence Pattern",
+            "options": "\nNone\nWeekly\nBi-Weekly\nMonthly\nQuarterly\nSemi-Annual\nAnnual"
+        },
+        {
+            "fieldname": "next_scheduled_date",
+            "fieldtype": "Date",
+            "label": "Next Scheduled Date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_work",
+            "fieldtype": "Section Break",
+            "label": "Work Details"
+        },
+        {
+            "fieldname": "work_order_number",
+            "fieldtype": "Data",
+            "label": "Work Order Number"
+        },
+        {
+            "fieldname": "downtime_hours",
+            "fieldtype": "Float",
+            "label": "Downtime Hours"
+        },
+        {
+            "fieldname": "section_break_parts",
+            "fieldtype": "Section Break",
+            "label": "Parts Used"
+        },
+        {
+            "fieldname": "parts_used",
+            "fieldtype": "Table",
+            "label": "Parts Used",
+            "options": "Maintenance Parts Used"
+        },
+        {
+            "fieldname": "section_break_maint_status",
+            "fieldtype": "Section Break",
+            "label": "Maintenance Status"
+        },
+        {
+            "fieldname": "maintenance_status",
+            "fieldtype": "Select",
+            "label": "Maintenance Status",
+            "options": "\nScheduled\nIn Progress\nCompleted\nOverdue\nCancelled"
+        },
+        {
+            "fieldname": "section_break_node_context",
+            "fieldtype": "Section Break",
+            "label": "CityOS Node Context",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "cityos_tenant",
+            "fieldtype": "Data",
+            "label": "CityOS Tenant",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "cityos_country",
+            "fieldtype": "Data",
+            "label": "CityOS Country"
+        },
+        {
+            "fieldname": "column_break_nc1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_city",
+            "fieldtype": "Data",
+            "label": "CityOS City"
+        },
+        {
+            "fieldname": "cityos_sector",
+            "fieldtype": "Data",
+            "label": "CityOS Sector"
+        },
+        {
+            "fieldname": "column_break_nc2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_correlation_id",
+            "fieldtype": "Data",
+            "label": "CityOS Correlation ID",
+            "hidden": 1,
+            "read_only": 1
+        },
+        {
+            "fieldname": "cityos_source_system",
+            "fieldtype": "Data",
+            "label": "CityOS Source System",
+            "read_only": 1
+        },
+        {
+            "fieldname": "cityos_workflow_state",
+            "fieldtype": "Data",
+            "label": "CityOS Workflow State",
+            "read_only": 1
+        }
+    ],
+    "modified": "2026-02-10 12:00:00.000000",
+    "creation": "2026-02-09 12:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 0,
+            "cancel": 0,
+            "amend": 0,
+            "report": 1,
+            "export": 1
+        },
+        {
+            "role": "CityOS Asset Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "report": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "search_fields": "plan_name,plan_type,status,priority"
+}

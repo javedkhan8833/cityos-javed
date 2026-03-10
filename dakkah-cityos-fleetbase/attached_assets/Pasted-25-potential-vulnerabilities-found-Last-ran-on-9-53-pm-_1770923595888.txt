@@ -1,0 +1,172 @@
+25 potential vulnerabilities found.
+Last ran on
+ 
+9:53 pm, Feb 12, 2026
+Security
+Outdated dependencies have known vulnerabilities
+There are dependencies that have vulnerabilities and may need to be updated.
+These dependencies can be updated automatically.
+body-parser@1.20.1 -> 1.20.3
+braces@3.0.2 -> 3.0.3
+cipher-base@1.0.4 -> 1.0.5
+cross-spawn@7.0.3 -> 7.0.5
+elliptic@6.5.4 -> 6.6.1
+node-forge@1.3.1 -> 1.3.2
+node-forge@1.3.1 -> 1.3.2
+path-to-regexp@0.1.7 -> 0.1.12
+pbkdf2@3.1.2 -> 3.1.3
+pbkdf2@3.1.2 -> 3.1.3
+qs@6.11.0 -> 6.14.1
+qs@6.11.2 -> 6.14.1
+sha.js@2.4.11 -> 2.4.12
+These dependencies may cause issues if updated without making additional changes. You can have the Agent update them for you and make any necessary changes.
+axios@0.21.4 -> 1.13.5
+axios@0.21.4 -> 1.8.2
+path-to-regexp@0.1.7 -> 1.9.0
+ws@8.14.2 -> 5.2.4
+Security
+Dependency has known vulnerabilities
+This dependency has known vulnerabilities and may need to be replaced with something else. You can have the Agent update them for you and make any necessary changes.
+babel-traverse@6.26.0
+Security
+Dependency has known vulnerabilities
+This dependency has known vulnerabilities and may need to be replaced with something else. You can have the Agent update them for you and make any necessary changes.
+lodash.template@4.5.0
+Security
+A gitleaks Hashicorp Tf Password detected. Avoid hardcoding credentials directly in connection strings as this creates security risks. Instead, use environment variables to store and access credentials at runtime. If you need the actual credential values to make this work properly, ask me to provide them through Replit's secret system.
+A gitleaks Hashicorp Tf Password detected. Avoid hardcoding credentials directly in connection strings as this creates security risks. Instead, use environment variables to store and access credentials at runtime. If you need the actual credential values to make this work properly, ask me to provide them through Replit's secret system.
+.replit
+DB_PASSWORD = "password"
+BROADCAST_DRIVER = "log"
+Security
+Bcrypt Hash detected. Avoid hardcoding credentials directly in connection strings as this creates security risks. Instead, use environment variables to store and access credentials at runtime. If you need the actual credential values to make this work properly, ask me to provide them through Replit's secret system.
+Bcrypt Hash detected. Avoid hardcoding credentials directly in connection strings as this creates security risks. Instead, use environment variables to store and access credentials at runtime. If you need the actual credential values to make this work properly, ask me to provide them through Replit's secret system.
+api/database/factories/UserFactory.php
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+Privacy
+Auth Token exposed via Protocol Buffers Protocol Buffers
+Auth Token exposed via Protocol Buffers Protocol Buffers
+Associated Compliance Framework
+GDPR-A5-32, CCPA, NIST-800-53
+Remediation Strategy:
+Verify that shared data aligns with the sensitive data types defined in your privacy notice and data processing agreement. Adjust or restrict sharing as necessary to maintain compliance and minimize privacy risks.
+api/proto/temporal-cloud-api/temporal/api/cloud/identity/v1/message.proto
+message ApiKey {
+    // The id of the API Key.
+    string id = 1;
+    // The current version of the API key specification.
+    // The next update operation will have to include this version.
+    string resource_version = 2;
+    // The API key specification.
+    ApiKeySpec spec = 3;
+    // The current state of the API key.
+    // Possible values: activating, activationfailed, active, updating, updatefailed, deleting, deletefailed, deleted, suspending, suspendfailed, suspended.
+    // For any failed state, reach out to Temporal Cloud support for remediation.
+    // Deprecated: Not supported after v0.3.0 api version. Use state instead.
+    // temporal:versioning:max_version=v0.3.0
+    string state_deprecated = 4 [deprecated = true];
+    // The current state of the API key.
+    // temporal:versioning:min_version=v0.3.0
+    // temporal:enums:replaces=state_deprecated
+    temporal.api.cloud.resource.v1.ResourceState state = 8;
+    // The id of the async operation that is creating/updating/deleting the API key, if any.
+    string async_operation_id = 5;
+    // The date and time when the API key was created.
+    google.protobuf.Timestamp created_time = 6;
+    // The date and time when the API key was last modified.
+    // Will not be set if the API key has never been modified.
+    google.protobuf.Timestamp last_modified_time = 7;
+}
+Privacy
+Auth Token exposed via Protocol Buffers Protocol Buffers
+Auth Token exposed via Protocol Buffers Protocol Buffers
+Associated Compliance Framework
+GDPR-A5-32, CCPA, NIST-800-53
+Remediation Strategy:
+Verify that shared data aligns with the sensitive data types defined in your privacy notice and data processing agreement. Adjust or restrict sharing as necessary to maintain compliance and minimize privacy risks.
+api/proto/temporal-cloud-api/temporal/api/cloud/auditlog/v1/message.proto
+message Principal {
+  // The type of the principal. 
+  // Possible type values: user, serviceaccount.
+  string type = 1;
+  // The id of the principal.
+  string id = 2;
+  // The name of the principal.
+  string name = 3;
+  // The api key id of the principal if provided.
+  string api_key_id = 4;
+}
+Privacy
+Auth Token exposed via Protocol Buffers Protocol Buffers
+Auth Token exposed via Protocol Buffers Protocol Buffers
+Associated Compliance Framework
+GDPR-A5-32, CCPA, NIST-800-53
+Remediation Strategy:
+Verify that shared data aligns with the sensitive data types defined in your privacy notice and data processing agreement. Adjust or restrict sharing as necessary to maintain compliance and minimize privacy risks.
+api/proto/temporal-cloud-api/temporal/api/cloud/cloudservice/v1/request_response.proto
+message GetApiKeyResponse {
+    // The api key.
+    temporal.api.cloud.identity.v1.ApiKey api_key = 1;
+}
+Privacy
+Auth Token exposed via Protocol Buffers Protocol Buffers
+Auth Token exposed via Protocol Buffers Protocol Buffers
+Associated Compliance Framework
+GDPR-A5-32, CCPA, NIST-800-53
+Remediation Strategy:
+Verify that shared data aligns with the sensitive data types defined in your privacy notice and data processing agreement. Adjust or restrict sharing as necessary to maintain compliance and minimize privacy risks.
+api/proto/temporal-cloud-api/temporal/api/cloud/namespace/v1/message.proto
+message CodecServerSpec {
+    // The codec server endpoint.
+    string endpoint = 1;
+    // Whether to pass the user access token with your endpoint.
+    bool pass_access_token = 2;
+    // Whether to include cross-origin credentials.
+    bool include_cross_origin_credentials = 3;
+    // A custom error message to display for remote codec server errors.
+    // temporal:versioning:min_version=v0.5.1
+    CustomErrorMessage custom_error_message = 4;
+    message CustomErrorMessage {
+        // The error message to display by default for any remote codec server errors.
+        ErrorMessage default = 1;
+        message ErrorMessage {
+            // A message to display.
+            string message = 1;
+            // A link that is displayed along side the configured message.
+            string link = 2;
+        }
+    }
+}
+Privacy
+Auth Token exposed via Protocol Buffers Protocol Buffers
+Auth Token exposed via Protocol Buffers Protocol Buffers
+Associated Compliance Framework
+GDPR-A5-32, CCPA, NIST-800-53
+Remediation Strategy:
+Verify that shared data aligns with the sensitive data types defined in your privacy notice and data processing agreement. Adjust or restrict sharing as necessary to maintain compliance and minimize privacy risks.
+api/proto/temporal-cloud-api/temporal/api/cloud/cloudservice/v1/request_response.proto
+message GetCurrentIdentityResponse {
+    // The authenticated principal making the request
+    oneof principal {
+        // The user is a regular user
+        temporal.api.cloud.identity.v1.User user = 1;
+        // The user is a service account
+        temporal.api.cloud.identity.v1.ServiceAccount service_account = 2;
+    }
+    // The API key info used to authenticate the request, if any
+    temporal.api.cloud.identity.v1.ApiKey principal_api_key = 3;
+}
+Privacy
+Auth Token exposed via Protocol Buffers Protocol Buffers
+Auth Token exposed via Protocol Buffers Protocol Buffers
+Associated Compliance Framework
+GDPR-A5-32, CCPA, NIST-800-53
+Remediation Strategy:
+Verify that shared data aligns with the sensitive data types defined in your privacy notice and data processing agreement. Adjust or restrict sharing as necessary to maintain compliance and minimize privacy risks.
+api/proto/temporal-cloud-api/temporal/api/cloud/cloudservice/v1/request_response.proto
+message GetApiKeysResponse {
+    // The list of api keys in ascending id order.
+    repeated temporal.api.cloud.identity.v1.ApiKey api_keys = 1;
+    // The next page's token.
+    string next_page_token = 2;
+}

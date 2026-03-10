@@ -1,0 +1,25 @@
+{
+    "name": "Project Milestone",
+    "module": "CityOS Projects",
+    "doctype": "DocType",
+    "istable": 1,
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "fields": [
+        {"fieldname": "milestone_name", "fieldtype": "Data", "label": "Milestone Name", "in_list_view": 1, "reqd": 1},
+        {"fieldname": "phase", "fieldtype": "Select", "label": "Phase", "options": "\nPlanning\nDesign\nProcurement\nConstruction\nCommissioning", "in_list_view": 1},
+        {"fieldname": "due_date", "fieldtype": "Date", "label": "Due Date", "in_list_view": 1},
+        {"fieldname": "completion_date", "fieldtype": "Date", "label": "Completion Date"},
+        {"fieldname": "deliverable", "fieldtype": "Small Text", "label": "Deliverable"},
+        {"fieldname": "status", "fieldtype": "Select", "label": "Status", "options": "\nPending\nIn Progress\nCompleted\nOverdue\nWaived", "in_list_view": 1, "default": "Pending"},
+        {"fieldname": "completion_percentage", "fieldtype": "Percent", "label": "Completion %", "in_list_view": 1}
+    ],
+    "permissions": [],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "creation": "2026-02-10 00:00:00.000000",
+    "modified": "2026-02-10 00:00:00.000000",
+    "modified_by": "Administrator",
+    "owner": "Administrator"
+}

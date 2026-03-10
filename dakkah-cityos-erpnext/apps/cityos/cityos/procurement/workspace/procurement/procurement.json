@@ -1,0 +1,87 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"proc_header_1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"id\":\"proc_sc_1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"CityOS Procurement Request\",\"col\":3}},{\"id\":\"proc_sc_2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendor Compliance Profile\",\"col\":3}},{\"id\":\"proc_sc_3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Contract Register\",\"col\":3}},{\"id\":\"proc_spacer_1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"proc_header_2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Documents</b></span>\",\"col\":12}},{\"id\":\"proc_card_1\",\"type\":\"card\",\"data\":{\"card_name\":\"Procurement\",\"col\":4}}]",
+ "creation": "2026-02-12 00:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "package",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "CityOS Procurement",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Procurement",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "CityOS Procurement Request",
+   "link_count": 0,
+   "link_to": "CityOS Procurement Request",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Vendor Compliance Profile",
+   "link_count": 0,
+   "link_to": "Vendor Compliance Profile",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Contract Register",
+   "link_count": 0,
+   "link_to": "Contract Register",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-02-12 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Procurement",
+ "name": "CityOS Procurement",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [],
+ "sequence_id": 3.0,
+ "shortcuts": [
+  {
+   "label": "CityOS Procurement Request",
+   "link_to": "CityOS Procurement Request",
+   "type": "DocType"
+  },
+  {
+   "label": "Vendor Compliance Profile",
+   "link_to": "Vendor Compliance Profile",
+   "type": "DocType"
+  },
+  {
+   "label": "Contract Register",
+   "link_to": "Contract Register",
+   "type": "DocType"
+  }
+ ],
+ "title": "CityOS Procurement"
+}

@@ -1,0 +1,97 @@
+name: CityOS ERP Pre-Deploy Validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/cityos/**'
+      - 'sites/**'
+      - 'proxy.js'
+  workflow_dispatch:
+
+jobs:
+  validate-before-deploy:
+    name: Pre-Deploy Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile all CityOS Python files
+        run: |
+          python -c "
+          import py_compile, os, sys
+          errors = []
+          count = 0
+          for root, dirs, files in os.walk('apps/cityos/cityos'):
+              dirs[:] = [d for d in dirs if d not in ('__pycache__', 'node_modules')]
+              for f in files:
+                  if f.endswith('.py'):
+                      path = os.path.join(root, f)
+                      count += 1
+                      try:
+                          py_compile.compile(path, doraise=True)
+                      except py_compile.PyCompileError as e:
+                          errors.append(str(e))
+          print(f'Compiled {count} Python files')
+          if errors:
+              for e in errors[:10]:
+                  print(f'  {e}')
+              sys.exit(1)
+          else:
+              print('All CityOS Python files compile successfully')
+          "
+
+      - name: Validate scheduler config
+        run: |
+          python -c "
+          import ast, sys
+          with open('apps/cityos/cityos/hooks.py') as f:
+              tree = ast.parse(f.read())
+          scheduler_found = False
+          for node in ast.walk(tree):
+              if isinstance(node, ast.Assign):
+                  for target in node.targets:
+                      if isinstance(target, ast.Name) and target.id == 'scheduler_events':
+                          scheduler_found = True
+          print(f'scheduler_events: {\"OK\" if scheduler_found else \"MISSING\"}')
+          "
+
+      - name: Check site config for secrets
+        run: |
+          python -c "
+          import json, glob, sys
+          config_files = glob.glob('sites/*/site_config.json')
+          if not config_files:
+              print('No site_config.json found (OK for CI)')
+              sys.exit(0)
+          for cf in config_files:
+              with open(cf) as f:
+                  config = json.load(f)
+              for key, val in config.items():
+                  if isinstance(val, str) and len(val) > 20:
+                      if any(s in key.lower() for s in ['key', 'secret', 'password', 'token']):
+                          print(f'WARNING: {cf}: {key} may contain secret')
+                          sys.exit(1)
+          print(f'Checked {len(config_files)} site config(s): clean')
+          "
+
+  deploy-ready:
+    name: Deploy Ready
+    needs: validate-before-deploy
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Summary
+        run: |
+          echo "## CityOS ERP - Ready for Deployment" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Author:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "All pre-deploy validations passed." >> $GITHUB_STEP_SUMMARY

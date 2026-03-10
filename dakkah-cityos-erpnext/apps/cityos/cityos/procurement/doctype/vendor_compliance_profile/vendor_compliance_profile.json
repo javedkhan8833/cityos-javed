@@ -1,0 +1,473 @@
+{
+    "name": "Vendor Compliance Profile",
+    "module": "Procurement",
+    "doctype": "DocType",
+    "document_type": "Document",
+    "engine": "InnoDB",
+    "is_submittable": 0,
+    "naming_rule": "Expression (old style)",
+    "autoname": "hash",
+    "field_order": [
+        "vendor_name",
+        "column_break_1",
+        "supplier",
+        "status",
+        "section_break_compliance",
+        "compliance_type",
+        "column_break_2",
+        "compliance_level",
+        "risk_rating",
+        "section_break_verification",
+        "verification_date",
+        "verified_by",
+        "column_break_3",
+        "expiry_date",
+        "verification_notes",
+        "section_break_documents",
+        "trade_license",
+        "column_break_4",
+        "tax_registration",
+        "insurance_certificate",
+        "section_break_scoring",
+        "compliance_score",
+        "column_break_5",
+        "last_audit_date",
+        "next_audit_date",
+        "section_break_vendor_info",
+        "linked_supplier",
+        "vendor_type",
+        "column_break_vi1",
+        "risk_level",
+        "section_break_assessment",
+        "last_assessment_date",
+        "next_assessment_date",
+        "section_break_ratings",
+        "performance_rating",
+        "delivery_rating",
+        "column_break_rat1",
+        "quality_rating",
+        "section_break_contracts",
+        "total_contracts",
+        "total_contract_value",
+        "column_break_con1",
+        "active_contracts",
+        "section_break_debarment",
+        "debarment_status",
+        "debarment_reason",
+        "column_break_deb1",
+        "debarment_start_date",
+        "debarment_end_date",
+        "section_break_expiry",
+        "insurance_expiry",
+        "registration_expiry",
+        "column_break_exp1",
+        "tax_compliance_expiry",
+        "section_break_certificates",
+        "certificates",
+        "section_break_node_context",
+        "cityos_tenant",
+        "cityos_country",
+        "column_break_6",
+        "cityos_city",
+        "cityos_sector",
+        "column_break_7",
+        "cityos_correlation_id",
+        "cityos_source_system",
+        "cityos_workflow_state"
+    ],
+    "fields": [
+        {
+            "fieldname": "vendor_name",
+            "fieldtype": "Data",
+            "label": "Vendor Name",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "supplier",
+            "fieldtype": "Link",
+            "label": "Linked Supplier",
+            "options": "Supplier"
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "\nDraft\nPending Verification\nVerified\nRejected\nSuspended\nExpired",
+            "default": "Draft",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_compliance",
+            "fieldtype": "Section Break",
+            "label": "Compliance Details"
+        },
+        {
+            "fieldname": "compliance_type",
+            "fieldtype": "Select",
+            "label": "Compliance Type",
+            "options": "\nGeneral\nGovernment Contractor\nSpecialized Services\nInternational\nSmall Business",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "compliance_level",
+            "fieldtype": "Select",
+            "label": "Compliance Level",
+            "options": "\nBasic\nStandard\nEnhanced\nFull"
+        },
+        {
+            "fieldname": "risk_rating",
+            "fieldtype": "Select",
+            "label": "Risk Rating",
+            "options": "\nLow\nMedium\nHigh\nCritical",
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "section_break_verification",
+            "fieldtype": "Section Break",
+            "label": "Verification"
+        },
+        {
+            "fieldname": "verification_date",
+            "fieldtype": "Date",
+            "label": "Verification Date"
+        },
+        {
+            "fieldname": "verified_by",
+            "fieldtype": "Link",
+            "label": "Verified By",
+            "options": "User"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "expiry_date",
+            "fieldtype": "Date",
+            "label": "Expiry Date"
+        },
+        {
+            "fieldname": "verification_notes",
+            "fieldtype": "Small Text",
+            "label": "Verification Notes"
+        },
+        {
+            "fieldname": "section_break_documents",
+            "fieldtype": "Section Break",
+            "label": "Documents"
+        },
+        {
+            "fieldname": "trade_license",
+            "fieldtype": "Data",
+            "label": "Trade License Number"
+        },
+        {
+            "fieldname": "column_break_4",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "tax_registration",
+            "fieldtype": "Data",
+            "label": "Tax Registration Number"
+        },
+        {
+            "fieldname": "insurance_certificate",
+            "fieldtype": "Data",
+            "label": "Insurance Certificate"
+        },
+        {
+            "fieldname": "section_break_scoring",
+            "fieldtype": "Section Break",
+            "label": "Compliance Scoring"
+        },
+        {
+            "fieldname": "compliance_score",
+            "fieldtype": "Float",
+            "label": "Compliance Score",
+            "in_list_view": 1,
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_5",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "last_audit_date",
+            "fieldtype": "Date",
+            "label": "Last Audit Date"
+        },
+        {
+            "fieldname": "next_audit_date",
+            "fieldtype": "Date",
+            "label": "Next Audit Date"
+        },
+        {
+            "fieldname": "section_break_vendor_info",
+            "fieldtype": "Section Break",
+            "label": "Vendor Information"
+        },
+        {
+            "fieldname": "linked_supplier",
+            "fieldtype": "Link",
+            "label": "Linked Supplier",
+            "options": "Supplier"
+        },
+        {
+            "fieldname": "vendor_type",
+            "fieldtype": "Select",
+            "label": "Vendor Type",
+            "options": "\nGoods\nServices\nWorks\nConsultancy"
+        },
+        {
+            "fieldname": "column_break_vi1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "risk_level",
+            "fieldtype": "Select",
+            "label": "Risk Level",
+            "options": "\nLow\nMedium\nHigh\nCritical",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_assessment",
+            "fieldtype": "Section Break",
+            "label": "Assessment"
+        },
+        {
+            "fieldname": "last_assessment_date",
+            "fieldtype": "Date",
+            "label": "Last Assessment Date"
+        },
+        {
+            "fieldname": "next_assessment_date",
+            "fieldtype": "Date",
+            "label": "Next Assessment Date"
+        },
+        {
+            "fieldname": "section_break_ratings",
+            "fieldtype": "Section Break",
+            "label": "Performance Ratings"
+        },
+        {
+            "fieldname": "performance_rating",
+            "fieldtype": "Rating",
+            "label": "Performance Rating"
+        },
+        {
+            "fieldname": "delivery_rating",
+            "fieldtype": "Rating",
+            "label": "Delivery Rating"
+        },
+        {
+            "fieldname": "column_break_rat1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "quality_rating",
+            "fieldtype": "Rating",
+            "label": "Quality Rating"
+        },
+        {
+            "fieldname": "section_break_contracts",
+            "fieldtype": "Section Break",
+            "label": "Contract Summary"
+        },
+        {
+            "fieldname": "total_contracts",
+            "fieldtype": "Int",
+            "label": "Total Contracts",
+            "read_only": 1
+        },
+        {
+            "fieldname": "total_contract_value",
+            "fieldtype": "Currency",
+            "label": "Total Contract Value",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_con1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "active_contracts",
+            "fieldtype": "Int",
+            "label": "Active Contracts",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_debarment",
+            "fieldtype": "Section Break",
+            "label": "Debarment"
+        },
+        {
+            "fieldname": "debarment_status",
+            "fieldtype": "Select",
+            "label": "Debarment Status",
+            "options": "\nNone\nUnder Review\nDebarred\nReinstated"
+        },
+        {
+            "fieldname": "debarment_reason",
+            "fieldtype": "Small Text",
+            "label": "Debarment Reason"
+        },
+        {
+            "fieldname": "column_break_deb1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "debarment_start_date",
+            "fieldtype": "Date",
+            "label": "Debarment Start Date"
+        },
+        {
+            "fieldname": "debarment_end_date",
+            "fieldtype": "Date",
+            "label": "Debarment End Date"
+        },
+        {
+            "fieldname": "section_break_expiry",
+            "fieldtype": "Section Break",
+            "label": "Expiry Dates"
+        },
+        {
+            "fieldname": "insurance_expiry",
+            "fieldtype": "Date",
+            "label": "Insurance Expiry"
+        },
+        {
+            "fieldname": "registration_expiry",
+            "fieldtype": "Date",
+            "label": "Registration Expiry"
+        },
+        {
+            "fieldname": "column_break_exp1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "tax_compliance_expiry",
+            "fieldtype": "Date",
+            "label": "Tax Compliance Expiry"
+        },
+        {
+            "fieldname": "section_break_certificates",
+            "fieldtype": "Section Break",
+            "label": "Certificates"
+        },
+        {
+            "fieldname": "certificates",
+            "fieldtype": "Table",
+            "label": "Certificates",
+            "options": "Vendor Certificate"
+        },
+        {
+            "fieldname": "section_break_node_context",
+            "fieldtype": "Section Break",
+            "label": "CityOS Node Context",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "cityos_tenant",
+            "fieldtype": "Data",
+            "label": "CityOS Tenant",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "cityos_country",
+            "fieldtype": "Data",
+            "label": "CityOS Country"
+        },
+        {
+            "fieldname": "column_break_6",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_city",
+            "fieldtype": "Data",
+            "label": "CityOS City"
+        },
+        {
+            "fieldname": "cityos_sector",
+            "fieldtype": "Data",
+            "label": "CityOS Sector"
+        },
+        {
+            "fieldname": "column_break_7",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_correlation_id",
+            "fieldtype": "Data",
+            "label": "CityOS Correlation ID"
+        },
+        {
+            "fieldname": "cityos_source_system",
+            "fieldtype": "Data",
+            "label": "CityOS Source System"
+        },
+        {
+            "fieldname": "cityos_workflow_state",
+            "fieldtype": "Data",
+            "label": "CityOS Workflow State"
+        }
+    ],
+    "modified": "2026-02-10 12:00:00.000000",
+    "creation": "2026-02-10 12:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "report": 1,
+            "export": 1,
+            "import": 1
+        },
+        {
+            "role": "CityOS Procurement Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "report": 1,
+            "export": 1
+        },
+        {
+            "role": "CityOS Administrator",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "report": 1,
+            "export": 1,
+            "import": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "allow_import": 1,
+    "title_field": "vendor_name",
+    "search_fields": "status,compliance_type,risk_rating",
+    "show_title_field_in_link": 1
+}

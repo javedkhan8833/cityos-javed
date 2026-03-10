@@ -1,0 +1,34 @@
+{
+  "name": "@fleetbase/cityos-engine",
+  "version": "0.0.1",
+  "description": "CityOS Multi-Hierarchy Management Engine for Fleetbase",
+  "keywords": [
+    "fleetbase-extension",
+    "cityos",
+    "hierarchy",
+    "governance",
+    "multi-tenant",
+    "ember-addon",
+    "ember-engine"
+  ],
+  "license": "AGPL-3.0-or-later",
+  "author": "Dakkah CityOS",
+  "main": "index.js",
+  "ember": {
+    "edition": "octane"
+  },
+  "ember-addon": {
+    "configPath": "tests/dummy/config"
+  },
+  "fleetbase": {
+    "route": "cityos"
+  },
+  "dependencies": {
+    "@fleetbase/ember-core": "^0.2.11",
+    "@fleetbase/ember-ui": "^0.2.17",
+    "ember-cli-babel": "^8.2.0",
+    "ember-cli-htmlbars": "^6.3.0",
+    "ember-engines": "^0.9.0",
+    "ember-truth-helpers": "^4.0.3"
+  }
+}

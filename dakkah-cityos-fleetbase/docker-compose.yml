@@ -1,0 +1,95 @@
+services:
+  cache:
+    image: redis:7-alpine
+    container_name: fleetbase-redis
+    restart: unless-stopped
+    networks:
+      - cityos-network
+
+  socket:
+    image: socketcluster/socketcluster:v17.4.0
+    platform: linux/amd64
+    container_name: fleetbase-socket
+    restart: unless-stopped
+    ports:
+      - "38000:8000"
+    environment:
+      SOCKETCLUSTER_WORKERS: 4
+      SOCKETCLUSTER_BROKERS: 4
+    networks:
+      - cityos-network
+
+  application:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: app-dev
+    container_name: fleetbase-api
+    command: [ "frankenphp", "run", "--config", "/fleetbase/Caddyfile" ]
+    restart: unless-stopped
+    volumes:
+      - ./api/.env:/fleetbase/api/.env
+      - ./api/config/database.php:/fleetbase/api/config/database.php
+    environment:
+      QUEUE_CONNECTION: redis
+      CACHE_DRIVER: redis
+      REDIS_HOST: cache
+      REDIS_PORT: 6379
+    depends_on:
+      - cache
+    networks:
+      - cityos-network
+
+  queue:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: events-dev
+    container_name: fleetbase-queue
+    command: [ "php", "artisan", "queue:work" ]
+    restart: unless-stopped
+    depends_on:
+      - application
+    networks:
+      - cityos-network
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: scheduler-dev
+    container_name: fleetbase-scheduler
+    command: [ "go-crond", "--verbose", "root:./crontab" ]
+    restart: unless-stopped
+    depends_on:
+      - application
+    networks:
+      - cityos-network
+
+  console:
+    image: fleetbase/fleetbase-console:latest
+    container_name: fleetbase-console
+    restart: unless-stopped
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./docker/console/default.conf.template:/etc/nginx/templates/default.conf.template:ro
+    networks:
+      - cityos-network
+
+  httpd:
+    build:
+      context: .
+      dockerfile: docker/httpd/Dockerfile
+    container_name: fleetbase-http
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    depends_on:
+      - application
+    networks:
+      - cityos-network
+
+networks:
+  cityos-network:
+    external: true

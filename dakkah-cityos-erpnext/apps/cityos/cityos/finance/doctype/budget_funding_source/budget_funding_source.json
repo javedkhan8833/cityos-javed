@@ -1,0 +1,40 @@
+{
+    "name": "Budget Funding Source",
+    "module": "Finance",
+    "doctype": "DocType",
+    "istable": 1,
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "fields": [
+        {
+            "fieldname": "funding_source",
+            "fieldtype": "Link",
+            "label": "Funding Source",
+            "options": "Funding Source",
+            "in_list_view": 1,
+            "reqd": 1
+        },
+        {
+            "fieldname": "allocated_amount",
+            "fieldtype": "Currency",
+            "label": "Allocated Amount",
+            "in_list_view": 1,
+            "reqd": 1
+        },
+        {
+            "fieldname": "percentage",
+            "fieldtype": "Percent",
+            "label": "Percentage",
+            "in_list_view": 1,
+            "read_only": 1
+        }
+    ],
+    "permissions": [],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "creation": "2026-02-10 00:00:00.000000",
+    "modified": "2026-02-10 00:00:00.000000",
+    "modified_by": "Administrator",
+    "owner": "Administrator"
+}

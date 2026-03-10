@@ -1,0 +1,242 @@
+This is a comprehensive city commerce platform. Let me map out all the storefront pages and UI components needed for each system:
+
+1. MEDUSA.JS - Commerce Core (Customer-Facing)
+Pages Needed
+Category	Page	Purpose
+Marketplace	/vendors	Vendor directory listing
+/vendors/[handle]	Individual vendor storefront
+/vendors/[handle]/products	Vendor's products
+/vendors/[handle]/reviews	Vendor reviews
+B2B Portal	/business	B2B landing page
+/business/register	Company registration
+/business/dashboard	Company dashboard
+/business/orders	Purchase order history
+/business/quotes	Quote requests & history
+/business/team	Team member management
+/business/approvals	Pending approval requests
+/business/invoices	Invoice management
+Subscriptions	/subscriptions	Subscription plans listing
+/subscriptions/[id]	Plan details
+/account/subscriptions	Manage my subscriptions
+/account/subscriptions/[id]	Subscription details
+Bookings	/services	Bookable services listing
+/services/[handle]	Service detail + booking
+/providers	Service provider directory
+/providers/[id]	Provider profile + availability
+/account/bookings	My bookings
+/account/bookings/[id]	Booking details
+Reviews	/account/reviews	My reviews
+/products/[handle]/reviews	Product reviews page
+Wishlists	/account/wishlists	Multiple wishlists
+/wishlist/[id]	Shared wishlist view
+Digital Products	/account/downloads	My digital purchases
+/account/licenses	My license keys
+Referrals	/referrals	Referral program page
+/account/referrals	My referral dashboard
+Flash Sales	/flash-sales	Active flash sales
+Bundles	/bundles	Product bundles
+/bundles/[handle]	Bundle details
+UI Components Needed
+
+components/
+├── marketplace/
+│   ├── VendorCard.tsx
+│   ├── VendorGrid.tsx
+│   ├── VendorHeader.tsx
+│   ├── VendorRating.tsx
+│   ├── VendorProducts.tsx
+│   └── VendorFilters.tsx
+├── b2b/
+│   ├── CompanySelector.tsx
+│   ├── QuoteRequestForm.tsx
+│   ├── QuoteCard.tsx
+│   ├── PurchaseOrderForm.tsx
+│   ├── POLineItems.tsx
+│   ├── ApprovalWorkflow.tsx
+│   ├── ApprovalCard.tsx
+│   ├── TeamMemberTable.tsx
+│   ├── PaymentTermsBadge.tsx
+│   ├── TaxExemptionBanner.tsx
+│   ├── VolumePricingTable.tsx
+│   └── BulkOrderForm.tsx
+├── subscriptions/
+│   ├── SubscriptionPlanCard.tsx
+│   ├── PlanComparison.tsx
+│   ├── BillingCycleSelector.tsx
+│   ├── SubscriptionStatus.tsx
+│   ├── PauseSubscriptionModal.tsx
+│   ├── UpgradeDowngradeFlow.tsx
+│   └── NextBillingCard.tsx
+├── bookings/
+│   ├── ServiceCard.tsx
+│   ├── ProviderCard.tsx
+│   ├── AvailabilityCalendar.tsx
+│   ├── TimeSlotPicker.tsx
+│   ├── BookingForm.tsx
+│   ├── BookingConfirmation.tsx
+│   ├── BookingReminder.tsx
+│   └── RescheduleModal.tsx
+├── reviews/
+│   ├── ReviewCard.tsx
+│   ├── ReviewForm.tsx
+│   ├── StarRating.tsx
+│   ├── ReviewStats.tsx
+│   ├── ReviewFilters.tsx
+│   └── ReviewGallery.tsx
+├── wishlists/
+│   ├── WishlistCard.tsx
+│   ├── WishlistGrid.tsx
+│   ├── AddToWishlistButton.tsx
+│   ├── WishlistShareModal.tsx
+│   └── WishlistSelector.tsx
+├── digital/
+│   ├── DownloadCard.tsx
+│   ├── LicenseKeyDisplay.tsx
+│   ├── DownloadButton.tsx
+│   └── ExpiryBadge.tsx
+├── promotions/
+│   ├── FlashSaleBanner.tsx
+│   ├── CountdownTimer.tsx
+│   ├── BundleCard.tsx
+│   ├── BundleBuilder.tsx
+│   ├── ReferralCard.tsx
+│   └── ReferralShareButtons.tsx
+└── invoices/
+    ├── InvoiceCard.tsx
+    ├── InvoiceTable.tsx
+    ├── InvoiceDownload.tsx
+    └── PaymentStatusBadge.tsx
+2. FLEETBASE - Logistics (Customer-Facing)
+Pages Needed
+Page	Purpose
+/track	Order tracking landing
+/track/[id]	Live tracking with map
+/delivery-slots	Select delivery window
+/account/deliveries	My deliveries
+/account/deliveries/[id]	Delivery details
+/returns/create	Initiate return shipment
+/returns/[id]	Return tracking
+UI Components
+
+components/delivery/
+├── DeliveryTracker.tsx
+├── LiveMap.tsx
+├── DeliveryTimeline.tsx
+├── DriverCard.tsx
+├── DeliverySlotPicker.tsx
+├── DeliveryZoneChecker.tsx
+├── EstimatedArrival.tsx
+├── ProofOfDelivery.tsx
+├── ReturnLabelGenerator.tsx
+├── PackageStatus.tsx
+└── DeliveryInstructions.tsx
+3. WALT.ID - Identity & KYC (Customer-Facing)
+Pages Needed
+Page	Purpose
+/verify	Identity verification landing
+/verify/kyc	KYC document upload
+/verify/age	Age verification
+/verify/residency	Residency proof
+/account/credentials	My digital credentials
+/account/wallet	Identity wallet
+/account/consents	Consent management
+/business/licenses	Business license verification
+UI Components
+
+components/identity/
+├── KYCFlow.tsx
+├── DocumentUploader.tsx
+├── VerificationStatus.tsx
+├── CredentialCard.tsx
+├── IdentityWallet.tsx
+├── ConsentToggle.tsx
+├── ConsentHistory.tsx
+├── AgeGate.tsx
+├── ResidencyVerifier.tsx
+├── DigitalBadge.tsx
+└── VerifiedBadge.tsx
+4. PAYMENT GATEWAYS (Customer-Facing)
+Pages Needed
+Page	Purpose
+/account/wallet	Digital wallet
+/account/payment-methods	Saved payment methods
+/account/transactions	Transaction history
+/account/installments	BNPL active plans
+/account/loyalty	Loyalty points
+/account/disputes	Dispute management
+UI Components
+
+components/payments/
+├── WalletBalance.tsx
+├── WalletTopUp.tsx
+├── PaymentMethodCard.tsx
+├── AddPaymentMethod.tsx
+├── TransactionHistory.tsx
+├── TransactionCard.tsx
+├── InstallmentPlan.tsx
+├── InstallmentSchedule.tsx
+├── BNPLSelector.tsx
+├── LoyaltyPointsCard.tsx
+├── PointsEarnedBanner.tsx
+├── RedeemPointsModal.tsx
+├── DisputeForm.tsx
+├── DisputeStatus.tsx
+├── EscrowStatus.tsx
+└── RefundTracker.tsx
+5. PAYLOADCMS - Content (Public Pages)
+Pages Needed
+Page	Purpose
+/blog	Blog listing
+/blog/[slug]	Blog post
+/help	FAQ/Help center
+/help/[category]	FAQ category
+/events	City events
+/events/[slug]	Event details
+/services	City services directory
+/services/[slug]	Service details
+/venues	Venue directory
+/venues/[slug]	Venue profile
+/announcements	Platform announcements
+/[...slug]	Dynamic CMS pages
+UI Components
+
+components/content/
+├── BlogCard.tsx
+├── BlogGrid.tsx
+├── BlogPost.tsx
+├── FAQAccordion.tsx
+├── FAQSearch.tsx
+├── AnnouncementBanner.tsx
+├── AnnouncementCard.tsx
+├── EventCard.tsx
+├── EventCalendar.tsx
+├── CityServiceCard.tsx
+├── VenueCard.tsx
+├── VenueGallery.tsx
+├── ContentBlock.tsx
+├── HeroBanner.tsx
+├── DynamicForm.tsx
+└── LocaleSwitcher.tsx
+6. ERPNEXT - Account/Finance (Customer-Facing Subset)
+Pages Needed
+Page	Purpose
+/account/credits	Store credits/credit notes
+/account/statements	Account statements
+/account/tax-certificates	Tax exemption certificates
+UI Components
+
+components/finance/
+├── CreditBalance.tsx
+├── CreditHistory.tsx
+├── StatementDownload.tsx
+├── TaxCertificateUpload.tsx
+└── InventoryAvailability.tsx
+Summary: Total New Pages & Components
+System	New Pages	New Components
+Medusa Commerce	~25	~45
+Fleetbase Logistics	~7	~11
+Walt.id Identity	~8	~11
+Payment Gateways	~6	~16
+PayloadCMS Content	~12	~16
+ERPNext Finance	~3	~5
+TOTAL	~61 pages	~104 components

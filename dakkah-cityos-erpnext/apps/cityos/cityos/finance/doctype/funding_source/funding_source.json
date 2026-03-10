@@ -1,0 +1,287 @@
+{
+    "name": "Funding Source",
+    "module": "Finance",
+    "doctype": "DocType",
+    "document_type": "Document",
+    "engine": "InnoDB",
+    "naming_rule": "By fieldname",
+    "autoname": "field:source_name",
+    "field_order": [
+        "source_name",
+        "column_break_1",
+        "source_type",
+        "status",
+        "section_break_details",
+        "source_reference",
+        "column_break_2",
+        "valid_from",
+        "valid_to",
+        "section_break_amounts",
+        "annual_amount",
+        "utilized_amount",
+        "column_break_3",
+        "available_amount",
+        "section_break_restrictions",
+        "restrictions",
+        "section_break_additional",
+        "total_amount",
+        "allocated_amount",
+        "column_break_add1",
+        "utilization_percentage",
+        "section_break_donor",
+        "donor_organization",
+        "grant_reference",
+        "column_break_donor1",
+        "reporting_requirements",
+        "section_break_node_context",
+        "cityos_tenant",
+        "cityos_country",
+        "column_break_4",
+        "cityos_city",
+        "cityos_sector",
+        "column_break_5",
+        "cityos_correlation_id",
+        "cityos_source_system",
+        "cityos_workflow_state"
+    ],
+    "fields": [
+        {
+            "fieldname": "source_name",
+            "fieldtype": "Data",
+            "label": "Source Name",
+            "reqd": 1,
+            "unique": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "source_type",
+            "fieldtype": "Select",
+            "label": "Source Type",
+            "options": "\nGrant\nTax Revenue\nFederal Transfer\nState Transfer\nMunicipal Revenue\nLoan\nDonation\nFee Revenue\nBond\nOther",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "\nActive\nExhausted\nExpired\nFrozen",
+            "default": "Active",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_details",
+            "fieldtype": "Section Break",
+            "label": "Source Details"
+        },
+        {
+            "fieldname": "source_reference",
+            "fieldtype": "Data",
+            "label": "Source Reference"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "valid_from",
+            "fieldtype": "Date",
+            "label": "Valid From"
+        },
+        {
+            "fieldname": "valid_to",
+            "fieldtype": "Date",
+            "label": "Valid To"
+        },
+        {
+            "fieldname": "section_break_amounts",
+            "fieldtype": "Section Break",
+            "label": "Amounts"
+        },
+        {
+            "fieldname": "annual_amount",
+            "fieldtype": "Currency",
+            "label": "Annual Amount",
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "utilized_amount",
+            "fieldtype": "Currency",
+            "label": "Utilized Amount"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "available_amount",
+            "fieldtype": "Currency",
+            "label": "Available Amount",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_restrictions",
+            "fieldtype": "Section Break",
+            "label": "Restrictions"
+        },
+        {
+            "fieldname": "restrictions",
+            "fieldtype": "Small Text",
+            "label": "Restrictions"
+        },
+        {
+            "fieldname": "section_break_additional",
+            "fieldtype": "Section Break",
+            "label": "Additional Amounts"
+        },
+        {
+            "fieldname": "total_amount",
+            "fieldtype": "Currency",
+            "label": "Total Amount"
+        },
+        {
+            "fieldname": "allocated_amount",
+            "fieldtype": "Currency",
+            "label": "Allocated Amount",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_add1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "utilization_percentage",
+            "fieldtype": "Percent",
+            "label": "Utilization Percentage",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_donor",
+            "fieldtype": "Section Break",
+            "label": "Donor & Grant Details"
+        },
+        {
+            "fieldname": "donor_organization",
+            "fieldtype": "Data",
+            "label": "Donor Organization"
+        },
+        {
+            "fieldname": "grant_reference",
+            "fieldtype": "Data",
+            "label": "Grant Reference"
+        },
+        {
+            "fieldname": "column_break_donor1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "reporting_requirements",
+            "fieldtype": "Small Text",
+            "label": "Reporting Requirements"
+        },
+        {
+            "fieldname": "section_break_node_context",
+            "fieldtype": "Section Break",
+            "label": "CityOS Node Context",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "cityos_tenant",
+            "fieldtype": "Data",
+            "label": "CityOS Tenant",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "cityos_country",
+            "fieldtype": "Data",
+            "label": "CityOS Country"
+        },
+        {
+            "fieldname": "column_break_4",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_city",
+            "fieldtype": "Data",
+            "label": "CityOS City"
+        },
+        {
+            "fieldname": "cityos_sector",
+            "fieldtype": "Data",
+            "label": "CityOS Sector"
+        },
+        {
+            "fieldname": "column_break_5",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_correlation_id",
+            "fieldtype": "Data",
+            "label": "CityOS Correlation ID"
+        },
+        {
+            "fieldname": "cityos_source_system",
+            "fieldtype": "Data",
+            "label": "CityOS Source System"
+        },
+        {
+            "fieldname": "cityos_workflow_state",
+            "fieldtype": "Data",
+            "label": "CityOS Workflow State"
+        }
+    ],
+    "modified": "2026-02-10 12:00:00.000000",
+    "creation": "2026-02-09 12:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 0,
+            "cancel": 0,
+            "amend": 0,
+            "report": 1,
+            "export": 1,
+            "import": 1
+        },
+        {
+            "role": "CityOS Finance Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "report": 1,
+            "export": 1
+        },
+        {
+            "role": "CityOS Administrator",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "report": 1,
+            "export": 1,
+            "import": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "allow_import": 1,
+    "title_field": "source_name",
+    "search_fields": "source_type,status",
+    "show_title_field_in_link": 1
+}

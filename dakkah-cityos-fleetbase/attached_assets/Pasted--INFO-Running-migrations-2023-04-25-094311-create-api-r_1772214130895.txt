@@ -1,0 +1,55 @@
+
+   INFO  Running migrations.  
+
+  2023_04_25_094311_create_api_request_logs_table .................................................................. 1,304ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[25P02]: In failed sql transaction: 7 ERROR:  current transaction is aborted, commands ignored until end of transaction block (Connection: pgsql, SQL: alter table "api_request_logs" add constraint "api_request_logs_uuid_unique" unique ("uuid"))
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+      +35 vendor frames 
+
+  36  artisan:35
+      Illuminate\Foundation\Console\Kernel::handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+
+
+   INFO  Seeding database.  
+
+  Fleetbase\CityOS\Seeders\CityOSHierarchySeeder ........................................................................ RUNNING  
+Seeding CityOS hierarchy data...
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "cityos_countries" does not exist
+LINE 1: select * from "cityos_countries" where ("code" = $1) and "ci...
+                      ^ (Connection: pgsql, SQL: select * from "cityos_countries" where ("code" = SA) and "cityos_countries"."deleted_at" is null limit 1)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+      +17 vendor frames 
+
+  18  packages/cityos/src/Seeders/CityOSHierarchySeeder.php:97
+      Illuminate\Database\Eloquent\Model::__callStatic("updateOrCreate")
+
+  19  packages/cityos/src/Seeders/CityOSHierarchySeeder.php:26
+      Fleetbase\CityOS\Seeders\CityOSHierarchySeeder::seedCountries()

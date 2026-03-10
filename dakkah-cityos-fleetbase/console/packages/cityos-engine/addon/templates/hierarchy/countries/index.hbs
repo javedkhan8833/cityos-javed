@@ -1,0 +1,53 @@
+<Layout::Section::Header @title="Countries">
+    <div class="flex items-center space-x-2">
+        <span class="text-sm text-gray-500 dark:text-gray-400">
+            <FaIcon @icon="sitemap" class="mr-1" />
+            Hierarchy
+            <FaIcon @icon="chevron-right" class="mx-1 text-xs" />
+            Countries
+        </span>
+    </div>
+</Layout::Section::Header>
+
+<Layout::Section::Body>
+    <div class="p-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead class="bg-gray-50 dark:bg-gray-900">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Name (Arabic)</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">ISO Code</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    {{#each this.model as |country|}}
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <FaIcon @icon="globe" class="mr-2 text-blue-500" />
+                                    <span class="text-sm font-medium text-gray-900 dark:text-white">{{country.name}}</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300" dir="rtl">{{country.name_ar}}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-xs font-mono">{{country.iso2}}</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 py-1 rounded-full text-xs font-medium {{if (eq country.status "active") "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300"}}">{{country.status}}</span>
+                            </td>
+                        </tr>
+                    {{else}}
+                        <tr>
+                            <td colspan="4" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+                                <FaIcon @icon="globe" class="text-3xl mb-2 text-gray-300 dark:text-gray-600" />
+                                <p>No countries found</p>
+                            </td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</Layout::Section::Body>

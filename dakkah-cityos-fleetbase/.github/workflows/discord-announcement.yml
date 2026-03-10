@@ -1,0 +1,57 @@
+name: Discord Announcement
+
+on:
+  workflow_run:
+    workflows: ["Create Release"]
+    types: [completed]
+
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to announce (e.g. v0.7.1)"
+        required: true
+
+jobs:
+  discord_announcement:
+    runs-on: ubuntu-latest
+
+    steps:
+    - id: vars
+      shell: bash
+      run: |
+        if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+          TAG="${{ github.event.inputs.tag }}"
+        else
+          TAG="${{ github.event.workflow_run.head_branch }}"
+        fi
+        echo "TAG=$TAG"   >> "$GITHUB_ENV"
+
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ env.TAG }}
+        fetch-depth: 1
+
+    - id: prep-body
+      shell: bash
+      run: |
+          body=$(<RELEASE.md)
+          max=4000
+          [[ ${#body} -gt $max ]] && body="${body:0:$max}…"
+          {
+            echo "body<<EOF"
+            echo "$body"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+    - uses: tsickert/discord-webhook@v5.3.0
+      with:
+        webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        username: Fleetbase
+        content: |
+          @everyone
+          **Fleetbase ${{ env.TAG }} released!**
+          <https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}>
+        embed-title: "Fleetbase ${{ env.TAG }} — release notes"
+        embed-url: "https://github.com/fleetbase/fleetbase/releases/tag/${{ env.TAG }}"
+        embed-description: ${{ steps.prep-body.outputs.body }}
+        embed-color: 4362730

@@ -1,0 +1,410 @@
+{
+    "name": "Position Control",
+    "module": "HR Management",
+    "doctype": "DocType",
+    "document_type": "Document",
+    "engine": "InnoDB",
+    "naming_rule": "By fieldname",
+    "autoname": "field:position_code",
+    "field_order": [
+        "position_title",
+        "position_code",
+        "column_break_1",
+        "department",
+        "designation",
+        "status",
+        "section_break_compensation",
+        "grade_level",
+        "pay_band",
+        "column_break_2",
+        "min_salary",
+        "max_salary",
+        "section_break_assignment",
+        "incumbent",
+        "column_break_3",
+        "reports_to",
+        "budget_program",
+        "section_break_requirements",
+        "security_clearance",
+        "section_break_qualifications",
+        "essential_qualifications",
+        "section_break_duties",
+        "duties",
+        "section_break_grade",
+        "position_grade",
+        "column_break_gr1",
+        "position_step",
+        "section_break_budget2",
+        "budget_allocation",
+        "section_break_qualifications2",
+        "required_qualifications",
+        "column_break_qual1",
+        "required_experience_years",
+        "section_break_supervisory",
+        "is_supervisory",
+        "max_headcount",
+        "column_break_sup1",
+        "filled_count",
+        "vacancy_count",
+        "section_break_freeze",
+        "is_frozen",
+        "freeze_reason",
+        "column_break_frz1",
+        "freeze_date",
+        "section_break_pos_status",
+        "position_status",
+        "section_break_node_context",
+        "cityos_tenant",
+        "cityos_country",
+        "column_break_nc1",
+        "cityos_city",
+        "cityos_sector",
+        "column_break_nc2",
+        "cityos_correlation_id",
+        "cityos_source_system",
+        "cityos_workflow_state"
+    ],
+    "fields": [
+        {
+            "fieldname": "position_title",
+            "fieldtype": "Data",
+            "label": "Position Title",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "position_code",
+            "fieldtype": "Data",
+            "label": "Position Code",
+            "unique": 1,
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "department",
+            "fieldtype": "Link",
+            "label": "Department",
+            "options": "Department",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "designation",
+            "fieldtype": "Link",
+            "label": "Designation",
+            "options": "Designation"
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "\nAuthorized\nFilled\nFrozen\nAbolished",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_compensation",
+            "fieldtype": "Section Break",
+            "label": "Compensation"
+        },
+        {
+            "fieldname": "grade_level",
+            "fieldtype": "Data",
+            "label": "Grade Level"
+        },
+        {
+            "fieldname": "pay_band",
+            "fieldtype": "Data",
+            "label": "Pay Band"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "min_salary",
+            "fieldtype": "Currency",
+            "label": "Min Salary"
+        },
+        {
+            "fieldname": "max_salary",
+            "fieldtype": "Currency",
+            "label": "Max Salary"
+        },
+        {
+            "fieldname": "section_break_assignment",
+            "fieldtype": "Section Break",
+            "label": "Assignment"
+        },
+        {
+            "fieldname": "incumbent",
+            "fieldtype": "Link",
+            "label": "Incumbent",
+            "options": "Employee"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "reports_to",
+            "fieldtype": "Link",
+            "label": "Reports To",
+            "options": "Position Control"
+        },
+        {
+            "fieldname": "budget_program",
+            "fieldtype": "Link",
+            "label": "Budget Program",
+            "options": "Budget Program"
+        },
+        {
+            "fieldname": "section_break_requirements",
+            "fieldtype": "Section Break",
+            "label": "Requirements"
+        },
+        {
+            "fieldname": "security_clearance",
+            "fieldtype": "Select",
+            "label": "Security Clearance",
+            "options": "\nNone\nBasic\nEnhanced\nTop Secret"
+        },
+        {
+            "fieldname": "section_break_qualifications",
+            "fieldtype": "Section Break",
+            "label": "Qualifications"
+        },
+        {
+            "fieldname": "essential_qualifications",
+            "fieldtype": "Text",
+            "label": "Essential Qualifications"
+        },
+        {
+            "fieldname": "section_break_duties",
+            "fieldtype": "Section Break",
+            "label": "Duties"
+        },
+        {
+            "fieldname": "duties",
+            "fieldtype": "Text",
+            "label": "Duties"
+        },
+        {
+            "fieldname": "section_break_grade",
+            "fieldtype": "Section Break",
+            "label": "Grade & Step"
+        },
+        {
+            "fieldname": "position_grade",
+            "fieldtype": "Data",
+            "label": "Position Grade"
+        },
+        {
+            "fieldname": "column_break_gr1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "position_step",
+            "fieldtype": "Int",
+            "label": "Position Step"
+        },
+        {
+            "fieldname": "section_break_budget2",
+            "fieldtype": "Section Break",
+            "label": "Budget Allocation"
+        },
+        {
+            "fieldname": "budget_allocation",
+            "fieldtype": "Currency",
+            "label": "Budget Allocation"
+        },
+        {
+            "fieldname": "section_break_qualifications2",
+            "fieldtype": "Section Break",
+            "label": "Qualification Requirements"
+        },
+        {
+            "fieldname": "required_qualifications",
+            "fieldtype": "Small Text",
+            "label": "Required Qualifications"
+        },
+        {
+            "fieldname": "column_break_qual1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "required_experience_years",
+            "fieldtype": "Int",
+            "label": "Required Experience (Years)"
+        },
+        {
+            "fieldname": "section_break_supervisory",
+            "fieldtype": "Section Break",
+            "label": "Supervisory & Headcount"
+        },
+        {
+            "fieldname": "is_supervisory",
+            "fieldtype": "Check",
+            "label": "Is Supervisory"
+        },
+        {
+            "fieldname": "max_headcount",
+            "fieldtype": "Int",
+            "label": "Max Headcount",
+            "default": "1"
+        },
+        {
+            "fieldname": "column_break_sup1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "filled_count",
+            "fieldtype": "Int",
+            "label": "Filled Count",
+            "read_only": 1
+        },
+        {
+            "fieldname": "vacancy_count",
+            "fieldtype": "Int",
+            "label": "Vacancy Count",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_freeze",
+            "fieldtype": "Section Break",
+            "label": "Freeze Details"
+        },
+        {
+            "fieldname": "is_frozen",
+            "fieldtype": "Check",
+            "label": "Is Frozen"
+        },
+        {
+            "fieldname": "freeze_reason",
+            "fieldtype": "Small Text",
+            "label": "Freeze Reason"
+        },
+        {
+            "fieldname": "column_break_frz1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "freeze_date",
+            "fieldtype": "Date",
+            "label": "Freeze Date"
+        },
+        {
+            "fieldname": "section_break_pos_status",
+            "fieldtype": "Section Break",
+            "label": "Position Status"
+        },
+        {
+            "fieldname": "position_status",
+            "fieldtype": "Select",
+            "label": "Position Status",
+            "options": "\nActive\nFrozen\nAbolished"
+        },
+        {
+            "fieldname": "section_break_node_context",
+            "fieldtype": "Section Break",
+            "label": "CityOS Node Context",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "cityos_tenant",
+            "fieldtype": "Data",
+            "label": "CityOS Tenant",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "cityos_country",
+            "fieldtype": "Data",
+            "label": "CityOS Country"
+        },
+        {
+            "fieldname": "column_break_nc1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_city",
+            "fieldtype": "Data",
+            "label": "CityOS City"
+        },
+        {
+            "fieldname": "cityos_sector",
+            "fieldtype": "Data",
+            "label": "CityOS Sector"
+        },
+        {
+            "fieldname": "column_break_nc2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_correlation_id",
+            "fieldtype": "Data",
+            "label": "CityOS Correlation ID",
+            "hidden": 1,
+            "read_only": 1
+        },
+        {
+            "fieldname": "cityos_source_system",
+            "fieldtype": "Data",
+            "label": "CityOS Source System",
+            "read_only": 1
+        },
+        {
+            "fieldname": "cityos_workflow_state",
+            "fieldtype": "Data",
+            "label": "CityOS Workflow State",
+            "read_only": 1
+        }
+    ],
+    "modified": "2026-02-10 12:00:00.000000",
+    "creation": "2026-02-09 12:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 0,
+            "cancel": 0,
+            "amend": 0,
+            "report": 1,
+            "export": 1
+        },
+        {
+            "role": "CityOS HR Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "report": 1
+        },
+        {
+            "role": "CityOS Administrator",
+            "read": 1,
+            "write": 0,
+            "create": 0,
+            "delete": 0,
+            "report": 1,
+            "export": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "search_fields": "position_title,department,status,designation"
+}

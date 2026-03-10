@@ -1,0 +1,437 @@
+{
+    "name": "Municipal Facility",
+    "module": "Assets Management",
+    "doctype": "DocType",
+    "document_type": "Document",
+    "engine": "InnoDB",
+    "naming_rule": "By fieldname",
+    "autoname": "field:facility_code",
+    "field_order": [
+        "facility_name",
+        "facility_code",
+        "facility_type",
+        "column_break_1",
+        "department",
+        "manager",
+        "status",
+        "section_break_location",
+        "address",
+        "column_break_2",
+        "city",
+        "district",
+        "section_break_geo",
+        "gps_latitude",
+        "column_break_3",
+        "gps_longitude",
+        "section_break_details",
+        "total_area_sqm",
+        "capacity",
+        "column_break_4",
+        "operating_hours",
+        "accessibility_compliant",
+        "section_break_dates",
+        "construction_date",
+        "column_break_5",
+        "last_renovation_date",
+        "section_break_financial",
+        "annual_operating_cost",
+        "column_break_6",
+        "energy_rating",
+        "section_break_notes",
+        "notes",
+        "section_break_area",
+        "usable_area_sqm",
+        "current_occupancy",
+        "section_break_construction",
+        "year_built",
+        "column_break_const1",
+        "last_renovation_year",
+        "section_break_condition",
+        "condition_rating",
+        "section_break_management",
+        "facility_manager",
+        "column_break_mgmt1",
+        "managing_department",
+        "section_break_cost",
+        "monthly_operating_cost",
+        "column_break_cost1",
+        "annual_budget",
+        "section_break_fac_status",
+        "facility_status",
+        "section_break_node_context",
+        "cityos_tenant",
+        "cityos_country",
+        "column_break_nc1",
+        "cityos_city",
+        "cityos_sector",
+        "column_break_nc2",
+        "cityos_correlation_id",
+        "cityos_source_system",
+        "cityos_workflow_state"
+    ],
+    "fields": [
+        {
+            "fieldname": "facility_name",
+            "fieldtype": "Data",
+            "label": "Facility Name",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "facility_code",
+            "fieldtype": "Data",
+            "label": "Facility Code",
+            "unique": 1,
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "facility_type",
+            "fieldtype": "Select",
+            "label": "Facility Type",
+            "options": "\nOffice\nSchool\nHospital\nPark\nUtility\nPublic Space\nWarehouse\nWorkshop\nOther",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "department",
+            "fieldtype": "Link",
+            "label": "Department",
+            "options": "Department",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "manager",
+            "fieldtype": "Link",
+            "label": "Manager",
+            "options": "Employee"
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "\nOperational\nUnder Construction\nUnder Renovation\nClosed\nDemolished",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_location",
+            "fieldtype": "Section Break",
+            "label": "Location"
+        },
+        {
+            "fieldname": "address",
+            "fieldtype": "Small Text",
+            "label": "Address"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "city",
+            "fieldtype": "Data",
+            "label": "City"
+        },
+        {
+            "fieldname": "district",
+            "fieldtype": "Data",
+            "label": "District"
+        },
+        {
+            "fieldname": "section_break_geo",
+            "fieldtype": "Section Break",
+            "label": "GPS Coordinates"
+        },
+        {
+            "fieldname": "gps_latitude",
+            "fieldtype": "Float",
+            "label": "GPS Latitude"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "gps_longitude",
+            "fieldtype": "Float",
+            "label": "GPS Longitude"
+        },
+        {
+            "fieldname": "section_break_details",
+            "fieldtype": "Section Break",
+            "label": "Facility Details"
+        },
+        {
+            "fieldname": "total_area_sqm",
+            "fieldtype": "Float",
+            "label": "Total Area (sqm)"
+        },
+        {
+            "fieldname": "capacity",
+            "fieldtype": "Int",
+            "label": "Capacity"
+        },
+        {
+            "fieldname": "column_break_4",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "operating_hours",
+            "fieldtype": "Data",
+            "label": "Operating Hours"
+        },
+        {
+            "fieldname": "accessibility_compliant",
+            "fieldtype": "Check",
+            "label": "Accessibility Compliant"
+        },
+        {
+            "fieldname": "section_break_dates",
+            "fieldtype": "Section Break",
+            "label": "Dates"
+        },
+        {
+            "fieldname": "construction_date",
+            "fieldtype": "Date",
+            "label": "Construction Date"
+        },
+        {
+            "fieldname": "column_break_5",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "last_renovation_date",
+            "fieldtype": "Date",
+            "label": "Last Renovation Date"
+        },
+        {
+            "fieldname": "section_break_financial",
+            "fieldtype": "Section Break",
+            "label": "Financial & Rating"
+        },
+        {
+            "fieldname": "annual_operating_cost",
+            "fieldtype": "Currency",
+            "label": "Annual Operating Cost"
+        },
+        {
+            "fieldname": "column_break_6",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "energy_rating",
+            "fieldtype": "Select",
+            "label": "Energy Rating",
+            "options": "\nA\nB\nC\nD\nE\nF\nG"
+        },
+        {
+            "fieldname": "section_break_notes",
+            "fieldtype": "Section Break",
+            "label": "Notes"
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Text",
+            "label": "Notes"
+        },
+        {
+            "fieldname": "section_break_area",
+            "fieldtype": "Section Break",
+            "label": "Area & Occupancy"
+        },
+        {
+            "fieldname": "usable_area_sqm",
+            "fieldtype": "Float",
+            "label": "Usable Area (sqm)"
+        },
+        {
+            "fieldname": "current_occupancy",
+            "fieldtype": "Int",
+            "label": "Current Occupancy"
+        },
+        {
+            "fieldname": "section_break_construction",
+            "fieldtype": "Section Break",
+            "label": "Construction History"
+        },
+        {
+            "fieldname": "year_built",
+            "fieldtype": "Int",
+            "label": "Year Built"
+        },
+        {
+            "fieldname": "column_break_const1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "last_renovation_year",
+            "fieldtype": "Int",
+            "label": "Last Renovation Year"
+        },
+        {
+            "fieldname": "section_break_condition",
+            "fieldtype": "Section Break",
+            "label": "Condition"
+        },
+        {
+            "fieldname": "condition_rating",
+            "fieldtype": "Select",
+            "label": "Condition Rating",
+            "options": "\nExcellent\nGood\nFair\nPoor\nCritical"
+        },
+        {
+            "fieldname": "section_break_management",
+            "fieldtype": "Section Break",
+            "label": "Management"
+        },
+        {
+            "fieldname": "facility_manager",
+            "fieldtype": "Link",
+            "label": "Facility Manager",
+            "options": "Employee"
+        },
+        {
+            "fieldname": "column_break_mgmt1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "managing_department",
+            "fieldtype": "Link",
+            "label": "Managing Department",
+            "options": "Department"
+        },
+        {
+            "fieldname": "section_break_cost",
+            "fieldtype": "Section Break",
+            "label": "Costs & Budget"
+        },
+        {
+            "fieldname": "monthly_operating_cost",
+            "fieldtype": "Currency",
+            "label": "Monthly Operating Cost"
+        },
+        {
+            "fieldname": "column_break_cost1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "annual_budget",
+            "fieldtype": "Currency",
+            "label": "Annual Budget"
+        },
+        {
+            "fieldname": "section_break_fac_status",
+            "fieldtype": "Section Break",
+            "label": "Facility Status"
+        },
+        {
+            "fieldname": "facility_status",
+            "fieldtype": "Select",
+            "label": "Facility Status",
+            "options": "\nActive\nUnder Construction\nUnder Renovation\nTemporarily Closed\nPermanently Closed"
+        },
+        {
+            "fieldname": "section_break_node_context",
+            "fieldtype": "Section Break",
+            "label": "CityOS Node Context",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "cityos_tenant",
+            "fieldtype": "Data",
+            "label": "CityOS Tenant",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "cityos_country",
+            "fieldtype": "Data",
+            "label": "CityOS Country"
+        },
+        {
+            "fieldname": "column_break_nc1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_city",
+            "fieldtype": "Data",
+            "label": "CityOS City"
+        },
+        {
+            "fieldname": "cityos_sector",
+            "fieldtype": "Data",
+            "label": "CityOS Sector"
+        },
+        {
+            "fieldname": "column_break_nc2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_correlation_id",
+            "fieldtype": "Data",
+            "label": "CityOS Correlation ID",
+            "hidden": 1,
+            "read_only": 1
+        },
+        {
+            "fieldname": "cityos_source_system",
+            "fieldtype": "Data",
+            "label": "CityOS Source System",
+            "read_only": 1
+        },
+        {
+            "fieldname": "cityos_workflow_state",
+            "fieldtype": "Data",
+            "label": "CityOS Workflow State",
+            "read_only": 1
+        }
+    ],
+    "modified": "2026-02-10 12:00:00.000000",
+    "creation": "2026-02-09 12:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 0,
+            "cancel": 0,
+            "amend": 0,
+            "report": 1,
+            "export": 1
+        },
+        {
+            "role": "CityOS Asset Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "report": 1
+        },
+        {
+            "role": "CityOS Administrator",
+            "read": 1,
+            "write": 0,
+            "create": 0,
+            "delete": 0,
+            "report": 1,
+            "export": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "search_fields": "facility_name,facility_type,department,status"
+}

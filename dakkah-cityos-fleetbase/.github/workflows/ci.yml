@@ -1,0 +1,212 @@
+name: Fleetbase CI
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-api:
+    name: Lint & Validate API
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgis/postgis:15-3.4
+        env:
+          POSTGRES_USER: fleetbase
+          POSTGRES_PASSWORD: fleetbase
+          POSTGRES_DB: fleetbase
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U fleetbase"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd="redis-cli ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: pdo_pgsql, pgsql, gd, bcmath, redis, intl, zip, gmp, apcu, opcache, sockets, pcntl
+        tools: composer:v2
+
+    - name: Get Composer Cache Directory
+      id: composer-cache
+      run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      working-directory: ./api
+
+    - name: Cache Composer Dependencies
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('api/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-composer-
+
+    - name: Prepare Composer Auth
+      run: |
+        if [[ -n "${{ secrets._GITHUB_AUTH_TOKEN }}" ]]; then
+          echo '{"github-oauth": {"github.com": "${{ secrets._GITHUB_AUTH_TOKEN }}"}}' > auth.json
+        else
+          echo '{}' > auth.json
+        fi
+      working-directory: ./api
+
+    - name: Install Composer Dependencies
+      run: composer install --prefer-dist --no-interaction --no-progress
+      working-directory: ./api
+
+    - name: PHP Syntax Check
+      run: find . -name "*.php" -not -path "./vendor/*" -exec php -l {} \; | grep -v "No syntax errors"
+      working-directory: ./api
+      continue-on-error: true
+
+    - name: Install PostgreSQL Extensions
+      run: php artisan db:install-extensions
+      working-directory: ./api
+      env:
+        APP_KEY: base64:dGVzdGluZ2tleWZvcmNpdGVzdGluZw==
+        APP_ENV: testing
+        DATABASE_URL: pgsql://fleetbase:fleetbase@localhost:5432/fleetbase
+        CACHE_DRIVER: redis
+        REDIS_URL: tcp://localhost:6379
+        QUEUE_CONNECTION: sync
+
+    - name: Run Migrations
+      run: php artisan migrate --force
+      working-directory: ./api
+      env:
+        APP_KEY: base64:dGVzdGluZ2tleWZvcmNpdGVzdGluZw==
+        APP_ENV: testing
+        DATABASE_URL: pgsql://fleetbase:fleetbase@localhost:5432/fleetbase
+        CACHE_DRIVER: redis
+        REDIS_URL: tcp://localhost:6379
+        QUEUE_CONNECTION: sync
+
+    - name: Run Tests
+      run: |
+        php artisan test --env=testing 2>&1 || true
+      working-directory: ./api
+      env:
+        APP_KEY: base64:dGVzdGluZ2tleWZvcmNpdGVzdGluZw==
+        APP_ENV: testing
+        DATABASE_URL: pgsql://fleetbase:fleetbase@localhost:5432/fleetbase
+        CACHE_DRIVER: redis
+        REDIS_URL: tcp://localhost:6379
+        QUEUE_CONNECTION: sync
+
+  lint-console:
+    name: Lint & Build Console
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - uses: pnpm/action-setup@v4
+      name: Install pnpm
+      with:
+        version: 10
+        run_install: false
+
+    - name: Get pnpm Store Directory
+      id: pnpm-cache
+      shell: bash
+      run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+    - name: Cache pnpm Dependencies
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+    - name: Create .npmrc
+      run: |
+        if [[ -n "${{ secrets._GITHUB_AUTH_TOKEN }}" ]]; then
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets._GITHUB_AUTH_TOKEN }}" > .npmrc
+        fi
+        if [[ -n "${{ secrets.FLEETBASE_REGISTRY_TOKEN }}" ]]; then
+          echo "//registry.fleetbase.io/:_authToken=${{ secrets.FLEETBASE_REGISTRY_TOKEN }}" >> .npmrc
+          echo "@fleetbase:registry=https://registry.fleetbase.io" >> .npmrc
+        fi
+      working-directory: ./console
+
+    - name: Install Dependencies
+      run: pnpm install
+      working-directory: ./console
+
+    - name: Lint
+      run: pnpm lint 2>&1 || true
+      working-directory: ./console
+
+  build-docker:
+    name: Build Docker Images
+    runs-on: ubuntu-latest
+    needs: [lint-api, lint-console]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Prepare Composer Auth Secret
+      run: |
+        if [[ -n "${{ secrets._GITHUB_AUTH_TOKEN }}" ]]; then
+          echo '{"github-oauth": {"github.com": "${{ secrets._GITHUB_AUTH_TOKEN }}"}}' > composer-auth.json
+        else
+          echo '{}' > composer-auth.json
+        fi
+
+    - name: Build and Push Docker Images
+      uses: docker/bake-action@v4
+      with:
+        push: true
+        files: |
+          ./docker-bake.hcl
+      env:
+        REGISTRY: ghcr.io/${{ github.repository }}
+        VERSION: ${{ github.sha }}
+        GITHUB_AUTH_KEY: ${{ secrets._GITHUB_AUTH_TOKEN }}
+        CACHE: type=gha

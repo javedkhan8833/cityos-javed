@@ -1,0 +1,10 @@
+{
+ "db_host": "erp-db",
+ "db_port": "3306",
+ "default_site": "erp.cityos.local",
+ "redis_cache": "redis://redis-cache:6379",
+ "redis_queue": "redis://redis-queue:6379",
+ "redis_socketio": "redis://redis-queue:6379",
+ "serve_default_site": 1,
+ "socketio_port": "9000"
+}

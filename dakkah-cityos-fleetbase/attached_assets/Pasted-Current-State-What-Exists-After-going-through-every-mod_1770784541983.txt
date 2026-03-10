@@ -1,0 +1,106 @@
+Current State: What Exists
+After going through every module, here's the reality:
+
+CityOS package (our code — api/packages/cityos/src/):
+
+NodeContext with 15 dimensions — fully built
+3 middleware already created: ResolveNodeContext, EnforceDataResidency, EnforceDataClassification
+GovernanceChainBuilder + PolicyMerger — fully built
+ComplianceCheckService, FeatureGateService — fully built
+Tenant model with company linkage — fully built
+But none of it is connected to the other modules. The middleware only runs on CityOS-specific routes. FleetOps, Pallet, and Storefront have zero awareness.
+
+Other Modules (vendor — read-only):
+
+Module	Models	Key ones	Scoping method
+FleetOps	42	Order, Driver, Vehicle, Fleet, Place, Payload	session('company') + company_uuid
+Pallet	15	Warehouse, Inventory, Product, StockTransaction	session('company') in controllers
+Storefront	28	Store, Product, Checkout, Cart, Catalog	company_uuid + own middleware group
+Core	47	Company, User, File, Category, Permission	session('company') everywhere
+Extension points we can use (without touching vendor):
+
+pushMiddlewareToGroup() — inject our middleware into shared groups
+Model::addGlobalScope() — add query filters at runtime
+Model::observe() — stamp data on create/update
+Laravel Events — react to operations for outbox logging
+Implementation Plan
+Phase 1: Middleware Injection (Foundation)
+Goal: Make NodeContext available on every request across all modules. Zero impact on existing behavior — purely additive.
+
+Files to create/modify (all in api/packages/cityos/src/):
+
+File	Action	Purpose
+Providers/CityOSServiceProvider.php	Modify	Push 3 middleware into fleetbase.protected and storefront.api groups
+What it does: Every FleetOps, Pallet, Storefront, and Core request now has $request->attributes->get('node_context') available. Modules that don't check it are completely unaffected. Governance enforcement (residency + classification) applies globally.
+
+Phase 2: Database Migrations (Add columns)
+Goal: Add tenant_uuid, country_code, city_uuid, sector_uuid columns to key tables in other modules so data can be stamped and filtered.
+
+Migration files to create (in api/packages/cityos/migrations/):
+
+Migration	Tables affected
+add_node_context_to_fleetops	orders, drivers, vehicles, fleets, places, service_areas
+add_node_context_to_pallet	pallet_warehouses, pallet_inventories, pallet_products, pallet_stock_transactions
+add_node_context_to_storefront	storefront_stores, storefront_products, storefront_checkouts
+All columns are nullable so existing data isn't affected. No schema breaks.
+
+Phase 3: Model Observers (Stamp on write)
+Goal: When a record is created or updated with NodeContext present, automatically stamp the tenant/country/city/sector onto the record.
+
+Files to create:
+
+File	Observes	Stamps
+Observers/FleetOpsNodeContextObserver.php	Order, Driver, Vehicle, Fleet, Place	tenant_uuid, country_code, city_uuid, sector_uuid from NodeContext
+Observers/PalletNodeContextObserver.php	Warehouse, Inventory, Product, StockTransaction	Same fields
+Observers/StorefrontNodeContextObserver.php	Store, Product, Checkout	Same fields
+Observers/OutboxLoggingObserver.php	All key models	Logs create/update events to cityos_outbox
+Registration: All observers registered in CityOSServiceProvider::$observers array — the same pattern FleetOps and Storefront already use.
+
+Graceful degradation: If no NodeContext is on the request (no headers sent), the observer simply skips stamping. Existing behavior preserved.
+
+Phase 4: Global Query Scopes (Filter on read)
+Goal: When NodeContext is present, automatically filter queries to only return data belonging to the resolved tenant.
+
+Files to create:
+
+File	Purpose
+Scopes/NodeContextScope.php	Reusable global scope that filters by tenant_uuid when NodeContext is present
+Support/NodeContextScopeRegistrar.php	Registers the scope on target models during boot
+Logic: If node_context is on the request AND has a resolved tenant, add WHERE tenant_uuid = ? to queries. If not present, no filter (backward compatible). Uses company_uuid as fallback when tenant_uuid isn't populated yet.
+
+Priority models per module:
+
+Priority	FleetOps	Pallet	Storefront
+Critical	Order, Driver, Vehicle	Warehouse, Inventory	Store, Product
+High	Fleet, Place, Contact	Product, StockTransaction	Checkout, Cart
+Medium	Payload, ServiceArea, Zone	PurchaseOrder, SalesOrder	Catalog, Network
+Phase 5: Feature Gate Integration
+Goal: Use the existing FeatureGateService to control which features are available per tenant/country.
+
+Files to create:
+
+File	Purpose
+Http/Middleware/EnforceFeatureGate.php	Checks feature flags before allowing module-specific operations
+Examples: A tenant in a country where cash-on-delivery is banned can't create COD orders. A tenant without warehouse tier can't access Pallet features.
+
+Phase 6: CityBus Event Bridge
+Goal: Cross-module events flow through the CityBus for Temporal workflows and outbox patterns.
+
+Files to create:
+
+File	Purpose
+Listeners/FleetOpsEventBridge.php	Listens to FleetOps events, publishes to CityBus with NodeContext
+Listeners/PalletEventBridge.php	Same for Pallet
+Listeners/StorefrontEventBridge.php	Same for Storefront
+Summary: File Count by Phase
+Phase	New Files	Modified Files	Vendor Changes
+1 - Middleware	0	1	None
+2 - Migrations	3	0	None
+3 - Observers	4	1	None
+4 - Scopes	2	1	None
+5 - Feature Gate	1	1	None
+6 - Event Bridge	3	1	None
+Total	13	5	None
+Everything lives in api/packages/cityos/src/. Zero vendor modifications. All gracefully degrade when NodeContext headers are absent.
+
+Would you like me to start implementing Phase 1 (middleware injection), or would you like to adjust anything in this plan first?

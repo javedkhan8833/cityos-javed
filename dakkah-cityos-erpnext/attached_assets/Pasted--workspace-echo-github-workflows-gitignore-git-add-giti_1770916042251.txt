@@ -1,0 +1,36 @@
+~/workspace$ echo ".github/workflows/" >> .gitignore
+git add .gitignore
+git commit -m "Exclude workflows from Replit pushes"
+git push origin main
+U   .github/workflows/ci.yml
+U   .github/workflows/deploy.yml
+error: Committing is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+hint: as appropriate to mark resolution and make a commit.
+fatal: Exiting because of an unresolved conflict.
+Enumerating objects: 27, done.
+Counting objects: 100% (25/25), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (15/15), done.
+Writing objects: 100% (17/17), 7.08 KiB | 7.08 MiB/s, done.
+Total 17 (delta 7), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (7/7), completed with 3 local objects.
+To https://github.com/Qahtani1979/dkkah-cityos-erpnext.git
+ ! [remote rejected] main -> main (refusing to allow an OAuth App to create or update workflow `.github/workflows/ci.yml` without `workflow` scope)
+error: failed to push some refs to 'https://github.com/Qahtani1979/dkkah-cityos-erpnext.git'
+~/workspace$ git pull origin main
+error: Pulling is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+hint: as appropriate to mark resolution and make a commit.
+fatal: Exiting because of an unresolved conflict.
+~/workspace$ git push origin main
+Enumerating objects: 27, done.
+Counting objects: 100% (25/25), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (15/15), done.
+Writing objects: 100% (17/17), 7.08 KiB | 2.36 MiB/s, done.
+Total 17 (delta 7), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (7/7), completed with 3 local objects.
+To https://github.com/Qahtani1979/dkkah-cityos-erpnext.git
+ ! [remote rejected] main -> main (refusing to allow an OAuth App to create or update workflow `.github/workflows/ci.yml` without `workflow` scope)
+error: failed 

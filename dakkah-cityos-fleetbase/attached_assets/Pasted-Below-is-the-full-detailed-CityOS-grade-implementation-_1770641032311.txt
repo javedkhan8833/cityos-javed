@@ -1,0 +1,446 @@
+Below is the **full, detailed, CityOS-grade implementation phases roadmap** for **`Dakkah-CityOS-Fleetbase`** (Fulfillment + Service Delivery + On-Demand). It mirrors the discipline of your **Payload CMS**, **Commerce**, and **Workflow (Temporal)** roadmaps: **phases + deliverables + acceptance checks + Replit prompts you’ll write next**.
+
+---
+
+# Dakkah-CityOS-Fleetbase — Implementation Phases Roadmap (Full)
+
+## Phase 0 — Audit, Scope Lock, and Architecture Decisions
+
+### Purpose
+
+Lock the **execution strategy**: what Fleetbase owns, what CityOS wrappers own, and how you integrate with CMS/Commerce/ERP/Temporal.
+
+### Deliverables
+
+1. **System Boundary Document**
+
+   * Fleetbase = execution engine (dispatch, job lifecycle)
+   * CityOS wrapper = NodeContext, policies, contracts, integrations
+2. **Tenancy model decision**
+
+   * Single Fleetbase instance with tenant scoping vs multi-instance (document tradeoffs)
+3. **Integration contract plan**
+
+   * Events + outbox + Temporal triggers
+4. **Capabilities map**
+
+   * Delivery, service jobs, tracking, POD, exceptions, SLA, provider/agent mgmt
+
+### Acceptance Checks
+
+* `docs/architecture.md` created
+* Ownership matrix included
+* Integration triggers and event list enumerated
+
+### Prompts
+
+* **FLT-P0.1** Write boundary + tenancy + integration decision docs
+* **FLT-P0.2** Produce capability inventory + workflow trigger matrix
+
+---
+
+## Phase 1 — Monorepo Scaffold + DevOps Baseline
+
+### Purpose
+
+Create the repo structure and tooling exactly like CityOS standards.
+
+### Deliverables
+
+1. Root folders: `/apps`, `/packages`, `/infra`, `/policies`, `/tools`, `/configs`, `/.github`
+2. pnpm workspaces + turborepo + changesets
+3. TS base config + linting + formatting + CI skeleton
+4. `.env.example` baseline
+
+### Acceptance Checks
+
+* `pnpm -w install` succeeds
+* `pnpm lint` runs (even if minimal)
+* CI workflow exists and passes basic steps
+
+### Prompts
+
+* **FLT-P1.1** Scaffold monorepo + root layout + configs
+* **FLT-P1.2** Add CI + scripts + changesets setup
+
+---
+
+## Phase 2 — Local Infra Stack (Fleetbase + PostGIS + Redis + MinIO)
+
+### Purpose
+
+Get a reproducible local environment in Replit.
+
+### Deliverables
+
+1. `/infra/docker/docker-compose.yml` running:
+
+   * fleetbase-core (or Fleetbase services)
+   * postgres + postgis
+   * redis
+   * minio
+2. Health check scripts in `/infra/scripts`
+3. Fallback option if Docker is limited (documented)
+
+### Acceptance Checks
+
+* `pnpm fleetbase:up` boots stack
+* Fleetbase service responds (health endpoint or admin)
+* PostGIS enabled and queryable
+* MinIO bucket created
+
+### Prompts
+
+* **FLT-P2.1** Implement docker stack + env wiring
+* **FLT-P2.2** Add bootstrap scripts and health checks
+
+---
+
+## Phase 3 — CityOS Core Governance Layer (NodeContext + Policy Hooks)
+
+### Purpose
+
+Make NodeContext first-class and enforceable across all Fleetbase surfaces.
+
+### Deliverables
+
+1. `/packages/cityos-core`
+
+   * NodeContext schema (Zod + TS)
+   * resolver (header/path/cookie)
+   * validation guard middleware
+2. `/packages/cityos-auth` + `/packages/cityos-policies`
+
+   * service accounts + API key/JWT stubs
+   * Cerbos-ready placeholders
+   * RBAC roles mapping
+3. `/packages/cityos-observability`
+
+   * correlationId propagation
+   * structured logs
+
+### Acceptance Checks
+
+* Any request without NodeContext is rejected on internal/BFF routes
+* CorrelationId appears in logs
+* Policy hook is called in request pipeline (even if stub)
+
+### Prompts
+
+* **FLT-P3.1** Implement NodeContext kernel + resolver + guards
+* **FLT-P3.2** Implement auth/policy stubs + observability
+
+---
+
+## Phase 4 — Contracts-First Layer (Schemas + OpenAPI + Codegen)
+
+### Purpose
+
+Ensure Fleetbase CityOS integration is **stable and versioned**.
+
+### Deliverables
+
+1. `/packages/cityos-contracts`
+
+   * DeliveryOrder, Provider, Agent, TrackingEvent, POD, SLAException schemas
+   * Standard response envelope
+2. OpenAPI export pipeline
+3. `/tools/codegen` scaffolding
+
+### Acceptance Checks
+
+* OpenAPI JSON generated via `pnpm openapi:gen`
+* Schemas validate sample payloads
+
+### Prompts
+
+* **FLT-P4.1** Create contracts package + OpenAPI scaffolding
+* **FLT-P4.2** Add codegen scripts + docs
+
+---
+
+## Phase 5 — CityOS Storage Abstraction (MinIO First)
+
+### Purpose
+
+Standardize media/POD storage across CityOS.
+
+### Deliverables
+
+1. `/packages/cityos-storage`
+
+   * StorageProvider interface
+   * MinIO implementation
+   * signURL, put/get/delete
+2. Connect POD uploads to storage provider
+
+### Acceptance Checks
+
+* Upload POD photo stored in MinIO
+* Signed URL returned for retrieval
+
+### Prompts
+
+* **FLT-P5.1** Implement storage provider + MinIO adapter
+* **FLT-P5.2** Wire POD flows to storage
+
+---
+
+## Phase 6 — Fleetbase API Façade (CityOS Stable REST)
+
+### Purpose
+
+Create `/apps/fleetbase-api` as the **governed gateway** to Fleetbase.
+
+### Deliverables
+
+1. REST endpoints (minimal but working):
+
+   * create delivery
+   * get delivery
+   * track delivery
+   * cancel delivery
+   * provider job list/update
+2. Translation layer: CityOS contracts ⇄ Fleetbase internal model
+3. Idempotency keys
+
+### Acceptance Checks
+
+* `POST create delivery` works end-to-end
+* Tenant isolation enforced
+* Idempotency prevents duplicates
+
+### Prompts
+
+* **FLT-P6.1** Build fleetbase-api skeleton + core endpoints
+* **FLT-P6.2** Add idempotency + error model + audit logging
+
+---
+
+## Phase 7 — BFF Kit + Fleetbase BFF Surfaces (Publishable)
+
+### Purpose
+
+Expose **surface-optimized APIs** for 40+ BFFs to consume.
+
+### Deliverables
+
+1. `/packages/cityos-bff-kit` (if not reused)
+2. `/packages/cityos-fleetbase-bff`
+
+   * consumer endpoints
+   * provider endpoints
+   * internal endpoints
+3. Context-aware response shaping (surface/persona/channel)
+
+### Acceptance Checks
+
+* `/api/bff/deliveries/*` routes work
+* Output conforms to contracts and includes `result_seed` or stable ordering where needed
+* Package builds independently
+
+### Prompts
+
+* **FLT-P7.1** Implement BFF kit primitives (guard, router, shaping)
+* **FLT-P7.2** Implement Fleetbase BFF surfaces (deliveries, tracking, provider ops)
+
+---
+
+## Phase 8 — Geo Layer (PostGIS + H3 + Geofencing Skeleton)
+
+### Purpose
+
+Support city-grade fulfillment: zone containment, distance, nearest hub/provider, heatmaps.
+
+### Deliverables
+
+1. `/packages/cityos-geo`
+
+   * PostGIS query utilities
+   * H3/geohash helpers
+   * geofence enter/exit skeleton events
+2. Optional: `/packages/cityos-routing` stub for ETA/routing interfaces
+
+### Acceptance Checks
+
+* Can run:
+
+  * “nearest provider”
+  * “within polygon”
+  * “distance query”
+* H3 computed for caching keys
+
+### Prompts
+
+* **FLT-P8.1** Implement PostGIS utilities + H3 indexing
+* **FLT-P8.2** Implement geofencing skeleton + tracking enrichment hooks
+
+---
+
+## Phase 9 — Events + Outbox (Reliable Integration)
+
+### Purpose
+
+Make Fleetbase a first-class CityOS participant with reliable event delivery.
+
+### Deliverables
+
+1. `/packages/cityos-events` + `/packages/cityos-outbox`
+2. Outbox table (or persistence stub) + dispatcher worker
+3. Event list implemented:
+
+   * DELIVERY_CREATED
+   * DELIVERY_STATUS_CHANGED
+   * DELIVERY_LOCATION_UPDATED
+   * DELIVERY_FAILED
+   * POD_UPLOADED
+   * SLA_BREACH_DETECTED (stub)
+4. Adapters: webhook publisher + kafka/redpanda stub
+
+### Acceptance Checks
+
+* Creating a delivery writes an outbox entry
+* Dispatcher publishes (webhook stub ok)
+* Event includes NodeContext + correlationId
+
+### Prompts
+
+* **FLT-P9.1** Implement outbox + dispatcher worker
+* **FLT-P9.2** Implement event envelope + adapters
+
+---
+
+## Phase 10 — Temporal Workflow Triggers (Execution Truth)
+
+### Purpose
+
+Integrate fulfillment execution with long-running orchestration.
+
+### Deliverables
+
+1. Temporal trigger adapter in `/packages/cityos-integrations`
+2. Workflow IDs wired (stub ok):
+
+   * WF-FLT-001 delivery-dispatch-orchestration
+   * WF-FLT-002 delivery-exception-escalation
+   * WF-FLT-003 delivery-completion-settlement-hook
+   * WF-FLT-004 provider-onboarding-approval
+3. Signals/queries for human approval + status inspection
+
+### Acceptance Checks
+
+* Delivery created triggers WF-FLT-001 (or emits trigger request)
+* Delivery failed triggers WF-FLT-002
+* Delivered triggers settlement hook (ERP/Commerce stub)
+
+### Prompts
+
+* **FLT-P10.1** Implement Temporal trigger adapter + workflow mapping
+* **FLT-P10.2** Implement provider onboarding approval flow (signal-based)
+
+---
+
+## Phase 11 — Integrations with Payload CMS + Medusa + ERPNext
+
+### Purpose
+
+Make the system consistent with the rest of CityOS truth layers.
+
+### Deliverables
+
+1. Payload integration:
+
+   * POI resolver (poiId → address/geo)
+   * zones → SLA policy references
+   * hubs/service providers metadata sync
+2. Medusa integration:
+
+   * order → delivery creation
+   * returns/refunds → reverse logistics delivery
+3. ERP integration:
+
+   * delivery completion → payout readiness + fee posting hooks
+
+### Acceptance Checks
+
+* Order posted from commerce creates delivery deterministically
+* POI resolver returns correct address/geo
+* Settlement hook produces ERP posting stub
+
+### Prompts
+
+* **FLT-P11.1** Implement Payload sync + POI/zone resolution adapters
+* **FLT-P11.2** Implement Commerce + ERP posting adapters
+
+---
+
+## Phase 12 — SLA, Exceptions, and Performance Metrics
+
+### Purpose
+
+Enable operator-grade reliability: SLA enforcement, exception handling, performance reporting.
+
+### Deliverables
+
+1. SLA policy templates under `/policies/sla`
+2. Exception workflow triggers (late, failed, rescheduled)
+3. Metrics:
+
+   * deliveries_created_total
+   * deliveries_failed_total
+   * sla_breaches_total
+   * delivery_time_seconds histogram (stub)
+
+### Acceptance Checks
+
+* SLA breach event generated (stub) when conditions met
+* Exception workflow trigger created
+* Metrics exposed on `/metrics`
+
+### Prompts
+
+* **FLT-P12.1** Implement SLA policy templates + evaluation hook
+* **FLT-P12.2** Implement exception pipeline + metrics
+
+---
+
+## Phase 13 — Hardening, Release, Documentation
+
+### Purpose
+
+Make it publishable and operationally safe.
+
+### Deliverables
+
+1. changesets release pipeline
+2. Dependency graph clean (no circular deps)
+3. Full README explaining:
+
+   * NodeContext
+   * how to create delivery
+   * BFF usage
+   * outbox/events
+   * Temporal triggers
+   * storage (POD)
+4. Smoke tests:
+
+   * create delivery → track → POD upload → event emitted → workflow triggered (stub)
+
+### Acceptance Checks
+
+* `pnpm build` succeeds
+* `pnpm release` (dry run) works
+* smoke test script passes
+
+### Prompts
+
+* **FLT-P13.1** Release readiness + package metadata + cleanup
+* **FLT-P13.2** Documentation + smoke tests + runbook
+
+---
+
+## Opinion (Footer)
+
+**My opinion:** The biggest risk in fulfillment systems is “becoming a one-off operational app.” The roadmap above prevents that by forcing Fleetbase to behave like every other CityOS system: **NodeContext-first, contracts-first, event-driven, workflow-orchestrated, and publishable as packages**. This is the only approach that preserves your ability to scale to **multiple countries, multiple tenants, and multiple service models** without rewriting the platform.
+
+If you want the next step: I can generate **FLT-P1.1** as a deep, copy-paste Replit prompt that scaffolds the repo exactly to this roadmap.

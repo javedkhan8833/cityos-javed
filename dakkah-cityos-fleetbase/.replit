@@ -1,0 +1,120 @@
+modules = ["php-8.2", "bash", "python-3.11", "nodejs-20", "postgresql-16"]
+[agent]
+expertMode = true
+integrations = ["github:1.0.0", "twilio:1.0.0"]
+
+[nix]
+channel = "stable-25_05"
+packages = ["mariadb", "php82Extensions.grpc", "php82Extensions.protobuf", "protobuf"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "API Server"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Console Frontend"
+
+[[workflows.workflow]]
+name = "API Server"
+author = "agent"
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd /home/runner/workspace/api && php -d memory_limit=512M -S 0.0.0.0:8000 -t public server.php"
+waitForPort = 8000
+
+[[workflows.workflow]]
+name = "Console Frontend"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd /home/runner/workspace/console && npx ember serve --port 5000 --host 0.0.0.0 --proxy http://localhost:8000 --environment development 2>&1"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 5001
+externalPort = 3000
+
+[[ports]]
+localPort = 8000
+externalPort = 8000
+
+[deployment]
+deploymentTarget = "vm"
+run = ["bash", "deploy-run.sh"]
+build = ["bash", "deploy-build.sh"]
+
+[userenv]
+
+[userenv.shared]
+EXTENSIONS = "@fleetbase/cityos-engine"
+API_PORT = "8000"
+CONSOLE_PORT = "5000"
+CITYOS_SCOPING_ENABLED = "true"
+CITYOS_FEATURE_GATES_ENABLED = "true"
+CITYOS_EVENT_BRIDGE_ENABLED = "true"
+MEDUSA_BACKEND_PORT = "9000"
+STOREFRONT_PORT = "5000"
+MEDUSA_ADMIN_PATH = "/commerce/admin"
+MEDUSA_BACKEND_URL_LOCAL = "http://localhost:9000"
+STOREFRONT_URL_LOCAL = "http://localhost:5000"
+PAYLOAD_CMS_URL_LOCAL = "http://localhost:3001"
+ERPNEXT_URL_LOCAL = "http://localhost:8080"
+FLEETBASE_URL_LOCAL = "http://localhost:8000"
+WALTID_URL_LOCAL = "http://localhost:7000"
+MEDUSA_BACKEND_URL_DEV = "https://f76865b8-a3a7-41f9-85b2-b0ade8a4fd85-00-3o74vg6b4mqvs.sisko.replit.dev:9000"
+STOREFRONT_URL_DEV = "https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev:5000"
+PAYLOAD_CMS_URL_DEV = "https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev:3001"
+ERPNEXT_URL_DEV = "https://ff049349-609e-450d-ab42-e289d89960bb-00-ujg6lz7mnzcy.pike.replit.dev:8080"
+FLEETBASE_URL_DEV = "https://efdaeea4-1883-4ef0-9888-41da8659025c-00-19fmj1r05ozg4.pike.replit.dev:8000"
+WALTID_URL_DEV = "https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev:7000"
+APP_NAME = "Fleetbase"
+APP_ENV = "local"
+APP_DEBUG = "true"
+APP_URL = "https://efdaeea4-1883-4ef0-9888-41da8659025c-00-19fmj1r05ozg4.pike.replit.dev"
+LOG_CHANNEL = "daily"
+LOG_DEPRECATIONS_CHANNEL = ""
+LOG_LEVEL = "debug"
+DB_CONNECTION = "pgsql"
+BROADCAST_DRIVER = "log"
+CACHE_DRIVER = "array"
+FILESYSTEM_DRIVER = "local"
+QUEUE_CONNECTION = "sync"
+SESSION_DRIVER = "file"
+SESSION_LIFETIME = "120"
+RESPONSE_CACHE_ENABLED = "false"
+RESPONSE_CACHE_DRIVER = "array"
+MAIL_MAILER = "log"
+MAIL_HOST = "127.0.0.1"
+MAIL_PORT = "1025"
+MAIL_USERNAME = ""
+MAIL_PASSWORD = ""
+MAIL_ENCRYPTION = ""
+MAIL_FROM_ADDRESS = "hello@fleetbase.io"
+MAIL_FROM_NAME = "Fleetbase"
+STOREFRONT_DB_CONNECTION = "pgsql"
+SANDBOX_DB_CONNECTION = "pgsql"
+REGISTRY_HOST = "https://registry.fleetbase.io"
+REGISTRY_PREINSTALLED_EXTENSIONS = "true"
+CONSOLE_HOST = "https://efdaeea4-1883-4ef0-9888-41da8659025c-00-19fmj1r05ozg4.pike.replit.dev"
+FLEETBASE_ORG_ID = "29ae887c-0e4c-4f15-834e-31a2f1ea9621"

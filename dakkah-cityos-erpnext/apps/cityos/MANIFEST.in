@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include cityos *.css
+recursive-include cityos *.csv
+recursive-include cityos *.html
+recursive-include cityos *.ico
+recursive-include cityos *.js
+recursive-include cityos *.json
+recursive-include cityos *.md
+recursive-include cityos *.png
+recursive-include cityos *.py
+recursive-include cityos *.svg
+recursive-include cityos *.txt
+recursive-exclude cityos *.pyc

@@ -1,0 +1,93 @@
+Here's the complete integration details with that URL:
+
+CityOS CMS — External Systems Integration Reference
+Base URL
+https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev
+Authentication
+All authenticated endpoints require an API key in the X-API-Key header.
+
+Available API Keys:
+
+Name	Key (use in X-API-Key header)	Tenant	Scopes	Expires
+CityOS Integration Key	cityos_live_a1b2c3d4e5f6789012345678abcdef01	Demo	read, write	~1 year
+Temporal Workflow Key	cityos_live_f9e8d7c6b5a43210fedcba9876543210	Riyadh	webhook, sync	~180 days
+Partner Read-Only Key	cityos_live_0123456789abcdef0123456789abcdef	Dubai	read	~90 days
+1. S3 Storage Gateway — Object Storage
+Operation	Method	URL	Auth	Body/Notes
+Service Info	GET	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/storage/info	None	Returns available operations
+List Buckets	GET	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/storage	Required	—
+Create Bucket	POST	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/storage	Required	{ "bucket": "my-bucket" }
+Delete Bucket	DELETE	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/storage/{bucket}	Required	Bucket must be empty
+List Objects	GET	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/storage/{bucket}?prefix=&maxKeys=	Required	—
+Download Object	GET	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/storage/{bucket}/{key}	Required	Returns binary stream
+Upload Object	PUT	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/storage/{bucket}/{key}	Required	Raw file body + Content-Type header
+Delete Object	DELETE	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/storage/{bucket}/{key}	Required	—
+Object Metadata	HEAD	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/storage/{bucket}/{key}	Required	Returns headers only
+Default Bucket: cityos-media
+
+Response tracking: Every response includes a correlationId (in JSON body or X-Correlation-Id header).
+
+2. Workflow Integration — /api/v1/*
+Resource	Full URL
+Nodes	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/v1/nodes
+Tenants	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/v1/tenants
+POIs	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/v1/pois
+Collections	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/v1/collections
+Governance	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/v1/governance
+Personas	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/v1/personas
+Workflow Status	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/v1/workflow-status
+API Key Management	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/v1/keys
+3. Workflow Registry
+Operation	Method	Full URL
+List/Filter	GET	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/workflow-registry
+Stats	GET	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/workflow-registry/stats
+Register	POST	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/workflow-registry/register
+Remove	DELETE	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/workflow-registry/{workflowType}
+648 workflow definitions across 10 domain packs are pre-loaded.
+
+4. Temporal Sync
+Operation	Method	Full URL
+Trigger Sync	POST	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/sync/temporal/run?limit=100
+Sync Status	GET	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/sync/temporal/status
+5. Integration Health & Monitoring
+Endpoint	Full URL
+System Health	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/health
+Integration Status	https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/integration/workflow-status
+6. CMS Admin Panel
+https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/admin
+Email	Role
+admin@dakkah.com	Super Admin
+demo@cityos.dev	Demo User
+Context Propagation Headers
+When sending requests, include these headers for full context tracking:
+
+Header	Purpose	Example
+X-CityOS-Correlation-Id	Request tracing	uuid
+X-CityOS-Tenant-Id	Tenant context	riyadh
+X-CityOS-User-Id	User context	user-id
+X-CityOS-Locale	Language	en, fr, ar
+X-CityOS-Node-Id	Node context	riyadh-city
+X-CityOS-Channel	Channel	web, api, mobile
+Quick Test Commands
+# 1. Check storage service info (no auth)
+curl https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/storage/info
+# 2. List buckets
+curl -H "X-API-Key: cityos_live_a1b2c3d4e5f6789012345678abcdef01" \
+  https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/storage
+# 3. List objects in default bucket
+curl -H "X-API-Key: cityos_live_a1b2c3d4e5f6789012345678abcdef01" \
+  https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/storage/cityos-media
+# 4. Upload a file
+curl -X PUT \
+  -H "X-API-Key: cityos_live_a1b2c3d4e5f6789012345678abcdef01" \
+  -H "Content-Type: image/png" \
+  --data-binary @photo.png \
+  https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/storage/cityos-media/uploads/photo.png
+# 5. Download a file
+curl -H "X-API-Key: cityos_live_a1b2c3d4e5f6789012345678abcdef01" \
+  https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/storage/cityos-media/uploads/photo.png \
+  -o photo.png
+# 6. Check system health
+curl https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/health
+# 7. List workflow registry
+curl https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev/api/workflow-registry

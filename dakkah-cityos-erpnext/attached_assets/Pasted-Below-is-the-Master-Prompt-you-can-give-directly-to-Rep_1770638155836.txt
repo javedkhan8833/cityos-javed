@@ -1,0 +1,405 @@
+Below is the **Master Prompt** you can give directly to **Replit (Master Agent + Sub-Agents)** to implement **`dakkah-cityos-erpnext`** as a **CityOS-grade ERP system**, fully aligned with your **Payload CMS**, **Commerce (Medusa)**, and **Workflow (Temporal)** platforms.
+
+This prompt is intentionally **deep, exhaustive, and governance-first**, and follows the **same design philosophy** you used for CMS, Commerce, and Workflow—so ERPNext becomes a **first-class CityOS system**, not a side ERP.
+
+---
+
+# 🧠 MASTER PROMPT — DAKKAH CITYOS ERP (ERPNext)
+
+## SYSTEM NAME
+
+**Repository:** `dakkah-cityos-erpnext`
+**Role in CityOS:**
+👉 **ERP = Operational & Financial Truth**
+If:
+
+* CMS = Content Truth
+* Commerce = Transaction Truth
+* Workflow = Execution Truth
+
+Then:
+
+> **ERPNext = Financial, Operational, HR, Procurement, Asset, and Compliance Truth**
+
+---
+
+## CORE DIRECTIVE (NON-NEGOTIABLE)
+
+You are **Replit Agent acting as a Staff+ Platform Engineer**.
+
+Build a **CityOS-grade ERPNext system** that:
+
+1. Is **multi-node, multi-country, multi-tenant, multi-sector**
+2. Enforces **CityOS NodeContext** consistently
+3. Integrates cleanly with:
+
+   * Payload CMS (content & master data sync)
+   * Medusa Commerce (orders, invoices, payments)
+   * Temporal Workflows (execution & automation)
+4. Is **package-structured**, **publishable**, and **extensible**
+5. Supports **government, enterprise, and marketplace operations**
+6. Is **not ERPNext “out-of-the-box only”** — extend, modularize, and govern it
+
+Do **NOT** build a toy ERP. Scaffold **production-ready structure**, extensions, hooks, and integration layers.
+
+---
+
+## A) ERPNext ROLE IN DAKKAH CITYOS
+
+ERPNext is responsible for:
+
+### 1. Financial Truth
+
+* Chart of Accounts
+* Invoices
+* Payments
+* Settlements
+* Vendor payouts
+* Subsidies
+* Grants
+* Government accounting rules
+
+### 2. Operational Truth
+
+* Procurement
+* Inventory
+* Warehousing
+* Assets
+* Maintenance
+* Fleet & logistics (integration with Fleetbase later)
+
+### 3. Organizational Truth
+
+* Companies
+* Departments
+* Cost centers
+* Projects
+* HR & payroll
+* Vendors & partners
+
+### 4. Compliance & Audit
+
+* Audit logs
+* Approval chains
+* Segregation of duties
+* Policy-driven workflows
+* Government & municipal compliance
+
+---
+
+## B) CITYOS NODECONTEXT (MANDATORY)
+
+Every ERP record MUST be scoped by **NodeContext**.
+
+### Canonical NodeContext Fields
+
+```
+country
+cityOrTheme
+sector
+category
+subcategory
+tenant
+organizationUnit
+costCenter
+project
+channel
+surface
+persona
+brand
+theme
+locale
+version
+```
+
+### Requirements
+
+* NodeContext must be:
+
+  * Stored on ERP doctypes
+  * Enforced in queries
+  * Propagated across integrations
+* ERPNext must **reject writes** without valid NodeContext
+* Read visibility must respect:
+
+  * Tenant
+  * City
+  * Sector
+  * Role
+  * Policy
+
+---
+
+## C) HIGH-LEVEL ARCHITECTURE
+
+### Core Layers
+
+1. **ERPNext Core (Upstream)**
+2. **CityOS ERP Extension Layer**
+3. **Integration Layer (Events + SDKs)**
+4. **Workflow & Automation Layer (Temporal)**
+5. **Reporting & Analytics Layer**
+
+---
+
+## D) REPO STRUCTURE (ALL ROOT-LEVEL)
+
+```
+/apps
+  /erpnext-core        (ERPNext app container)
+  /erpnext-api         (optional API façade)
+
+/packages
+  /cityos-erp-core           (NodeContext, invariants)
+  /cityos-erp-extensions     (custom doctypes, hooks)
+  /cityos-erp-finance        (finance domain)
+  /cityos-erp-procurement   (procurement & vendors)
+  /cityos-erp-assets        (assets & facilities)
+  /cityos-erp-hr             (HR & payroll)
+  /cityos-erp-projects      (projects & cost centers)
+  /cityos-erp-compliance    (audit, approvals)
+  /cityos-erp-integration   (CMS, Commerce, Workflow sync)
+  /cityos-erp-events        (outbox + event publishers)
+  /cityos-erp-sdk           (typed clients)
+  /cityos-erp-reporting     (BI & analytics models)
+
+/infra
+  /docker
+  /sql
+  /scripts
+
+/policies
+  /cerbos
+  /finance
+  /procurement
+  /hr
+
+/tools
+  /migrations
+  /codegen
+  /sync
+
+/configs
+  /erpnext
+  /env
+  /lint
+
+Root:
+- README.md
+- docker-compose.yml
+- .env.example
+```
+
+---
+
+## E) ERPNEXT EXTENSIONS (MANDATORY)
+
+### 1. Custom Doctypes (CityOS-Aware)
+
+Create CityOS-aware versions or extensions of:
+
+#### Finance
+
+* CityOS Invoice
+* CityOS Payment
+* CityOS Settlement
+* CityOS Subsidy
+* CityOS Grant
+* CityOS Vendor Payout
+
+#### Procurement
+
+* CityOS Vendor
+* CityOS Purchase Request
+* CityOS RFQ
+* CityOS Contract
+* CityOS SLA
+
+#### Assets & Facilities
+
+* CityOS Asset
+* CityOS Facility
+* CityOS Maintenance Task
+
+#### HR
+
+* CityOS Employee
+* CityOS Role
+* CityOS Assignment
+
+Each must include:
+
+* NodeContext
+* Audit fields
+* Source system reference
+* Workflow state
+
+---
+
+## F) INTEGRATION WITH PAYLOAD CMS
+
+### Payload → ERP
+
+* Master data sync:
+
+  * Vendors
+  * Organizations
+  * Assets
+  * Zones
+* Editorial approval triggers ERP workflows
+
+### ERP → Payload
+
+* Status reflections:
+
+  * Approved
+  * Paid
+  * Blocked
+* Reporting summaries
+
+Use:
+
+* Webhooks
+* Event bus
+* Deterministic IDs
+
+---
+
+## G) INTEGRATION WITH COMMERCE (MEDUSA)
+
+### Commerce → ERP
+
+* Orders → Invoices
+* Payments → Payment records
+* Refunds → Credit notes
+* Vendor sales → Payout batches
+
+### ERP → Commerce
+
+* Tax rules
+* Subsidy rules
+* Credit limits
+* Contract pricing
+
+ERP is the **financial authority**.
+
+---
+
+## H) TEMPORAL WORKFLOWS (MANDATORY)
+
+ERPNext must NOT embed complex logic.
+
+Instead, trigger workflows for:
+
+* Invoice approval
+* Vendor onboarding
+* Payout settlement
+* Grant disbursement
+* Procurement approvals
+* Compliance escalation
+
+### Examples
+
+* `erp.invoice.approval.workflow`
+* `erp.vendor.onboarding.workflow`
+* `erp.monthly.settlement.workflow`
+
+ERPNext acts as:
+
+> **State machine input/output**, Temporal is execution brain.
+
+---
+
+## I) EVENTING & OUTBOX
+
+Implement:
+
+* ERP Outbox table
+* Reliable publisher
+* Event schemas:
+
+  * `ERP_INVOICE_CREATED`
+  * `ERP_PAYMENT_POSTED`
+  * `ERP_VENDOR_APPROVED`
+  * `ERP_ASSET_ASSIGNED`
+
+NodeContext must be included in every event.
+
+---
+
+## J) SECURITY, POLICY & GOVERNANCE
+
+### Policy Enforcement
+
+* Cerbos-ready
+* Field-level access
+* Action-level rules
+
+### Segregation of Duties
+
+* Creator ≠ Approver ≠ Payer
+* Enforced by workflow + policy
+
+### Audit
+
+* Immutable audit logs
+* Cross-system correlation IDs
+
+---
+
+## K) MULTI-TENANCY STRATEGY
+
+Support:
+
+* Shared DB, strict tenant isolation
+* Optional schema-per-tenant (future)
+* Tenant-aware sequences & numbering
+
+---
+
+## L) DELIVERABLES
+
+1. Full repo scaffold
+2. ERPNext running locally via Docker
+3. Custom CityOS doctypes registered
+4. NodeContext enforced everywhere
+5. Example workflows triggered
+6. Example sync with CMS + Commerce
+7. README explaining:
+
+   * ERP role in CityOS
+   * How to add a new ERP domain
+   * How workflows integrate
+   * How policies apply
+
+---
+
+## FINAL STRATEGIC OPINION
+
+**Do not treat ERPNext as “internal ops only.”**
+
+In **Dakkah CityOS**, ERPNext becomes:
+
+* The **economic backbone**
+* The **government compliance engine**
+* The **truth layer for subsidies, grants, and public finance**
+* The **financial mirror** of your Commerce system
+
+If built this way:
+
+* You can onboard municipalities
+* You can support public-private partnerships
+* You can scale nationally without re-architecting
+
+---
+
+## NEXT STEP (RECOMMENDED)
+
+If you want, next I can:
+
+1. Create **ERPNext Phase Roadmap (P0–P12)** like CMS/Commerce/Workflow
+2. Generate **deep Replit prompts per phase**
+3. Map **ERPNext ↔ Medusa ↔ Payload ↔ Temporal contracts**
+4. Decide **what stays in ERP vs Commerce vs CMS** with zero overlap
+
+Just tell me where to start.

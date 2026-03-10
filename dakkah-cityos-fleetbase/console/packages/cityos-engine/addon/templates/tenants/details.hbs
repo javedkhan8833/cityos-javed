@@ -1,0 +1,84 @@
+<Layout::Section::Header @title="Tenant Detail" />
+<Layout::Section::Body>
+    <div class="p-6 space-y-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">General Information</h3>
+            </div>
+            <div class="p-4">
+                <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Name</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{@model.name}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Name (Arabic)</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white" dir="rtl">{{@model.name_ar}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Handle</dt>
+                        <dd class="mt-1 text-sm font-mono text-gray-900 dark:text-white">{{@model.handle}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Tenant Tier</dt>
+                        <dd class="mt-1">
+                            <span class="px-2 py-1 rounded-full text-xs font-medium
+                                {{if (eq @model.tenant_tier "MASTER") "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200"
+                                (if (eq @model.tenant_tier "GLOBAL") "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                                (if (eq @model.tenant_tier "REGIONAL") "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                                (if (eq @model.tenant_tier "COUNTRY") "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200"
+                                (if (eq @model.tenant_tier "CITY") "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+                                "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300"))))}}">{{@model.tenant_tier}}</span>
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Parent Tenant UUID</dt>
+                        <dd class="mt-1 text-sm font-mono text-gray-900 dark:text-white">{{@model.parent_tenant_uuid}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Category UUID</dt>
+                        <dd class="mt-1 text-sm font-mono text-gray-900 dark:text-white">{{@model.category_uuid}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Company UUID</dt>
+                        <dd class="mt-1 text-sm font-mono text-gray-900 dark:text-white">{{@model.company_uuid}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Region UUID</dt>
+                        <dd class="mt-1 text-sm font-mono text-gray-900 dark:text-white">{{@model.region_uuid}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Residency Zone</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{@model.residency_zone}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Status</dt>
+                        <dd class="mt-1">
+                            <span class="px-2 py-1 rounded-full text-xs font-medium {{if (eq @model.status "active") "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300"}}">{{@model.status}}</span>
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Medusa Tenant ID</dt>
+                        <dd class="mt-1 text-sm font-mono text-gray-900 dark:text-white">{{@model.medusa_tenant_id}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Payload Tenant ID</dt>
+                        <dd class="mt-1 text-sm font-mono text-gray-900 dark:text-white">{{@model.payload_tenant_id}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">ERPNext Company</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{@model.erpnext_company}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Created At</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{@model.created_at}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Updated At</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{@model.updated_at}}</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+</Layout::Section::Body>

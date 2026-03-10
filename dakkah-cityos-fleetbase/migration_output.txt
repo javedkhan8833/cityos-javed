@@ -1,0 +1,62 @@
+
+  Dropping all tables ........................................... 1,698ms DONE
+
+   INFO  Preparing database.  
+
+  Creating migration table ........................................ 254ms DONE
+
+   INFO  Running migrations.  
+
+  2014_01_01_000000_install_postgresql_extensions .................. 89ms DONE
+  2019_12_14_000001_create_personal_access_tokens_table ......... 1,235ms DONE
+  2023_04_25_094301_create_users_table .......................... 2,885ms DONE
+  2023_04_25_094302_create_user_devices_table ................... 2,471ms DONE
+  2023_04_25_094304_create_permissions_table .................... 6,492ms DONE
+  2023_04_25_094305_create_companies_table ...................... 3,198ms DONE
+  2023_04_25_094306_create_groups_table ......................... 2,032ms DONE
+  2023_04_25_094307_create_transactions_table ................... 4,687ms DONE
+  2023_04_25_094308_create_files_table .......................... 2,220ms DONE
+  2023_04_25_094311_create_activity_log_table ................... 1,738ms DONE
+  2023_04_25_094311_create_api_credentials_table ................ 2,832ms DONE
+  2023_04_25_094311_create_api_events_table ..................... 2,010ms DONE
+  2023_04_25_094311_create_api_request_logs_table ............... 3,196ms DONE
+  2023_04_25_094311_create_categories_table ..................... 2,371ms DONE
+  2023_04_25_094311_create_company_users_table .................. 1,734ms DONE
+  2023_04_25_094311_create_extensions_installs_table ............ 1,491ms DONE
+  2023_04_25_094311_create_extensions_table ..................... 3,679ms DONE
+  2023_04_25_094311_create_group_users_table .................... 1,763ms DONE
+  2023_04_25_094311_create_invites_table ........................ 1,802ms DONE
+  2023_04_25_094311_create_login_attempts_table ................. 1,469ms DONE
+  2023_04_25_094311_create_policies_table ....................... 2,402ms DONE
+  2023_04_25_094311_create_settings_table ......................... 965ms DONE
+  2023_04_25_094311_create_transaction_items_table .............. 1,907ms DONE
+  2023_04_25_094311_create_types_table .......................... 2,113ms DONE
+  2023_04_25_094311_create_verification_codes_table ............. 1,927ms DONE
+  2023_04_25_094311_create_webhook_endpoints_table .............. 2,391ms DONE
+  2023_04_25_094311_create_webhook_request_logs_table ........... 3,201ms DONE
+  2023_04_25_094311_fix_personal_access_tokens .................. 1,203ms DONE
+  2023_04_25_094314_add_foreign_keys_to_api_credentials_table ..... 986ms DONE
+  2023_04_25_094314_add_foreign_keys_to_api_request_logs_table .... 979ms DONE
+  2023_04_25_094314_add_foreign_keys_to_categories_table .......... 770ms DONE
+  2023_04_25_094314_add_foreign_keys_to_companies_table ......... 1,217ms DONE
+  2023_04_25_094314_add_foreign_keys_to_company_users_table ....... 977ms DONE
+  2023_04_25_094314_add_foreign_keys_to_extension_installs_table .. 944ms DONE
+  2023_04_25_094314_add_foreign_keys_to_extensions_table ........ 1,408ms DONE
+  2023_04_25_094314_add_foreign_keys_to_group_users_table ......... 755ms FAIL
+{"message":"{\"message\":\"SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation \\\"group_users\\\" does not exist (Connection: pgsql, SQL: alter table \\\"group_users\\\" add constraint \\\"group_users_group_uuid_foreign\\\" foreign key (\\\"group_uuid\\\") references \\\"groups\\\" (\\\"uuid\\\") on delete CASCADE on update NO ACTION)\",\"code\":\"42P01\",\"file\":\"\\/fleetbase\\/api\\/vendor\\/laravel\\/framework\\/src\\/Illuminate\\/Database\\/Connection.php\",\"line\":829}","context":{},"level":400,"level_name":"ERROR","channel":"production","datetime":"2026-03-05T16:02:45.550176+00:00","extra":{}}
+{"message":"SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation \"group_users\" does not exist (Connection: pgsql, SQL: alter table \"group_users\" add constraint \"group_users_group_uuid_foreign\" foreign key (\"group_uuid\") references \"groups\" (\"uuid\") on delete CASCADE on update NO ACTION)","context":{"exception":{"class":"Illuminate\\Database\\QueryException","message":"SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation \"group_users\" does not exist (Connection: pgsql, SQL: alter table \"group_users\" add constraint \"group_users_group_uuid_foreign\" foreign key (\"group_uuid\") references \"groups\" (\"uuid\") on delete CASCADE on update NO ACTION)","code":42,"file":"/fleetbase/api/vendor/laravel/framework/src/Illuminate/Database/Connection.php:829","previous":{"class":"PDOException","message":"SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation \"group_users\" does not exist","code":42,"file":"/fleetbase/api/vendor/laravel/framework/src/Illuminate/Database/Connection.php:587"}}},"level":400,"level_name":"ERROR","channel":"production","datetime":"2026-03-05T16:02:45.862364+00:00","extra":{}}
+
+In Connection.php line 829:
+                                                                               
+  SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "group_users" does not  
+   exist (Connection: pgsql, SQL: alter table "group_users" add constraint "g  
+  roup_users_group_uuid_foreign" foreign key ("group_uuid") references "group  
+  s" ("uuid") on delete CASCADE on update NO ACTION)                           
+                                                                               
+
+In Connection.php line 587:
+                                                                               
+  SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "group_users" does not  
+   exist                                                                       
+                                                                               
+

@@ -1,0 +1,26 @@
+{
+    "name": "fleetbase/pallet-api",
+    "version": "0.0.1",
+    "description": "Inventory & Warehouse Management Extension for Fleetbase",
+    "license": "AGPL-3.0-or-later",
+    "require": {
+        "php": "^8.0",
+        "fleetbase/core-api": "^1.4.27",
+        "fleetbase/fleetops-api": "^0.5.2 || ^0.6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fleetbase\\Pallet\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fleetbase\\Pallet\\Providers\\PalletServiceProvider"
+            ]
+        },
+        "fleetbase": {
+            "sandbox-migrations": false
+        }
+    }
+}

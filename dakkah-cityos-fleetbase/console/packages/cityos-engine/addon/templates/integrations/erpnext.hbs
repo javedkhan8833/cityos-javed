@@ -1,0 +1,75 @@
+<Layout::Section::Header @title="ERPNext Integration">
+    <div class="flex items-center space-x-2">
+        <span class="text-sm text-gray-500 dark:text-gray-400">
+            <FaIcon @icon="plug" class="mr-1" />
+            Integrations
+            <FaIcon @icon="chevron-right" class="mx-1 text-xs" />
+            ERPNext
+        </span>
+        <Button @icon="rotate" @text="Refresh" @onClick={{this.loadStatus}} @isLoading={{this.isLoading}} @type="default" @size="sm" />
+    </div>
+</Layout::Section::Header>
+
+<Layout::Section::Body>
+    <div class="p-6 space-y-6">
+        {{#if this.isLoading}}
+            <div class="flex items-center justify-center py-12">
+                <FaIcon @icon="spinner" @spin={{true}} class="text-gray-400 text-2xl" />
+            </div>
+        {{else}}
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-yellow-100 dark:bg-yellow-900 rounded-lg mr-3">
+                            <FaIcon @icon="calculator" class="text-yellow-600 dark:text-yellow-300 text-lg" />
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">ERPNext Status</h3>
+                            <div class="flex items-center mt-1">
+                                <div class="w-2 h-2 rounded-full {{if (eq this.status.mode "live") "bg-green-500" "bg-yellow-500"}} mr-2"></div>
+                                <span class="text-sm {{if (eq this.status.mode "live") "text-green-600 dark:text-green-400" "text-yellow-600 dark:text-yellow-400"}}">Mode: {{if this.status.mode this.status.mode "stub"}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 rounded-full {{if this.status.connected "bg-green-500" "bg-yellow-500"}} mr-2"></div>
+                        <span class="text-xs font-medium {{if this.status.connected "text-green-700 dark:text-green-300" "text-yellow-700 dark:text-yellow-300"}}">
+                            {{if this.status.connected "Connected" "Stub Mode"}}
+                        </span>
+                    </div>
+                </div>
+                <div class="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                    <p class="text-sm text-yellow-800 dark:text-yellow-200">
+                        <FaIcon @icon="info-circle" class="mr-1" />
+                        ERPNext integration is currently in stub mode. The erpnext_company field on tenants is stored but not yet synced to an ERPNext instance.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                    <FaIcon @icon="money-bill-wave" class="mr-2 text-green-500" />
+                    Settlement
+                </h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Trigger a settlement process to reconcile financial data.</p>
+                <Button @icon="play" @text={{if this.isProcessing "Processing..." "Trigger Settlement"}} @onClick={{this.triggerSettlement}} @isLoading={{this.isProcessing}} @type="primary" @size="sm" />
+
+                {{#if this.settlementResult}}
+                    <div class="mt-4 p-4 rounded-lg {{if this.settlementResult.error "bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800" "bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800"}}">
+                        {{#if this.settlementResult.error}}
+                            <div class="flex items-center">
+                                <FaIcon @icon="exclamation-circle" class="text-red-500 mr-2" />
+                                <p class="text-sm text-red-800 dark:text-red-200">{{this.settlementResult.error}}</p>
+                            </div>
+                        {{else}}
+                            <div class="flex items-center">
+                                <FaIcon @icon="check-circle" class="text-green-500 mr-2" />
+                                <p class="text-sm text-green-800 dark:text-green-200">Settlement completed successfully</p>
+                            </div>
+                        {{/if}}
+                    </div>
+                {{/if}}
+            </div>
+        {{/if}}
+    </div>
+</Layout::Section::Body>

@@ -1,0 +1,468 @@
+{
+    "name": "CityOS Procurement Request",
+    "module": "Procurement",
+    "doctype": "DocType",
+    "document_type": "Document",
+    "engine": "InnoDB",
+    "is_submittable": 1,
+    "naming_rule": "Expression (old style)",
+    "autoname": "hash",
+    "field_order": [
+        "request_title",
+        "column_break_1",
+        "request_type",
+        "status",
+        "section_break_details",
+        "department",
+        "column_break_2",
+        "priority",
+        "required_by_date",
+        "section_break_items",
+        "description",
+        "estimated_cost",
+        "column_break_3",
+        "currency",
+        "justification",
+        "section_break_vendor",
+        "preferred_vendor",
+        "column_break_4",
+        "vendor_compliance_profile",
+        "section_break_approval",
+        "approval_status",
+        "approved_by",
+        "column_break_5",
+        "approved_date",
+        "rejection_reason",
+        "section_break_request_info",
+        "request_date",
+        "estimated_amount",
+        "column_break_ri1",
+        "approved_amount",
+        "actual_amount",
+        "section_break_budget_link",
+        "budget_program",
+        "fiscal_allocation",
+        "section_break_proc_details",
+        "urgency_level",
+        "procurement_method",
+        "column_break_pd1",
+        "procurement_category",
+        "requesting_officer",
+        "approval_level",
+        "section_break_vendor_sel",
+        "selected_vendor",
+        "linked_purchase_order",
+        "column_break_vs1",
+        "linked_rfq",
+        "section_break_items_table",
+        "items",
+        "section_break_documents",
+        "required_documents",
+        "section_break_node_context",
+        "cityos_tenant",
+        "cityos_country",
+        "column_break_6",
+        "cityos_city",
+        "cityos_sector",
+        "column_break_7",
+        "cityos_correlation_id",
+        "cityos_source_system",
+        "cityos_workflow_state",
+        "amended_from"
+    ],
+    "fields": [
+        {
+            "fieldname": "request_title",
+            "fieldtype": "Data",
+            "label": "Request Title",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "request_type",
+            "fieldtype": "Select",
+            "label": "Request Type",
+            "options": "\nGoods\nServices\nWorks\nConsultancy",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "\nDraft\nSubmitted\nBudget Verified\nUnder Review\nApproved\nReturned for Revision\nRFQ Issued\nVendor Selected\nPO Created\nReceived\nClosed\nRejected\nCancelled",
+            "default": "Draft",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_details",
+            "fieldtype": "Section Break",
+            "label": "Request Details"
+        },
+        {
+            "fieldname": "department",
+            "fieldtype": "Link",
+            "label": "Department",
+            "options": "Department"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "priority",
+            "fieldtype": "Select",
+            "label": "Priority",
+            "options": "\nLow\nMedium\nHigh\nUrgent",
+            "default": "Medium"
+        },
+        {
+            "fieldname": "required_by_date",
+            "fieldtype": "Date",
+            "label": "Required By Date"
+        },
+        {
+            "fieldname": "section_break_items",
+            "fieldtype": "Section Break",
+            "label": "Items & Cost"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Text Editor",
+            "label": "Description"
+        },
+        {
+            "fieldname": "estimated_cost",
+            "fieldtype": "Currency",
+            "label": "Estimated Cost",
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "currency",
+            "fieldtype": "Link",
+            "label": "Currency",
+            "options": "Currency",
+            "default": "USD"
+        },
+        {
+            "fieldname": "justification",
+            "fieldtype": "Small Text",
+            "label": "Business Justification"
+        },
+        {
+            "fieldname": "section_break_vendor",
+            "fieldtype": "Section Break",
+            "label": "Vendor Information"
+        },
+        {
+            "fieldname": "preferred_vendor",
+            "fieldtype": "Link",
+            "label": "Preferred Vendor",
+            "options": "Supplier"
+        },
+        {
+            "fieldname": "column_break_4",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "vendor_compliance_profile",
+            "fieldtype": "Link",
+            "label": "Vendor Compliance Profile",
+            "options": "Vendor Compliance Profile"
+        },
+        {
+            "fieldname": "section_break_approval",
+            "fieldtype": "Section Break",
+            "label": "Approval"
+        },
+        {
+            "fieldname": "approval_status",
+            "fieldtype": "Select",
+            "label": "Approval Status",
+            "options": "\nPending\nApproved\nRejected\nEscalated",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "approved_by",
+            "fieldtype": "Link",
+            "label": "Approved By",
+            "options": "User",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_5",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "approved_date",
+            "fieldtype": "Date",
+            "label": "Approved Date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "rejection_reason",
+            "fieldtype": "Small Text",
+            "label": "Rejection Reason"
+        },
+        {
+            "fieldname": "section_break_request_info",
+            "fieldtype": "Section Break",
+            "label": "Request Information"
+        },
+        {
+            "fieldname": "request_date",
+            "fieldtype": "Date",
+            "label": "Request Date"
+        },
+        {
+            "fieldname": "estimated_amount",
+            "fieldtype": "Currency",
+            "label": "Estimated Amount"
+        },
+        {
+            "fieldname": "column_break_ri1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "approved_amount",
+            "fieldtype": "Currency",
+            "label": "Approved Amount"
+        },
+        {
+            "fieldname": "actual_amount",
+            "fieldtype": "Currency",
+            "label": "Actual Amount",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_budget_link",
+            "fieldtype": "Section Break",
+            "label": "Budget & Allocation"
+        },
+        {
+            "fieldname": "budget_program",
+            "fieldtype": "Link",
+            "label": "Budget Program",
+            "options": "Budget Program"
+        },
+        {
+            "fieldname": "fiscal_allocation",
+            "fieldtype": "Link",
+            "label": "Fiscal Allocation",
+            "options": "Fiscal Allocation"
+        },
+        {
+            "fieldname": "section_break_proc_details",
+            "fieldtype": "Section Break",
+            "label": "Procurement Details"
+        },
+        {
+            "fieldname": "urgency_level",
+            "fieldtype": "Select",
+            "label": "Urgency Level",
+            "options": "\nNormal\nUrgent\nEmergency"
+        },
+        {
+            "fieldname": "procurement_method",
+            "fieldtype": "Select",
+            "label": "Procurement Method",
+            "options": "\nOpen Tender\nLimited Tender\nDirect Purchase\nFramework Agreement\nEmergency"
+        },
+        {
+            "fieldname": "column_break_pd1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "procurement_category",
+            "fieldtype": "Link",
+            "label": "Procurement Category",
+            "options": "CityOS Category"
+        },
+        {
+            "fieldname": "requesting_officer",
+            "fieldtype": "Link",
+            "label": "Requesting Officer",
+            "options": "User"
+        },
+        {
+            "fieldname": "approval_level",
+            "fieldtype": "Select",
+            "label": "Approval Level",
+            "options": "\nDepartment Head\nDirector\nCommittee",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_vendor_sel",
+            "fieldtype": "Section Break",
+            "label": "Vendor Selection & Orders"
+        },
+        {
+            "fieldname": "selected_vendor",
+            "fieldtype": "Link",
+            "label": "Selected Vendor",
+            "options": "Supplier"
+        },
+        {
+            "fieldname": "linked_purchase_order",
+            "fieldtype": "Link",
+            "label": "Linked Purchase Order",
+            "options": "Purchase Order"
+        },
+        {
+            "fieldname": "column_break_vs1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "linked_rfq",
+            "fieldtype": "Link",
+            "label": "Linked RFQ",
+            "options": "Request for Quotation"
+        },
+        {
+            "fieldname": "section_break_items_table",
+            "fieldtype": "Section Break",
+            "label": "Items"
+        },
+        {
+            "fieldname": "items",
+            "fieldtype": "Table",
+            "label": "Items",
+            "options": "Procurement Request Item"
+        },
+        {
+            "fieldname": "section_break_documents",
+            "fieldtype": "Section Break",
+            "label": "Required Documents"
+        },
+        {
+            "fieldname": "required_documents",
+            "fieldtype": "Table",
+            "label": "Required Documents",
+            "options": "Procurement Document Checklist"
+        },
+        {
+            "fieldname": "section_break_node_context",
+            "fieldtype": "Section Break",
+            "label": "CityOS Node Context",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "cityos_tenant",
+            "fieldtype": "Data",
+            "label": "CityOS Tenant",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "cityos_country",
+            "fieldtype": "Data",
+            "label": "CityOS Country"
+        },
+        {
+            "fieldname": "column_break_6",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_city",
+            "fieldtype": "Data",
+            "label": "CityOS City"
+        },
+        {
+            "fieldname": "cityos_sector",
+            "fieldtype": "Data",
+            "label": "CityOS Sector"
+        },
+        {
+            "fieldname": "column_break_7",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_correlation_id",
+            "fieldtype": "Data",
+            "label": "CityOS Correlation ID"
+        },
+        {
+            "fieldname": "cityos_source_system",
+            "fieldtype": "Data",
+            "label": "CityOS Source System"
+        },
+        {
+            "fieldname": "cityos_workflow_state",
+            "fieldtype": "Data",
+            "label": "CityOS Workflow State"
+        },
+        {
+            "fieldname": "amended_from",
+            "fieldtype": "Link",
+            "label": "Amended From",
+            "options": "CityOS Procurement Request",
+            "read_only": 1,
+            "no_copy": 1
+        }
+    ],
+    "modified": "2026-02-10 12:00:00.000000",
+    "creation": "2026-02-10 12:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 1,
+            "cancel": 1,
+            "amend": 1,
+            "report": 1,
+            "export": 1,
+            "import": 1
+        },
+        {
+            "role": "CityOS Procurement Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "submit": 1,
+            "cancel": 1,
+            "amend": 1,
+            "report": 1,
+            "export": 1
+        },
+        {
+            "role": "CityOS Administrator",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 1,
+            "cancel": 1,
+            "amend": 1,
+            "report": 1,
+            "export": 1,
+            "import": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "allow_import": 1,
+    "title_field": "request_title",
+    "search_fields": "request_type,status,department,priority",
+    "show_title_field_in_link": 1
+}

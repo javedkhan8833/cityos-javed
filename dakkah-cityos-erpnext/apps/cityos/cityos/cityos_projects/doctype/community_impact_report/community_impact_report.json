@@ -1,0 +1,353 @@
+{
+    "name": "Community Impact Report",
+    "module": "CityOS Projects",
+    "doctype": "DocType",
+    "document_type": "Document",
+    "engine": "InnoDB",
+    "naming_rule": "Random",
+    "autoname": "hash",
+    "is_submittable": 1,
+    "field_order": [
+        "report_title",
+        "linked_project",
+        "column_break_1",
+        "report_type",
+        "report_date",
+        "prepared_by",
+        "section_break_metrics",
+        "beneficiaries_count",
+        "jobs_created",
+        "column_break_2",
+        "environmental_impact",
+        "economic_impact",
+        "social_impact",
+        "section_break_findings",
+        "key_findings",
+        "section_break_recommendations",
+        "recommendations",
+        "section_break_status",
+        "status",
+        "section_break_assessor",
+        "assessor",
+        "section_break_scores",
+        "social_impact_score",
+        "economic_impact_score",
+        "column_break_sc1",
+        "environmental_impact_score",
+        "overall_impact_score",
+        "section_break_beneficiaries",
+        "beneficiary_count_actual",
+        "jobs_sustained",
+        "section_break_feedback",
+        "community_feedback_summary",
+        "section_break_analysis",
+        "cost_benefit_ratio",
+        "section_break_report_status",
+        "report_status",
+        "section_break_node_context",
+        "cityos_tenant",
+        "cityos_country",
+        "column_break_nc1",
+        "cityos_city",
+        "cityos_sector",
+        "column_break_nc2",
+        "cityos_correlation_id",
+        "cityos_source_system",
+        "cityos_workflow_state"
+    ],
+    "fields": [
+        {
+            "fieldname": "report_title",
+            "fieldtype": "Data",
+            "label": "Report Title",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "linked_project",
+            "fieldtype": "Link",
+            "label": "Linked Project",
+            "options": "Capital Project",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "report_type",
+            "fieldtype": "Select",
+            "label": "Report Type",
+            "options": "\nPre-Project Assessment\nMid-Project Review\nPost-Project Evaluation\nAnnual Review",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "report_date",
+            "fieldtype": "Date",
+            "label": "Report Date"
+        },
+        {
+            "fieldname": "prepared_by",
+            "fieldtype": "Link",
+            "label": "Prepared By",
+            "options": "Employee"
+        },
+        {
+            "fieldname": "section_break_metrics",
+            "fieldtype": "Section Break",
+            "label": "Impact Metrics"
+        },
+        {
+            "fieldname": "beneficiaries_count",
+            "fieldtype": "Int",
+            "label": "Beneficiaries Count"
+        },
+        {
+            "fieldname": "jobs_created",
+            "fieldtype": "Int",
+            "label": "Jobs Created"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "environmental_impact",
+            "fieldtype": "Select",
+            "label": "Environmental Impact",
+            "options": "\nPositive\nNeutral\nNegative\nMixed"
+        },
+        {
+            "fieldname": "economic_impact",
+            "fieldtype": "Select",
+            "label": "Economic Impact",
+            "options": "\nPositive\nNeutral\nNegative\nMixed"
+        },
+        {
+            "fieldname": "social_impact",
+            "fieldtype": "Select",
+            "label": "Social Impact",
+            "options": "\nPositive\nNeutral\nNegative\nMixed"
+        },
+        {
+            "fieldname": "section_break_findings",
+            "fieldtype": "Section Break",
+            "label": "Key Findings"
+        },
+        {
+            "fieldname": "key_findings",
+            "fieldtype": "Text",
+            "label": "Key Findings"
+        },
+        {
+            "fieldname": "section_break_recommendations",
+            "fieldtype": "Section Break",
+            "label": "Recommendations"
+        },
+        {
+            "fieldname": "recommendations",
+            "fieldtype": "Text",
+            "label": "Recommendations"
+        },
+        {
+            "fieldname": "section_break_status",
+            "fieldtype": "Section Break",
+            "label": "Status"
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "\nDraft\nUnder Review\nPublished",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_assessor",
+            "fieldtype": "Section Break",
+            "label": "Assessor"
+        },
+        {
+            "fieldname": "assessor",
+            "fieldtype": "Link",
+            "label": "Assessor",
+            "options": "User"
+        },
+        {
+            "fieldname": "section_break_scores",
+            "fieldtype": "Section Break",
+            "label": "Impact Scores"
+        },
+        {
+            "fieldname": "social_impact_score",
+            "fieldtype": "Float",
+            "label": "Social Impact Score"
+        },
+        {
+            "fieldname": "economic_impact_score",
+            "fieldtype": "Float",
+            "label": "Economic Impact Score"
+        },
+        {
+            "fieldname": "column_break_sc1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "environmental_impact_score",
+            "fieldtype": "Float",
+            "label": "Environmental Impact Score"
+        },
+        {
+            "fieldname": "overall_impact_score",
+            "fieldtype": "Float",
+            "label": "Overall Impact Score",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_beneficiaries",
+            "fieldtype": "Section Break",
+            "label": "Beneficiaries & Jobs"
+        },
+        {
+            "fieldname": "beneficiary_count_actual",
+            "fieldtype": "Int",
+            "label": "Beneficiary Count (Actual)"
+        },
+        {
+            "fieldname": "jobs_sustained",
+            "fieldtype": "Int",
+            "label": "Jobs Sustained"
+        },
+        {
+            "fieldname": "section_break_feedback",
+            "fieldtype": "Section Break",
+            "label": "Community Feedback"
+        },
+        {
+            "fieldname": "community_feedback_summary",
+            "fieldtype": "Text",
+            "label": "Community Feedback Summary"
+        },
+        {
+            "fieldname": "section_break_analysis",
+            "fieldtype": "Section Break",
+            "label": "Cost-Benefit Analysis"
+        },
+        {
+            "fieldname": "cost_benefit_ratio",
+            "fieldtype": "Float",
+            "label": "Cost-Benefit Ratio"
+        },
+        {
+            "fieldname": "section_break_report_status",
+            "fieldtype": "Section Break",
+            "label": "Report Status"
+        },
+        {
+            "fieldname": "report_status",
+            "fieldtype": "Select",
+            "label": "Report Status",
+            "options": "\nDraft\nUnder Review\nPublished"
+        },
+        {
+            "fieldname": "section_break_node_context",
+            "fieldtype": "Section Break",
+            "label": "CityOS Node Context",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "cityos_tenant",
+            "fieldtype": "Data",
+            "label": "CityOS Tenant",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "cityos_country",
+            "fieldtype": "Data",
+            "label": "CityOS Country"
+        },
+        {
+            "fieldname": "column_break_nc1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_city",
+            "fieldtype": "Data",
+            "label": "CityOS City"
+        },
+        {
+            "fieldname": "cityos_sector",
+            "fieldtype": "Data",
+            "label": "CityOS Sector"
+        },
+        {
+            "fieldname": "column_break_nc2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_correlation_id",
+            "fieldtype": "Data",
+            "label": "CityOS Correlation ID",
+            "hidden": 1,
+            "read_only": 1
+        },
+        {
+            "fieldname": "cityos_source_system",
+            "fieldtype": "Data",
+            "label": "CityOS Source System",
+            "read_only": 1
+        },
+        {
+            "fieldname": "cityos_workflow_state",
+            "fieldtype": "Data",
+            "label": "CityOS Workflow State",
+            "read_only": 1
+        }
+    ],
+    "modified": "2026-02-10 12:00:00.000000",
+    "creation": "2026-02-09 12:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 1,
+            "cancel": 1,
+            "amend": 1,
+            "report": 1,
+            "export": 1
+        },
+        {
+            "role": "CityOS Project Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "submit": 1,
+            "cancel": 0,
+            "report": 1
+        },
+        {
+            "role": "CityOS Administrator",
+            "read": 1,
+            "write": 0,
+            "create": 0,
+            "delete": 0,
+            "report": 1,
+            "export": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "search_fields": "report_title,linked_project,report_type,status"
+}

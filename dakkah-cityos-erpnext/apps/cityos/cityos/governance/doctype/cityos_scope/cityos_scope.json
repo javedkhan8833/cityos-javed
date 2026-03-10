@@ -1,0 +1,125 @@
+{
+    "name": "CityOS Scope",
+    "module": "Governance",
+    "doctype": "DocType",
+    "document_type": "Setup",
+    "engine": "InnoDB",
+    "field_order": [
+        "scope_name",
+        "column_break_1",
+        "enabled",
+        "section_break_hierarchy",
+        "country",
+        "column_break_2",
+        "scope_code",
+        "section_break_details",
+        "description",
+        "medusa_scope_id",
+        "payload_scope_id"
+    ],
+    "fields": [
+        {
+            "fieldname": "scope_name",
+            "fieldtype": "Data",
+            "label": "Scope Name",
+            "reqd": 1,
+            "unique": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "enabled",
+            "fieldtype": "Check",
+            "label": "Enabled",
+            "default": "1",
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "section_break_hierarchy",
+            "fieldtype": "Section Break",
+            "label": "Hierarchy"
+        },
+        {
+            "fieldname": "country",
+            "fieldtype": "Link",
+            "label": "Country",
+            "options": "Country",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "scope_code",
+            "fieldtype": "Data",
+            "label": "Scope Code",
+            "in_list_view": 1,
+            "description": "Short code for the scope (e.g., GOV, EDU, HEALTH)"
+        },
+        {
+            "fieldname": "section_break_details",
+            "fieldtype": "Section Break",
+            "label": "Details"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Small Text",
+            "label": "Description"
+        },
+        {
+            "fieldname": "medusa_scope_id",
+            "fieldtype": "Data",
+            "label": "Medusa Scope ID",
+            "read_only": 1,
+            "hidden": 1
+        },
+        {
+            "fieldname": "payload_scope_id",
+            "fieldtype": "Data",
+            "label": "Payload CMS Scope ID",
+            "read_only": 1,
+            "hidden": 1
+        }
+    ],
+    "modified": "2026-02-09 13:00:00.000000",
+    "creation": "2026-02-09 13:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "naming_rule": "By fieldname",
+    "autoname": "field:scope_name",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "report": 1,
+            "export": 1,
+            "import": 1
+        },
+        {
+            "role": "CityOS Administrator",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "report": 1,
+            "export": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "allow_import": 1,
+    "title_field": "scope_name",
+    "search_fields": "country,scope_code",
+    "show_title_field_in_link": 1
+}

@@ -1,0 +1,82 @@
+<Layout::Section::Header @title="Hierarchy Tree">
+    <div class="flex items-center space-x-2">
+        <Button @icon="sync" @text="Refresh" @onClick={{this.refreshTree}} @size="sm" @type="default" />
+    </div>
+</Layout::Section::Header>
+
+<Layout::Section::Body>
+    <div class="p-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    <FaIcon @icon="sitemap" class="mr-2 text-blue-500" />
+                    Multi-Level Hierarchy
+                </h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Country → City → Sector → Category → Subcategory → Tenant → Channel → Surface → Portal</p>
+            </div>
+            <div class="p-4">
+                {{#if this.model}}
+                    {{#each this.model as |country|}}
+                        <div class="mb-4 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                            <div class="p-3 bg-blue-50 dark:bg-blue-900/20 flex items-center justify-between cursor-pointer" role="button">
+                                <div class="flex items-center">
+                                    <FaIcon @icon="globe" class="mr-2 text-blue-600" />
+                                    <span class="font-semibold text-gray-900 dark:text-white">{{country.name}}</span>
+                                    <span class="ml-2 text-sm text-gray-500">({{country.name_ar}})</span>
+                                    {{#if country.iso2}}
+                                        <span class="ml-2 px-2 py-0.5 bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 rounded text-xs font-mono">{{country.iso2}}</span>
+                                    {{/if}}
+                                </div>
+                                <span class="text-xs text-gray-500">{{country.children.length}} cities</span>
+                            </div>
+                            {{#if country.children}}
+                                <div class="p-3 pl-8 space-y-2">
+                                    {{#each country.children as |city|}}
+                                        <div class="border-l-2 border-green-400 pl-3">
+                                            <div class="flex items-center">
+                                                <FaIcon @icon="city" class="mr-2 text-green-600 text-sm" />
+                                                <span class="font-medium text-gray-800 dark:text-gray-200">{{city.name}}</span>
+                                                <span class="ml-2 text-xs text-gray-500">({{city.name_ar}})</span>
+                                            </div>
+                                            {{#if city.children}}
+                                                <div class="ml-6 mt-1 space-y-1">
+                                                    {{#each city.children as |sector|}}
+                                                        <div class="border-l-2 border-yellow-400 pl-3">
+                                                            <div class="flex items-center">
+                                                                <FaIcon @icon="industry" class="mr-1 text-yellow-600 text-xs" />
+                                                                <span class="text-sm text-gray-700 dark:text-gray-300">{{sector.name}}</span>
+                                                                <span class="ml-1 text-xs text-gray-400">({{sector.name_ar}})</span>
+                                                            </div>
+                                                            {{#if sector.children}}
+                                                                <div class="ml-4 mt-0.5">
+                                                                    {{#each sector.children as |category|}}
+                                                                        <div class="flex items-center py-0.5">
+                                                                            <FaIcon @icon="tag" class="mr-1 text-purple-500 text-xs" />
+                                                                            <span class="text-xs text-gray-600 dark:text-gray-400">{{category.name}}</span>
+                                                                            {{#if category.children}}
+                                                                                <span class="ml-1 text-xs text-gray-400">({{category.children.length}} sub)</span>
+                                                                            {{/if}}
+                                                                        </div>
+                                                                    {{/each}}
+                                                                </div>
+                                                            {{/if}}
+                                                        </div>
+                                                    {{/each}}
+                                                </div>
+                                            {{/if}}
+                                        </div>
+                                    {{/each}}
+                                </div>
+                            {{/if}}
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <div class="text-center py-8 text-gray-500">
+                        <FaIcon @icon="spinner" @spin={{true}} class="text-2xl mb-2" />
+                        <p>Loading hierarchy tree...</p>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</Layout::Section::Body>

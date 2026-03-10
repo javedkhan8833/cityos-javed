@@ -1,0 +1,304 @@
+Complete Platform Context API Reference
+API Endpoints
+There are 3 Platform Context endpoints (no authentication required) plus additional system endpoints that require API keys.
+
+1. GET /api/platform/context
+Purpose: Full context resolution for any tenant. This is the main endpoint external systems call to bootstrap.
+
+Query Parameters:
+
+Parameter	Type	Required	Description
+tenant or tenantId	string	No	Tenant slug or ID (e.g., riyadh, platform)
+node or nodeId	string	No	Specific node ID to scope hierarchy
+Headers (alternative to query params):
+
+Header	Description
+X-CityOS-Tenant-Id	Tenant identifier
+X-CityOS-Node-Id	Node identifier
+Fallback behavior: If no tenant is specified or the requested tenant doesn't exist, automatically falls back to the platform tenant with isDefaultTenant: true.
+
+Caching: Cache-Control: public, max-age=60, s-maxage=300
+
+Response schema:
+
+{
+  "success": true,
+  "data": {
+    "tenant": {
+      "id": "string",
+      "name": "string",
+      "slug": "string",
+      "domain": "string",
+      "residencyZone": "GCC | EU | MENA | GLOBAL",
+      "status": "active | inactive",
+      "description": "string",
+      "settings": {
+        "defaultLocale": "en | fr | ar",
+        "supportedLocales": [{ "locale": "en" }],
+        "timezone": "UTC | Asia/Riyadh | ...",
+        "currency": "USD | SAR | EUR | ..."
+      }
+    },
+    "nodeHierarchy": [
+      {
+        "id": "string",
+        "name": "string",
+        "code": "string (e.g. RYD-001)",
+        "type": "CITY | DISTRICT | ZONE | FACILITY | ASSET",
+        "slug": "string",
+        "status": "active",
+        "coordinates": { "lat": 0.0, "lng": 0.0 },
+        "parent": "string (parent node ID) | null",
+        "children": [ /* nested NodeHierarchy[] */ ]
+      }
+    ],
+    "governanceChain": {
+      "region": { "id": "string", "name": "string", "code": "GCC", "residencyZone": "GCC" },
+      "country": { "id": "string", "name": "string", "code": "AE", "settings": {} },
+      "authorities": [
+        { "id": "string", "name": "string", "code": "string", "type": "federal | state | municipal | regulatory", "jurisdiction": {} }
+      ],
+      "policies": {
+        "dataResidency": {},
+        "compliance": {},
+        "classification": {}
+      }
+    },
+    "capabilities": {
+      "plugins": {
+        "official": ["multi-tenant", "search", "seo", "richtext-lexical", "form-builder", "nested-docs", "redirects", "mcp", "import-export", "cloud-storage"],
+        "community": ["docs-reorder", "fields-select", "translator", "better-fields", "totp-2fa"],
+        "custom": ["openapi-generator", "rbac-utils", "author-fields", "localized-slug", "event-tracking", "tree-list-view", "visual-editor", "video-processing"]
+      },
+      "features": {
+        "twoFactorAuth": true,
+        "rbac": true,
+        "multiTenancy": true,
+        "localization": { "locales": ["en", "fr", "ar"], "defaultLocale": "en" },
+        "objectStorage": true,
+        "videoProcessing": true,
+        "openApiDocs": true,
+        "aiContent": false,
+        "analytics": false,
+        "payments": false,
+        "errorTracking": false,
+        "workflowOrchestration": false
+      },
+      "endpoints": { /* see endpoint map below */ }
+    },
+    "systems": {
+      "total": 22,
+      "active": 10,
+      "external": 4,
+      "registry": [
+        {
+          "id": "cms-payload",
+          "name": "Payload CMS",
+          "type": "internal | external | stub",
+          "category": "cms | commerce | identity | payments | logistics | analytics | communication | infrastructure | workflow | erp | storage",
+          "status": "active | planned | deprecated",
+          "capabilities": ["content-management", "..."],
+          "hasBaseUrl": true
+        }
+      ]
+    },
+    "contextHeaders": [
+      "X-CityOS-Correlation-Id",
+      "X-CityOS-Tenant-Id",
+      "X-CityOS-Node-Id",
+      "X-CityOS-Node-Type",
+      "X-CityOS-Locale",
+      "X-CityOS-User-Id",
+      "X-CityOS-Channel",
+      "X-Idempotency-Key"
+    ],
+    "hierarchyLevels": ["CITY", "DISTRICT", "ZONE", "FACILITY", "ASSET"],
+    "resolvedAt": "2026-02-09T17:00:00.000Z",
+    "isDefaultTenant": false
+  }
+}
+2. GET /api/platform/tenants/default
+Purpose: Always returns the default platform tenant. Guaranteed 200 response for system bootstrap.
+
+No parameters required.
+
+Caching: Cache-Control: public, max-age=300, s-maxage=600
+
+Response: Same tenant/nodeHierarchy/governanceChain structure as above, plus:
+
+{
+  "usage": {
+    "description": "Use this tenant as fallback when no tenant-specific context is available",
+    "headers": {
+      "X-CityOS-Tenant-Id": "<platform-tenant-id>",
+      "X-CityOS-Locale": "en"
+    },
+    "bootstrapUrl": "/api/platform/context?tenant=platform"
+  }
+}
+3. GET /api/platform/capabilities
+Purpose: Returns all plugin capabilities, enabled features, and available endpoints.
+
+No parameters required. No caching headers.
+
+Response: The capabilities object from the context response (plugins, features, endpoints).
+
+All API Endpoint Map
+Path	Method	Auth	Purpose
+/api/platform/context	GET	None	Full context resolution
+/api/platform/tenants/default	GET	None	Default tenant bootstrap
+/api/platform/capabilities	GET	None	Plugin/feature/endpoint discovery
+/api/health	GET	None	System health (DB, MinIO, probes)
+/api/docs	GET	None	OpenAPI specification
+/api/docs/swagger	GET	None	Swagger UI
+/api/admin/tree-view	GET	Auth	Node hierarchy tree view
+/api/storage	GET/POST	X-API-Key	List/create buckets
+/api/storage/{bucket}	GET/DELETE	X-API-Key	List objects / delete bucket
+/api/storage/{bucket}/{key}	GET/PUT/DELETE/HEAD	X-API-Key	Object operations
+/api/storage/info	GET	None	Storage gateway info
+/api/bff/integrations	GET	None	Integration dashboard
+/api/bff/commerce/products	GET/POST	Correlation	Products CRUD
+/api/bff/commerce/orders	GET	Correlation	List orders
+/api/bff/commerce/orders/{id}	GET	Correlation	Order detail
+/api/bff/commerce/orders/{id}/cancel	POST	Correlation	Cancel order
+/api/bff/commerce/orders/{id}/fulfill	POST	Correlation	Fulfill order
+/api/bff/commerce/customers	GET	Correlation	List customers
+/api/bff/commerce/inventory	GET	Correlation	Inventory levels
+/api/bff/commerce/analytics	GET	Correlation	Commerce analytics
+/api/bff/integrations/commerce-webhook	POST	HMAC Sig	Commerce webhook receiver
+/api/bff/integrations/webhooks/commerce	POST	HMAC Sig	Commerce webhook (alt)
+/api/bff/integrations/logistics	GET	Correlation	Logistics integration
+/api/bff/integrations/webhooks/logistics	POST	HMAC Sig	Logistics webhook
+/api/bff/integrations/erp	GET	Correlation	ERP integration
+/api/bff/integrations/webhooks/erp	POST	HMAC Sig	ERP webhook
+Context Propagation Headers
+All external system calls should include these headers:
+
+Header	Required	Description
+X-CityOS-Correlation-Id	Yes	UUID for request tracing
+X-CityOS-Tenant-Id	Yes	Tenant ID
+X-CityOS-Node-Id	No	Scoping to specific node
+X-CityOS-Node-Type	No	CITY/DISTRICT/ZONE/FACILITY/ASSET
+X-CityOS-Locale	No	en/fr/ar
+X-CityOS-User-Id	No	Acting user
+X-CityOS-Channel	No	cms/storefront/mobile/api
+X-Idempotency-Key	No	Deduplication key
+X-CityOS-Region	No	Region code (GCC, EU, MENA, GLOBAL)
+X-CityOS-Country	No	ISO country code (AE, SA, FR)
+X-CityOS-Platform-Tenant-Id	No	Platform fallback tenant ID
+X-CityOS-Is-Default-Tenant	No	"true" when using fallback
+Environment Variables / Secrets
+Variable	Required	Used By	Description
+DATABASE_URL	Yes	Payload/DB	PostgreSQL connection string
+PAYLOAD_SECRET	Yes	Payload	CMS encryption secret
+TEMPORAL_API_KEY	For workflows	Temporal Client	Temporal Cloud auth key
+TEMPORAL_ENDPOINT	No	Temporal Client	Default: ap-northeast-1.aws.api.temporal.io:7233
+TEMPORAL_NAMESPACE	No	Temporal Client	Default: quickstart-dakkah-cityos.djvai
+WORKFLOW_SERVICE_URL	For webhooks	Workflow Bridge	Webhook dispatch target URL
+WORKFLOW_WEBHOOK_SECRET	For webhooks	Workflow Bridge	HMAC signing secret
+MEDUSA_BASE_URL	For commerce	Medusa Client	Medusa Commerce API URL
+MEDUSA_API_KEY	For commerce	Medusa Client	Medusa API key
+MEDUSA_WEBHOOK_SECRET	For webhooks	Commerce Webhook	HMAC verification secret
+ERPNEXT_BASE_URL	For ERP	ERPNext Client	ERPNext API URL
+FLEETBASE_BASE_URL	For logistics	Fleetbase Client	Fleetbase API URL
+STRIPE_SECRET_KEY	Optional	Stripe Plugin	Enables payment plugin
+SENTRY_DSN	Optional	Sentry Plugin	Enables error tracking
+PLAUSIBLE_API_KEY	Optional	Analytics Plugin	Enables analytics
+OPENAI_API_KEY	Optional	AI Content Plugin	Enables AI content
+MINIO_ENDPOINT	No	MinIO/Storage	Default: http://127.0.0.1:9000
+MINIO_AISTOR_KEY	Yes	MinIO	AIStor license key
+22 Registered Systems
+ID	Name	Type	Category	Status	Auth	Capabilities
+cms-payload	Payload CMS	internal	cms	active	api-key	content-management, media, users, localization
+cms-bff	CMS BFF Layer	internal	cms	active	none	content-aggregation, navigation, catalog, tenant-resolution
+commerce-medusa	Medusa Commerce	external	commerce	active	api-key	product-catalog, cart, checkout, orders, inventory
+identity-auth	CityOS Identity	internal	identity	active	none	authentication, authorization, rbac, api-keys, sessions
+payments-stripe	Stripe Payments	stub	payments	planned	api-key	payment-processing, subscriptions, invoicing, refunds
+analytics-internal	CityOS Analytics	internal	analytics	planned	api-key	event-tracking, dashboards, reporting, real-time-metrics
+communication-email	Email Service	stub	communication	active	api-key	transactional-email, templates, bulk-email
+communication-sms	SMS Gateway	stub	communication	active	api-key	sms-delivery, otp, notifications
+infra-database	PostgreSQL	internal	infrastructure	active	none	data-persistence, transactions, full-text-search, json
+infra-cache	Redis Cache	stub	infrastructure	planned	none	key-value-cache, session-store, rate-limiting, pub-sub
+infra-storage	Object Storage	internal	infrastructure	active	api-key	file-upload, media-storage, cdn-origin, presigned-urls, s3
+observability-health	Health Monitor	internal	infrastructure	active	none	health-checks, readiness-probes, liveness-probes
+observability-metrics	Metrics Collector	internal	analytics	active	none	prometheus-metrics, custom-counters, latency-tracking
+search-elasticsearch	Elasticsearch	stub	infrastructure	planned	api-key	full-text-search, faceted-search, autocomplete, geo-search
+geo-mapping	Mapping Service	stub	logistics	planned	api-key	geocoding, directions, poi-mapping, geofencing
+ai-recommendations	AI Engine	stub	analytics	planned	api-key	recommendations, personalization, embeddings, similarity
+logistics-delivery	Delivery Service	stub	logistics	planned	api-key	delivery-tracking, route-optimization, scheduling
+iot-platform	IoT Devices	stub	infrastructure	planned	api-key	device-registration, telemetry, firmware-updates
+social-platform	Social Media	stub	communication	planned	oauth2	post-publishing, audience-insights, engagement
+workflow-temporal	Temporal Workflows	external	workflow	active	api-key	workflow-orchestration, activities, signals, queries, task-queues
+erp-erpnext	ERPNext	external	erp	planned	api-key	accounting, invoicing, payouts, purchase-orders, tax
+logistics-fleetbase	Fleetbase Logistics	external	logistics	planned	api-key	delivery-tracking, fleet-management, proof-of-delivery
+Database Collections (68 total)
+Core Platform:
+
+tenants - Tenant configs (name, slug, domain, residencyZone, settings, country, governanceAuthority)
+nodes - Hierarchical nodes (name, type, code, parent, coordinates, metadata)
+users - User accounts (username, name, roles, assignedNodes, defaultPersona)
+media - Uploaded media files
+regions - Geographic regions (name, code, residencyZone, policies)
+countries - Countries (name, code, region, policies, settings)
+Governance:
+
+governance-authorities - Governance bodies (name, code, type, country, jurisdiction, policies)
+compliance-records - Compliance tracking (title, type, status, authority, severity, findings)
+policies - Governance policies (name, type, scope, authority, rules, priority)
+Security:
+
+api-keys - API key management (name, key-hash, prefix, scopes, tenant, status, expiresAt)
+service-accounts - System service accounts (name, service, roles, apiKey, status)
+feature-flags - Feature flags (name, key, enabled, scope, targetTenants, percentage)
+Integration:
+
+external-systems - Registered external systems (systemId, category, type, baseUrl, authMethod, webhookUrl)
+webhooks - Webhook configurations (name, url, events, secret, serviceAccount, status)
+integration-health - Integration health tracking (integration, type, status, successRate, avgResponseTime)
+Workflow:
+
+workflows - Workflow definitions (workflowId, name, temporalWorkflowType, taskQueue, retryPolicy, inputSchema)
+workflow-executions - Temporal execution tracking (runId, workflowType, status, input, output, duration)
+workflow-failures - Failed workflow records
+workflow-schedules - Scheduled workflows (cronExpression, isActive, lastRunAt, nextRunAt)
+task-queues - Temporal task queue configuration (name, domainPack, workerConfig, healthStatus)
+Observability:
+
+audit-logs - Immutable audit trail (action, entityType, user, tenant, changes, integrityHash)
+event-tracking - Event log (action, collection, documentId, user, ip, userAgent)
+event-failures - Failed event records (eventType, payload, error, attempts, status)
+outbox - Outbox pattern events (eventType, payload, status, attempts, correlationId)
+system-health - System health records
+notifications - User notifications
+notification-preferences - User notification settings
+POI System (30+ collections):
+
+pois - Points of Interest core data
+poi-accessibility-profiles, poi-booking-summaries, poi-capabilities, poi-collections, poi-commerce-summaries, poi-compliance-statuses, poi-digital-presences, poi-editorial-sections, poi-external-refs, poi-facts, poi-governance-bindings, poi-guides, poi-hierarchy, poi-hours, poi-links, poi-media-curations, poi-mobility-profiles, poi-node-bindings, poi-ownership, poi-page-contracts, poi-page-templates, poi-realtime-signals, poi-relations, poi-routes-trails, poi-section-registry, poi-services-summaries, poi-source-records, poi-story-blocks, poi-tenant-overlays, poi-trust-profiles, poi-verification-records, poi-views
+Content:
+
+templates, redirects, routing-rules, moderation, search-index-jobs, service-catalog
+Default Platform Tenant
+Field	Value
+Slug	platform
+Domain	platform.cityos.dev
+Residency Zone	GLOBAL
+Default Locale	en
+Supported Locales	en, fr, ar
+Timezone	UTC
+Currency	USD
+Node prefix	PLT
+Known Seeded Tenants
+platform, riyadh, dubai, jeddah, barcelona, amsterdam, cairo, amman, demo, enterprise
+
+Webhook Authentication
+Incoming webhooks from Commerce/Logistics/ERP use HMAC-SHA256 signature verification:
+
+Header: X-Webhook-Secret or x-webhook-signature
+Body is signed with the shared secret (e.g., MEDUSA_WEBHOOK_SECRET, WORKFLOW_WEBHOOK_SECRET)
+Signature = HMAC-SHA256(secret, JSON body) as hex string
+Storage Gateway Authentication
+All /api/storage/* endpoints require:
+
+Header: X-API-Key with a valid CityOS API key
+Keys are managed in the api-keys collection and verified via SHA-256 hash lookup

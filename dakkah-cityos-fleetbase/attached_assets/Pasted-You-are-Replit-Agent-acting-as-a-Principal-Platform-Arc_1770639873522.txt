@@ -1,0 +1,394 @@
+You are Replit Agent acting as a Principal Platform Architect + Staff+ Platform Engineer. Build a single monorepo named “Dakkah-CityOS-Fleetbase” that serves as the Dakkah CityOS Fulfillment, Delivery, Mobility, and On-Demand Service Execution System powered by Fleetbase (and its extensions). This repo must be production-grade, multi-tenant, multi-node, multi-country, plugin-driven, and publishable as packages for use by 100+ CityOS systems and 40+ BFF services. It must integrate tightly with the Dakkah CityOS Main App (Payload CMS), Commerce (Medusa), and Workflow (Temporal). Do NOT build a toy example; scaffold a complete repository structure with working code skeletons, configs, scripts, docker compose for local stack, minimal working endpoints, and integration adapters. Focus on correctness, separation of concerns, deterministic contracts, and versionable modules.
+
+CRITICAL EXECUTION RULES:
+- ALL directories MUST exist at the repository root (no deep nesting).
+- Use pnpm workspaces + turborepo + changesets for publishable packages.
+- Use Node.js 20+ and TypeScript everywhere for CityOS packages and façade services.
+- Fleetbase core may use its native stack, but ALL CityOS integration surfaces must be TypeScript and publishable.
+- Enforce CityOS governance: NodeContext, tenancy isolation, compliance/residency classification, policy hooks.
+- Provide both:
+  (1) Fleetbase runtime stack + adapter services, and
+  (2) CityOS SDK + BFF packages for other repos.
+- All integration is contracts-first: Zod schemas + OpenAPI baseline.
+- Implement event-driven integration via CityBus + outbox patterns (stubs ok).
+- Provide Temporal workflow triggers for dispatch, assignment, ETA updates, exceptions, and completion.
+
+========================================
+A) CORE GOAL (WHAT YOU ARE BUILDING)
+========================================
+Build Dakkah CityOS Fleetbase system to provide:
+1) Fulfillment execution (pickup → hub → last-mile → dropoff)
+2) On-demand services delivery (appointments, home services, field ops)
+3) Driver/courier management (onboarding, verification, shifts)
+4) Dispatch, assignment, routing, and ETA calculations (skeleton)
+5) Geo tracking (vehicles, couriers, assets) + geofencing (skeleton)
+6) Proof of Delivery (POD), signatures, photos (storage abstraction)
+7) Exception management (failed delivery, reschedule, refund triggers)
+8) SLA enforcement (time windows, penalties, performance metrics)
+9) Multi-vendor + multi-tenant order splitting and delivery batching
+10) CityOS-wide integration:
+    - Payload CMS (POIs, zones, hubs, service providers)
+    - Medusa Commerce (orders, shipments, returns)
+    - Temporal workflows (long-running orchestration)
+    - Payments/Wallet (COD, tips, fees) - stub only
+11) Publishable packages: Fleetbase SDK, BFF surfaces, policy hooks, geo utilities.
+
+========================================
+B) TECH STACK REQUIREMENTS (MUST USE)
+========================================
+- Monorepo tooling:
+  - pnpm workspaces
+  - changesets
+  - turborepo
+- Runtime & language:
+  - Node.js 20+ for CityOS services and packages
+  - TypeScript everywhere in CityOS layer
+- Fleetbase:
+  - Self-hosted Fleetbase stack in /apps/fleetbase-core (docker)
+  - Treat Fleetbase as the execution engine; wrap it in CityOS governance
+- Database:
+  - PostgreSQL + PostGIS (mandatory for geo)
+  - Optional: Citus in CityOS DB layer (scaffold if not used by Fleetbase)
+- Storage:
+  - MinIO (S3 compatible) as default for POD photos/documents
+  - Provider abstraction for future (GCS/S3/Azure)
+- Caching:
+  - Redis for hot ETA/dispatch caching and idempotency keys (skeleton)
+- Contracts:
+  - Zod + OpenAPI baseline
+- Eventing:
+  - CityBus envelope + adapter stubs for Kafka/Redpanda + Webhooks
+- Workflows:
+  - Temporal triggers and workflow contracts (integration stubs)
+
+========================================
+C) CITYOS DOMAIN MODEL (NON-NEGOTIABLE)
+========================================
+Implement NodeContext for every request, shipment, task, and service job:
+
+NodeContext fields:
+- country
+- cityOrTheme
+- sector
+- category
+- subcategory
+- tenant
+- channel
+- surface
+- persona
+- brand
+- theme
+- locale
+- processingRegion
+- residencyClass
+- version (optional)
+
+Requirements:
+- NodeContext resolver supports:
+  1) Path-based tenancy for UI: /t/{tenant}/{locale}/...
+  2) Header-based for internal calls: X-CityOS-* headers
+  3) Cookie fallback for browser navigation
+- Validation: reject requests missing required context on BFF + internal APIs.
+- Ensure tenant isolation at query level and policy layer.
+
+========================================
+D) REPO LAYOUT (ALL TOP-LEVEL FOLDERS)
+========================================
+Create these top-level directories in repo root:
+
+/apps
+  /fleetbase-core             (Fleetbase runtime stack + configs; dockerized)
+  /fleetbase-api              (CityOS façade API: contracts-first; talks to fleetbase-core)
+  /fleetbase-workers          (async workers: events, sync, notifications; Node/TS)
+  /fleetbase-operator-ui      (optional minimal Next UI for ops; skeleton ok)
+  /docs-site                  (minimal docs site skeleton)
+
+/packages
+  /cityos-core                (NodeContext, IDs, invariants, logging, error model)
+  /cityos-contracts           (Zod schemas + OpenAPI)
+  /cityos-config              (typed config loader + env schema)
+  /cityos-auth                (service accounts, API keys/JWT stubs, policy hooks)
+  /cityos-policies            (Cerbos-ready policies + RBAC mapping)
+  /cityos-observability       (metrics/tracing/logging)
+  /cityos-events              (event envelope + adapter stubs)
+  /cityos-outbox              (outbox dispatcher skeleton)
+  /cityos-storage             (MinIO provider + abstraction)
+  /cityos-geo                 (PostGIS utilities, H3/geohash helpers, geofencing skeleton)
+  /cityos-routing             (ETA/routing interfaces; stub implementations)
+  /cityos-fleetbase-sdk       (typed SDK for other systems; ctx propagation)
+  /cityos-bff-kit             (BFF framework reused style from other repos)
+  /cityos-fleetbase-bff       (Fleetbase BFF surfaces: deliveries, tracking, provider ops)
+  /cityos-integrations        (adapters to Payload/Commerce/Workflow; stubs)
+  /cityos-types               (shared enums: statuses, roles, surfaces, slugs)
+
+/infra
+  /docker                     (compose: fleetbase + postgres+postgis + redis + minio)
+  /k8s                        (optional skeleton manifests)
+  /sql                        (bootstrap SQL scripts enabling extensions)
+  /scripts                    (dev scripts)
+
+/policies
+  /cerbos
+  /rbac
+  /sla                        (SLA policy templates)
+  /dispatch                   (dispatch/routing policy templates)
+
+/tools
+  /codegen                    (OpenAPI, client generation)
+  /migrations                 (DB migrations, optional)
+  /sync                       (seed + sync scripts)
+
+/configs
+  /eslint
+  /tsconfig
+  /prettier
+  /changesets
+
+/.github
+  /workflows
+
+Root must include:
+- package.json
+- pnpm-workspace.yaml
+- turbo.json
+- tsconfig.base.json
+- .env.example
+- README.md
+
+========================================
+E) FLEETBASE + CITYOS INTEGRATION STRATEGY
+========================================
+E1) Fleetbase as execution engine:
+- Fleetbase owns:
+  - task execution states
+  - driver/vehicle dispatch
+  - operational job lifecycle
+- CityOS wrapper owns:
+  - NodeContext, policies, tenancy, compliance
+  - contract-first APIs for other systems
+  - event publishing and workflow triggers
+  - storage abstraction
+  - multi-tenant isolation guarantees
+
+E2) Fleetbase API façade:
+- /apps/fleetbase-api provides stable REST endpoints:
+  - validates NodeContext
+  - enforces policy hooks
+  - translates CityOS contracts to Fleetbase internal calls
+  - returns contracts-stable outputs
+
+E3) Deterministic IDs:
+- Every delivery/task must have:
+  - cityosDeliveryId (UUID)
+  - sourceSystemRef (commerceOrderId, poiId, serviceJobId, etc.)
+- Implement idempotency keys:
+  - createDeliveryIdempotencyKey = tenant + sourceRef + type
+
+========================================
+F) CORE ENTITIES + STATUS MODELS (CITYOS CONTRACTS)
+========================================
+Implement Zod schemas (cityos-contracts) for:
+
+F1) DeliveryOrder (shipment/job):
+- deliveryId, tenantId, NodeContext
+- type: pickup_dropoff | multi_stop | appointment | field_service
+- sourceRef: { systemId, entityType, entityId }
+- pickup: { poiId?, address, geo, contact, window }
+- dropoff: { poiId?, address, geo, contact, window }
+- items: [{ sku?, name, qty, weight?, dims?, fragile? }]
+- fees: { deliveryFee, serviceFee, tip?, codAmount? }
+- constraints: { coldChain?, ageRestricted?, signatureRequired?, photoRequired? }
+- status: created|scheduled|dispatched|enroute|arrived|delivered|failed|canceled
+- timestamps + audit fields
+
+F2) Provider (service provider / vendor / fleet operator):
+- providerId, tenantId, NodeContext
+- capabilities: delivery|install|maintenance|tour|transport|cleaning
+- verificationStatus, rating aggregates
+
+F3) Agent (driver/courier/technician):
+- agentId, providerId, tenantId
+- identity verification placeholders
+- shift status, availability
+
+F4) Vehicle/Asset (optional):
+- vehicleId, type, capacity, constraints
+
+F5) TrackingEvent:
+- deliveryId
+- eventType (location_update, status_change, exception, pod_uploaded)
+- geo point, timestamp
+- actor (agent/system)
+
+F6) ProofOfDelivery:
+- deliveryId
+- signatureRef?, photoRefs?, notes
+- stored via cityos-storage
+
+F7) SLA + Exceptions:
+- SLA policy reference
+- breach reasons, penalty placeholders
+- exception types: no_answer, address_issue, damaged, late, refused
+
+========================================
+G) DATABASE + GEO (POSTGIS MANDATORY)
+========================================
+Implement /packages/cityos-geo and /packages/cityos-db (optional) to support:
+- zone containment queries (is a point inside polygon)
+- distance and nearest hub/provider queries
+- geofencing skeleton (enter/exit events)
+- H3 index fields for caching keys (recommended)
+
+Bootstrap SQL scripts must enable:
+- postgis
+- uuid-ossp (optional)
+If you also scaffold Citus:
+- citus extension enablement scripts (optional)
+
+========================================
+H) API / BFF SURFACES (PUBLISHABLE)
+========================================
+Implement /packages/cityos-fleetbase-bff using cityos-bff-kit.
+Expose minimal working endpoints:
+
+H1) Consumer/User-facing:
+- POST /api/bff/deliveries/create
+- GET  /api/bff/deliveries/{id}
+- GET  /api/bff/deliveries/{id}/track
+- POST /api/bff/deliveries/{id}/cancel
+
+H2) Provider/Operations:
+- GET  /api/bff/providers/{providerId}/jobs?status=
+- POST /api/bff/providers/{providerId}/jobs/{jobId}/assign
+- POST /api/bff/providers/{providerId}/jobs/{jobId}/status
+
+H3) Internal Systems:
+- POST /internal/fleetbase/delivery/from-commerce
+- POST /internal/fleetbase/delivery/from-service
+- POST /internal/fleetbase/events/ingest (stub)
+
+Every endpoint must:
+- read NodeContext
+- enforce policy hooks
+- enforce tenant isolation
+- emit audit + outbox events (skeleton ok)
+
+========================================
+I) TEMPORAL WORKFLOW INTEGRATION (EXECUTION TRUTH)
+========================================
+Implement stubs that trigger workflows in dakkah-cityos-workflow:
+- WF-FLT-001: delivery-dispatch-orchestration
+- WF-FLT-002: delivery-exception-escalation
+- WF-FLT-003: delivery-completion-settlement-hook
+- WF-FLT-004: provider-onboarding-approval
+
+Trigger conditions examples:
+- delivery created -> dispatch orchestration
+- status failed -> exception escalation
+- delivered -> settlement hook (commerce/erp)
+
+========================================
+J) EVENTS + OUTBOX (RELIABLE INTEGRATION)
+========================================
+Implement:
+- cityos-outbox skeleton
+- event envelope includes NodeContext + correlationId
+- emit events:
+  - DELIVERY_CREATED
+  - DELIVERY_STATUS_CHANGED
+  - DELIVERY_LOCATION_UPDATED
+  - DELIVERY_FAILED
+  - POD_UPLOADED
+  - SLA_BREACH_DETECTED (stub)
+
+Provide adapters:
+- webhook publisher (dev)
+- kafka/redpanda stub
+
+========================================
+K) INTEGRATIONS WITH CMS + COMMERCE + ERP (STUBS OK)
+========================================
+K1) Payload CMS (POIs, zones, hubs):
+- Resolve poiId -> address/geo
+- Resolve zone policies -> SLA rules
+- Sync “hubs” and “service providers” metadata
+
+K2) Medusa Commerce:
+- order -> create delivery request
+- return/refund -> pickup return delivery request
+- COD/tips placeholders
+
+K3) ERPNext:
+- delivery completion -> accounting hooks (fees, payout readiness)
+- provider settlement events
+
+All integration must be contracts-first with typed stubs.
+
+========================================
+L) SECURITY, POLICY, AND ROLES
+========================================
+Provide policy placeholders and RBAC mapping:
+- roles:
+  - cityos_admin
+  - city_ops_manager
+  - provider_admin
+  - dispatcher
+  - agent
+  - customer_support
+- permissions:
+  - create delivery
+  - view delivery
+  - assign agent
+  - update status
+  - upload POD
+  - view analytics
+Enforce via policy hooks (Cerbos-ready).
+
+========================================
+M) OBSERVABILITY + OPS
+========================================
+Implement:
+- /health, /ready, /metrics
+- structured logs with correlationId
+- basic metrics:
+  - deliveries_created_total
+  - deliveries_failed_total
+  - average_delivery_time_seconds (stub)
+  - sla_breaches_total (stub)
+
+========================================
+N) LOCAL DEV + DELIVERABLES
+========================================
+N1) Docker compose in /infra/docker must start:
+- fleetbase-core
+- postgres+postgis
+- redis
+- minio
+- (optional) admin UIs
+
+N2) Provide scripts:
+- pnpm dev (start stack + api)
+- pnpm fleetbase:up / fleetbase:down
+- pnpm seed (seed 2 tenants + 1 provider + 2 agents + sample POIs refs)
+- pnpm openapi:gen (generate OpenAPI)
+- pnpm changeset / pnpm release
+
+N3) README.md must explain:
+- NodeContext and tenant isolation in Fleetbase APIs
+- how to create delivery from commerce
+- how dispatch workflow triggers
+- how to add a new BFF surface
+- how to store POD via MinIO provider abstraction
+
+========================================
+O) MINIMUM WORKING END-TO-END (MUST DEMONSTRATE)
+========================================
+Implement a minimal working flow:
+1) Seed tenant + provider + agent
+2) POST create delivery (BFF) with NodeContext
+3) Delivery is stored and returns deliveryId
+4) Trigger a stub workflow (WF-FLT-001) or emit outbox event
+5) GET delivery and tracking returns structured data
+6) Upload POD (stub) storing file via MinIO provider
+
+Start building now.

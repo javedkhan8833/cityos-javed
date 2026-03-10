@@ -1,0 +1,94 @@
+modules = ["python-3.12", "nodejs-20", "web", "postgresql-16"]
+[agent]
+expertMode = true
+integrations = ["github:1.0.0"]
+
+[nix]
+channel = "stable-25_05"
+packages = ["esbuild", "mariadb", "mariadb-connector-c", "pkg-config", "rapidfuzz-cpp", "redis", "sass", "taskflow", "wkhtmltopdf"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 9000
+externalPort = 9000
+exposeLocalhost = true
+
+[[ports]]
+localPort = 11000
+externalPort = 3000
+exposeLocalhost = true
+
+[[ports]]
+localPort = 13000
+externalPort = 3001
+exposeLocalhost = true
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bash /home/runner/workspace/start.sh"
+waitForPort = 5000
+
+[deployment]
+deploymentTarget = "vm"
+run = ["bash", "/home/runner/workspace/start.sh"]
+build = ["bash", "-c", "echo 'Build complete'"]
+
+[userenv]
+
+[userenv.shared]
+FRAPPE_BENCH_ROOT = "/home/runner/workspace"
+FRAPPE_SITE = "site1.local"
+FRAPPE_REDIS_CACHE = "redis://localhost:11000"
+FRAPPE_REDIS_QUEUE = "redis://localhost:13000"
+GUNICORN_BIND = "127.0.0.1:8000"
+GUNICORN_PORT = "8000"
+SOCKETIO_PORT = "9000"
+PROXY_PORT = "5000"
+TEMPORAL_ENDPOINT = "ap-northeast-1.aws.api.temporal.io:7233"
+TEMPORAL_NAMESPACE = "quickstart-dakkah-cityos.djvai"
+TEMPORAL_DEFAULT_TASK_QUEUE = "xsystem-platform-queue"
+TEMPORAL_SYSTEM_ID = "erpnext"
+TEMPORAL_DOMAIN = "xsystem"
+CITYOS_CMS_API_URL = "https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev:3001"
+FRAPPE_DB_TYPE = "postgres"
+FRAPPE_DB_HOST = "helium"
+FRAPPE_DB_PORT = "5432"
+FRAPPE_DB_NAME = "heliumdb"
+MEDUSA_BACKEND_PORT = "9000"
+STOREFRONT_PORT = "5000"
+MEDUSA_ADMIN_PATH = "/commerce/admin"
+MEDUSA_BACKEND_URL_LOCAL = "http://localhost:9000"
+STOREFRONT_URL_LOCAL = "http://localhost:5000"
+PAYLOAD_CMS_URL_LOCAL = "http://localhost:3001"
+ERPNEXT_URL_LOCAL = "http://localhost:8080"
+FLEETBASE_URL_LOCAL = "http://localhost:4000"
+WALTID_URL_LOCAL = "http://localhost:7000"
+MEDUSA_BACKEND_URL_DEV = "https://f76865b8-a3a7-41f9-85b2-b0ade8a4fd85-00-3o74vg6b4mqvs.sisko.replit.dev:9000"
+STOREFRONT_URL_DEV = "https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev:5000"
+PAYLOAD_CMS_URL_DEV = "https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev:3001"
+ERPNEXT_URL_DEV = "https://ff049349-609e-450d-ab42-e289d89960bb-00-ujg6lz7mnzcy.pike.replit.dev:8080"
+FLEETBASE_URL_DEV = "https://efdaeea4-1883-4ef0-9888-41da8659025c-00-19fmj1r05ozg4.pike.replit.dev:4000"
+WALTID_URL_DEV = "https://9e78ac41-ae95-440f-9196-e9263c6eadda-00-130jbk279zua2.janeway.replit.dev:7000"
+UV_PROJECT_ENVIRONMENT = "/home/runner/workspace/.venv"

@@ -1,0 +1,25 @@
+{
+    "name": "Vendor Certificate",
+    "module": "Procurement",
+    "doctype": "DocType",
+    "istable": 1,
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "fields": [
+        {"fieldname": "certificate_type", "fieldtype": "Select", "label": "Certificate Type", "options": "\nTrade License\nTax Clearance\nInsurance\nISO Certification\nSafety Certification\nOther", "in_list_view": 1, "reqd": 1},
+        {"fieldname": "certificate_number", "fieldtype": "Data", "label": "Certificate Number", "in_list_view": 1},
+        {"fieldname": "issuing_authority", "fieldtype": "Data", "label": "Issuing Authority"},
+        {"fieldname": "issue_date", "fieldtype": "Date", "label": "Issue Date"},
+        {"fieldname": "expiry_date", "fieldtype": "Date", "label": "Expiry Date", "in_list_view": 1},
+        {"fieldname": "status", "fieldtype": "Select", "label": "Status", "options": "\nValid\nExpiring Soon\nExpired\nRevoked", "in_list_view": 1, "read_only": 1},
+        {"fieldname": "attachment", "fieldtype": "Attach", "label": "Attachment"}
+    ],
+    "permissions": [],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "creation": "2026-02-10 00:00:00.000000",
+    "modified": "2026-02-10 00:00:00.000000",
+    "modified_by": "Administrator",
+    "owner": "Administrator"
+}

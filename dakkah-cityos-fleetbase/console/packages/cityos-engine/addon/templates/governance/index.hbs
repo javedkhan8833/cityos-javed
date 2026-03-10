@@ -1,0 +1,241 @@
+<Layout::Section::Header @title="Governance Overview">
+    <div class="flex items-center space-x-2">
+        <Button @icon="sync" @text="Refresh Trees" @onClick={{this.refreshAll}} @size="sm" @type="default" />
+    </div>
+</Layout::Section::Header>
+
+<Layout::Section::Body>
+    <div class="p-6 space-y-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                    <FaIcon @icon="link" class="mr-2 text-blue-500" />
+                    Governance Chain Resolver
+                </h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Resolve cascading governance policies for a tenant and/or country context.</p>
+            </div>
+            <div class="p-4">
+                <div class="flex flex-wrap gap-4 items-end">
+                    <div class="flex-1 min-w-48">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tenant Handle/UUID</label>
+                        <input type="text" value={{this.tenantHandle}} {{on "input" this.updateTenantHandle}} placeholder="e.g., acme-corp" class="w-full px-3 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                    </div>
+                    <div class="flex-1 min-w-48">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Country Code</label>
+                        <input type="text" value={{this.countryCode}} {{on "input" this.updateCountryCode}} placeholder="e.g., SA" class="w-full px-3 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                    </div>
+                    <div>
+                        <Button @icon="search" @text={{if this.isLoadingChain "Resolving..." "Resolve Chain"}} @onClick={{this.resolveChain}} @size="sm" @type="primary" @disabled={{this.isLoadingChain}} />
+                    </div>
+                </div>
+
+                {{#if this.chainError}}
+                    <div class="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                        <p class="text-sm text-red-800 dark:text-red-300">{{this.chainError}}</p>
+                    </div>
+                {{/if}}
+
+                {{#if this.chainResult}}
+                    <div class="mt-4 space-y-4">
+                        {{#if this.chainResult.region}}
+                            <div class="p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <FaIcon @icon="earth-americas" class="mr-2 text-blue-600" />
+                                    <span class="font-medium text-gray-900 dark:text-white">Region: {{this.chainResult.region.name}}</span>
+                                    {{#if this.chainResult.region.code}}
+                                        <span class="ml-2 px-2 py-0.5 bg-blue-200 dark:bg-blue-800 rounded text-xs font-mono">{{this.chainResult.region.code}}</span>
+                                    {{/if}}
+                                </div>
+                                {{#if this.chainResult.region.residencyZone}}
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Residency Zone: {{this.chainResult.region.residencyZone}}</p>
+                                {{/if}}
+                            </div>
+                        {{/if}}
+
+                        {{#if this.chainResult.country}}
+                            <div class="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+                                <div class="flex items-center">
+                                    <FaIcon @icon="globe" class="mr-2 text-green-600" />
+                                    <span class="font-medium text-gray-900 dark:text-white">Country: {{this.chainResult.country.name}}</span>
+                                    {{#if this.chainResult.country.code}}
+                                        <span class="ml-2 px-2 py-0.5 bg-green-200 dark:bg-green-800 rounded text-xs font-mono">{{this.chainResult.country.code}}</span>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        {{/if}}
+
+                        {{#if this.chainResult.authorities.length}}
+                            <div class="p-3 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <FaIcon @icon="landmark" class="mr-2 text-purple-600" />
+                                    <span class="font-medium text-gray-900 dark:text-white">Governance Authorities ({{this.chainResult.authorities.length}})</span>
+                                </div>
+                                <div class="space-y-1">
+                                    {{#each this.chainResult.authorities as |auth|}}
+                                        <div class="flex items-center text-sm text-gray-700 dark:text-gray-300">
+                                            <span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+                                            {{auth.name}}
+                                            <span class="ml-2 text-xs text-gray-500">{{auth.type}}</span>
+                                        </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        {{/if}}
+
+                        {{#if this.chainResult.effectivePolicies}}
+                            <div class="p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <FaIcon @icon="scroll" class="mr-2 text-orange-600" />
+                                    <span class="font-medium text-gray-900 dark:text-white">Effective Policies</span>
+                                    {{#if this.chainResult.policyCount}}
+                                        <span class="ml-2 px-2 py-0.5 bg-orange-200 dark:bg-orange-800 rounded text-xs">{{this.chainResult.policyCount}} policies merged</span>
+                                    {{/if}}
+                                </div>
+                                <pre class="text-xs text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 p-3 rounded overflow-x-auto font-mono max-h-60 overflow-y-auto">{{json-pretty this.chainResult.effectivePolicies}}</pre>
+                            </div>
+                        {{/if}}
+
+                        {{#if this.chainResult.policyStack.length}}
+                            <div class="p-3 bg-gray-50 dark:bg-gray-750 border border-gray-200 dark:border-gray-600 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <FaIcon @icon="layer-group" class="mr-2 text-gray-600" />
+                                    <span class="font-medium text-gray-900 dark:text-white">Policy Stack Trace ({{this.chainResult.policyStack.length}} levels)</span>
+                                </div>
+                                {{#each this.chainResult.policyStack as |level|}}
+                                    <div class="ml-4 py-1 text-sm text-gray-600 dark:text-gray-400 border-l-2 border-gray-300 dark:border-gray-600 pl-3">
+                                        <span class="font-medium">{{level.source}}</span>
+                                        {{#if level.scope}}
+                                            <span class="ml-1 text-xs text-gray-500">({{level.scope}})</span>
+                                        {{/if}}
+                                    </div>
+                                {{/each}}
+                            </div>
+                        {{/if}}
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+                <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                        <FaIcon @icon="building" class="mr-2 text-purple-500" />
+                        Tenant Hierarchy
+                    </h3>
+                    <Button @icon="sync" @onClick={{this.loadTenantTree}} @size="xs" @type="default" />
+                </div>
+                <div class="p-4 max-h-96 overflow-y-auto">
+                    {{#if this.isLoadingTenantTree}}
+                        <div class="text-center py-6 text-gray-500">
+                            <FaIcon @icon="spinner" @spin={{true}} class="text-xl mb-2" />
+                            <p class="text-sm">Loading tenant hierarchy...</p>
+                        </div>
+                    {{else if this.tenantTree.tree}}
+                        {{#if this.tenantTree.tiers}}
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                {{#each this.tenantTree.tiers as |tier|}}
+                                    <span class="px-2 py-0.5 text-xs rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">{{tier}}</span>
+                                {{/each}}
+                            </div>
+                        {{/if}}
+                        {{#each this.tenantTree.tree as |node|}}
+                            <div class="mb-2">
+                                <div class="flex items-center p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                    <FaIcon @icon="building" class="mr-2 text-purple-600 text-sm" />
+                                    <span class="font-medium text-gray-900 dark:text-white text-sm">{{node.name}}</span>
+                                    <span class="ml-2 px-1.5 py-0.5 text-xs rounded bg-purple-200 dark:bg-purple-800 text-purple-800 dark:text-purple-200">{{node.tier}}</span>
+                                    {{#if node.status}}
+                                        <span class="ml-1 px-1.5 py-0.5 text-xs rounded {{if (eq node.status 'active') 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'}}">{{node.status}}</span>
+                                    {{/if}}
+                                </div>
+                                {{#if node.children.length}}
+                                    <div class="ml-6 mt-1 space-y-1">
+                                        {{#each node.children as |child|}}
+                                            <div class="flex items-center p-1.5 border-l-2 border-purple-300 dark:border-purple-700 pl-3">
+                                                <FaIcon @icon="building" class="mr-1.5 text-purple-400 text-xs" />
+                                                <span class="text-sm text-gray-800 dark:text-gray-200">{{child.name}}</span>
+                                                <span class="ml-1.5 px-1.5 py-0.5 text-xs rounded bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300">{{child.tier}}</span>
+                                                {{#if child.children.length}}
+                                                    <span class="ml-1 text-xs text-gray-400">+{{child.children.length}}</span>
+                                                {{/if}}
+                                            </div>
+                                            {{#if child.children.length}}
+                                                <div class="ml-8 space-y-1">
+                                                    {{#each child.children as |grandchild|}}
+                                                        <div class="flex items-center p-1 border-l-2 border-blue-300 dark:border-blue-700 pl-3">
+                                                            <FaIcon @icon="building" class="mr-1.5 text-blue-400 text-xs" />
+                                                            <span class="text-xs text-gray-700 dark:text-gray-300">{{grandchild.name}}</span>
+                                                            <span class="ml-1 px-1 py-0.5 text-xs rounded bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300">{{grandchild.tier}}</span>
+                                                        </div>
+                                                    {{/each}}
+                                                </div>
+                                            {{/if}}
+                                        {{/each}}
+                                    </div>
+                                {{/if}}
+                            </div>
+                        {{/each}}
+                    {{else}}
+                        <div class="text-center py-6 text-gray-500 text-sm">No tenant hierarchy data available.</div>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+                <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                        <FaIcon @icon="project-diagram" class="mr-2 text-green-500" />
+                        Node Hierarchy
+                    </h3>
+                    <Button @icon="sync" @onClick={{this.loadNodeTree}} @size="xs" @type="default" />
+                </div>
+                <div class="p-4 max-h-96 overflow-y-auto">
+                    {{#if this.isLoadingNodeTree}}
+                        <div class="text-center py-6 text-gray-500">
+                            <FaIcon @icon="spinner" @spin={{true}} class="text-xl mb-2" />
+                            <p class="text-sm">Loading node hierarchy...</p>
+                        </div>
+                    {{else if this.nodeTree.tree}}
+                        {{#if this.nodeTree.levels}}
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                {{#each this.nodeTree.levels as |level|}}
+                                    <span class="px-2 py-0.5 text-xs rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">{{level}}</span>
+                                {{/each}}
+                            </div>
+                        {{/if}}
+                        <div class="text-xs text-gray-500 mb-2">Total nodes: {{this.nodeTree.total}}</div>
+                        {{#each this.nodeTree.tree as |node|}}
+                            <div class="mb-2">
+                                <div class="flex items-center p-2 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                                    <FaIcon @icon="project-diagram" class="mr-2 text-green-600 text-sm" />
+                                    <span class="font-medium text-gray-900 dark:text-white text-sm">{{node.name}}</span>
+                                    <span class="ml-2 px-1.5 py-0.5 text-xs rounded bg-green-200 dark:bg-green-800 text-green-800 dark:text-green-200">{{node.type}}</span>
+                                    {{#if node.code}}
+                                        <span class="ml-1 text-xs font-mono text-gray-500">{{node.code}}</span>
+                                    {{/if}}
+                                </div>
+                                {{#if node.children.length}}
+                                    <div class="ml-6 mt-1 space-y-1">
+                                        {{#each node.children as |child|}}
+                                            <div class="flex items-center p-1.5 border-l-2 border-green-300 dark:border-green-700 pl-3">
+                                                <FaIcon @icon="circle" class="mr-1.5 text-green-400 text-xs" />
+                                                <span class="text-sm text-gray-800 dark:text-gray-200">{{child.name}}</span>
+                                                <span class="ml-1.5 px-1 py-0.5 text-xs rounded bg-teal-100 dark:bg-teal-900 text-teal-700 dark:text-teal-300">{{child.type}}</span>
+                                                {{#if child.children.length}}
+                                                    <span class="ml-1 text-xs text-gray-400">+{{child.children.length}}</span>
+                                                {{/if}}
+                                            </div>
+                                        {{/each}}
+                                    </div>
+                                {{/if}}
+                            </div>
+                        {{/each}}
+                    {{else}}
+                        <div class="text-center py-6 text-gray-500 text-sm">No node hierarchy data available.</div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout::Section::Body>

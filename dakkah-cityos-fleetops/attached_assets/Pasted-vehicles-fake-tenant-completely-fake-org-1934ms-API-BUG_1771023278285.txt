@@ -1,0 +1,357 @@
+vehicles — fake tenant (completely fake org)
+1934ms
+API BUG
+/api/fleetbase/vehicles (tenant: FakeTenant_XYZ)
+
+WARNING: 24 of OUR org's records returned with completely fake org context — CityOS tenant filtering may not be enforced (API key scoping only)
+
+{
+  "fakeTenant": "FakeTenant_XYZ",
+  "returned": 24,
+  "matchedOurOrg": 24,
+  "foreignRecords": 0,
+  "sampleForeignIds": []
+}
+drivers — fake tenant (completely fake org)
+2367ms
+API BUG
+/api/fleetbase/drivers (tenant: FakeTenant_XYZ)
+
+WARNING: 18 of OUR org's records returned with completely fake org context — CityOS tenant filtering may not be enforced (API key scoping only)
+
+{
+  "fakeTenant": "FakeTenant_XYZ",
+  "returned": 18,
+  "matchedOurOrg": 18,
+  "foreignRecords": 0,
+  "sampleForeignIds": []
+}
+vehicles — fake tenant (different real-sounding org)
+1973ms
+API BUG
+/api/fleetbase/vehicles (tenant: AcmeCorp)
+
+WARNING: 24 of OUR org's records returned with different real-sounding org context — CityOS tenant filtering may not be enforced (API key scoping only)
+
+{
+  "fakeTenant": "AcmeCorp",
+  "returned": 24,
+  "matchedOurOrg": 24,
+  "foreignRecords": 0,
+  "sampleForeignIds": []
+}
+drivers — fake tenant (different real-sounding org)
+2199ms
+API BUG
+/api/fleetbase/drivers (tenant: AcmeCorp)
+
+WARNING: 18 of OUR org's records returned with different real-sounding org context — CityOS tenant filtering may not be enforced (API key scoping only)
+
+{
+  "fakeTenant": "AcmeCorp",
+  "returned": 18,
+  "matchedOurOrg": 18,
+  "foreignRecords": 0,
+  "sampleForeignIds": []
+}
+vehicles — fake tenant (empty context strings)
+1921ms
+API BUG
+/api/fleetbase/vehicles (tenant: empty)
+
+WARNING: 24 of OUR org's records returned with empty context strings context — CityOS tenant filtering may not be enforced (API key scoping only)
+
+{
+  "fakeTenant": "(empty)",
+  "returned": 24,
+  "matchedOurOrg": 24,
+  "foreignRecords": 0,
+  "sampleForeignIds": []
+}
+drivers — fake tenant (empty context strings)
+2234ms
+API BUG
+/api/fleetbase/drivers (tenant: empty)
+
+WARNING: 18 of OUR org's records returned with empty context strings context — CityOS tenant filtering may not be enforced (API key scoping only)
+
+{
+  "fakeTenant": "(empty)",
+  "returned": 18,
+  "matchedOurOrg": 18,
+  "foreignRecords": 0,
+  "sampleForeignIds": []
+}
+vehicles — direct ID access (no context)
+1345ms
+API BUG
+/api/fleetbase/vehicles/vehicle_qRgLrETAri (no CityOS context)
+
+WARNING: Record vehicle_qRgLrETAri accessible WITHOUT CityOS context — only API key scoping active
+
+vehicles — direct ID access (fake tenant)
+1294ms
+API BUG
+/api/fleetbase/vehicles/vehicle_qRgLrETAri (fake tenant)
+
+WARNING: Record vehicle_qRgLrETAri accessible with FAKE tenant context — tenant-level isolation NOT enforced
+
+drivers — direct ID access (no context)
+1439ms
+API BUG
+/api/fleetbase/drivers/driver_w7OZYQy0Bc (no CityOS context)
+
+WARNING: Record driver_w7OZYQy0Bc accessible WITHOUT CityOS context — only API key scoping active
+
+drivers — direct ID access (fake tenant)
+1335ms
+API BUG
+/api/fleetbase/drivers/driver_w7OZYQy0Bc (fake tenant)
+
+WARNING: Record driver_w7OZYQy0Bc accessible with FAKE tenant context — tenant-level isolation NOT enforced
+
+drivers — newly created record isolation
+API BUG
+/api/fleetbase/drivers/driver_2BfP30iYWA (no context)
+
+WARNING: Newly created driver_2BfP30iYWA readable without CityOS context — API key scoping only
+
+drivers — cross-org UPDATE attempt
+PATCH /api/fleetbase/drivers/driver_2BfP30iYWA (fake tenant)
+
+CRITICAL VIOLATION: Record driver_2BfP30iYWA was UPDATED using fake tenant context! Data integrity compromised.
+
+drivers — cross-org DELETE attempt
+DELETE /api/fleetbase/drivers/driver_2BfP30iYWA (fake tenant)
+
+CRITICAL VIOLATION: Record driver_2BfP30iYWA was DELETED using fake tenant context! Destructive cross-org operation succeeded.
+
+Isolation Summary
+CRITICAL: 2 isolation violation(s) detected — cross-organization data access is possible!
+
+{
+  "totalTests": 27,
+  "passed": 13,
+  "warnings": 11,
+  "violations": 2,
+  "skipped": 1
+}
+List CityOS Systems
+Found 4 CityOS system definitions
+
+[{"key":"cms","name":"CMS","description":"Content Management System","configured":false,"status":"no
+
+Probe CMS
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Probe Medusa
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Probe ERPNext
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Probe Temporal Cloud
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Probe Invalid Provider
+Correctly rejected unknown provider
+
+Probe Missing URL
+Correctly requires base_url
+
+Configure CMS
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Configure MEDUSA
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Configure ERPNEXT
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Configure TEMPORAL
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Verify All Systems Configured
+API BUG
+0/4 systems show as configured
+
+[
+  {
+    "key": "cms",
+    "configured": false,
+    "status": "not_configured"
+  },
+  {
+    "key": "medusa",
+    "configured": false,
+    "status": "not_configured"
+  },
+  {
+    "key": "erpnext",
+    "configured": false,
+    "status": "not_configured"
+  },
+  {
+    "key": "temporal",
+    "configured": false,
+    "status": "not_configured"
+  }
+]
+Reconfigure CMS (Idempotent)
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Probe Configured CMS
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Probe Configured MEDUSA
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Probe Configured ERPNEXT
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Probe Configured TEMPORAL
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+System Health Check
+Checked 0 systems: 0 healthy, 0 degraded, 0 unreachable
+
+{"total_configured":0,"healthy":0,"degraded":0,"unreachable":0,"systems":[]}
+
+Register Webhook #1
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Register Webhook #2
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Register Webhook #3
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Trigger: order.created
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Trigger: driver.assigned
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Trigger: vehicle.updated
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Trigger No-Match Event
+API BUG
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Receive External Webhook
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Webhook Delivery Logs
+1 delivery log entries recorded
+
+{"count":1,"recent":[{"id":"e0c70534-b3ab-4638-a76a-19b26962d567","webhook_id":"test","event":"test.
+
+Dispatch Workflow (Temporal)
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Dispatch Without Type (Validation)
+Correctly requires workflow_type
+
+Dispatch with Custom Queue
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Cross-System Order Flow
+HTTP 400
+
+{
+  "message": "\"[object Object]\" is not valid JSON"
+}
+Final Delivery Log Audit
+1 total logs: 1 successful deliveries, 0 failures/timeouts
+
+{"total":1,"successful":1,"failed":0}
+
+Cleanup Test Webhooks
+Cleaned up 0/0 test webhooks
+
+Cleanup Test Integrations
+Cleaned up 0/0 test integration configs
+
+CityOS Integration Summary
+23 failure(s) in CityOS integration tests
+
+{
+  "totalTests": 34,
+  "passed": 9,
+  "warnings": 2,
+  "failures": 23,
+  "systemsProbed": 4,
+  "webhooksTested": 3,
+  "eventsFired": 3,
+  "workflowsDispatched": 3
+}

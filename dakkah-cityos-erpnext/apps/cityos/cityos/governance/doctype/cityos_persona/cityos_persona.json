@@ -1,0 +1,50 @@
+{
+    "name": "CityOS Persona",
+    "module": "Governance",
+    "doctype": "DocType",
+    "document_type": "Setup",
+    "engine": "InnoDB",
+    "field_order": [
+        "persona_name", "column_break_1", "persona_code", "section_break_type",
+        "persona_type", "column_break_2", "status", "section_break_config",
+        "default_locale", "default_currency", "column_break_3", "default_timezone",
+        "section_break_permissions", "permissions_json",
+        "section_break_meta", "description", "cms_ref_id"
+    ],
+    "fields": [
+        {"fieldname": "persona_name", "fieldtype": "Data", "label": "Persona Name", "reqd": 1, "unique": 1, "in_list_view": 1, "in_standard_filter": 1},
+        {"fieldname": "column_break_1", "fieldtype": "Column Break"},
+        {"fieldname": "persona_code", "fieldtype": "Data", "label": "Persona Code", "unique": 1},
+        {"fieldname": "section_break_type", "fieldtype": "Section Break", "label": "Classification"},
+        {"fieldname": "persona_type", "fieldtype": "Select", "label": "Persona Type", "options": "\nCitizen\nBusiness\nGovernment\nVisitor\nInternal\nSystem\nVendor\nPartner", "reqd": 1, "in_list_view": 1, "in_standard_filter": 1},
+        {"fieldname": "column_break_2", "fieldtype": "Column Break"},
+        {"fieldname": "status", "fieldtype": "Select", "label": "Status", "options": "Active\nInactive\nDraft", "default": "Active", "in_list_view": 1},
+        {"fieldname": "section_break_config", "fieldtype": "Section Break", "label": "Default Settings"},
+        {"fieldname": "default_locale", "fieldtype": "Data", "label": "Default Locale", "default": "en-SA"},
+        {"fieldname": "default_currency", "fieldtype": "Link", "label": "Default Currency", "options": "Currency"},
+        {"fieldname": "column_break_3", "fieldtype": "Column Break"},
+        {"fieldname": "default_timezone", "fieldtype": "Data", "label": "Default Timezone", "default": "Asia/Riyadh"},
+        {"fieldname": "section_break_permissions", "fieldtype": "Section Break", "label": "Permissions"},
+        {"fieldname": "permissions_json", "fieldtype": "Code", "label": "Permissions (JSON)", "options": "JSON"},
+        {"fieldname": "section_break_meta", "fieldtype": "Section Break", "label": "Metadata"},
+        {"fieldname": "description", "fieldtype": "Small Text", "label": "Description"},
+        {"fieldname": "cms_ref_id", "fieldtype": "Data", "label": "CMS Reference ID", "read_only": 1}
+    ],
+    "modified": "2026-02-09 18:00:00.000000",
+    "creation": "2026-02-09 18:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "naming_rule": "By fieldname",
+    "autoname": "field:persona_name",
+    "permissions": [
+        {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "report": 1, "export": 1, "import": 1},
+        {"role": "CityOS Administrator", "read": 1, "write": 1, "create": 1, "report": 1, "export": 1}
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "allow_import": 1,
+    "title_field": "persona_name",
+    "search_fields": "persona_type,persona_code,status",
+    "show_title_field_in_link": 1
+}

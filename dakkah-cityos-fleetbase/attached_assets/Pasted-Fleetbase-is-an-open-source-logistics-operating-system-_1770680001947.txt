@@ -1,0 +1,34 @@
+Fleetbase is an open-source logistics operating system designed with a multi-tenant architecture to securely isolate data at the organization or company level. 
+GitHub
+ +2
+Key Aspects of Multi-Tenancy in Fleetbase
+Data Isolation: Each organization functions as a separate tenant, ensuring secure company-level data isolation.
+Onboarding: Organizations can join via the Fleetbase Console, where they create an account and define their specific organizational details.
+RBAC (Role-Based Access Control): Tenants can manage granular permissions for different user roles within their own organization.
+Solid Integration: For organizations using the Solid extension, each tenant is prompted to link their own Solid OIDC account to their Fleetbase organization for decentralized data storage. 
+GitHub
+ +4
+Target Tenant Groups
+The platform is primarily built for:
+Logistics & Supply Chain Companies: Streamlines real-time tracking, order management, and route optimization.
+On-Demand Delivery Services: Ideal for food delivery or courier companies requiring efficient fleet management.
+E-commerce & Marketplaces: Utilizes the Storefront extension to handle transactions and customer experiences.
+Developers: Those looking to build custom logistics infrastructure or extensions on top of an existing core. 
+GitHub Pages documentation
+ +2
+
+
+ Fleetbase is designed as a multi-tenant logistics operating system, meaning it allows multiple organizations (tenants) to operate independently within the same platform while keeping their data isolated [4.5, 4.8, 4.16]. 
+Here are the key aspects regarding tenants in Fleetbase:
+Key Tenant Features
+Data Isolation: Each organization has secure, company-level data separation [4.8, 4.16].
+Role-Based Access Control (RBAC): Granular permissions exist for different user roles within each tenant organization [4.8, 4.16].
+Independent Instances: Businesses can deploy Fleetbase on their own infrastructure (private cloud, on-premise, AWS, etc.), essentially running their own tenant instance [4.3].
+Solid Integration: The platform allows linking to Solid OIDC accounts on a per-organization basis, fitting its identity-based, multi-tenant nature [4.5]. 
+Who are the "Tenants" (Users)?
+Fleetbase serves various entities in the logistics sector, including: 
+Logistics and supply chain companies [4.1].
+On-demand delivery services (food, couriers) [4.1].
+E-commerce platforms and marketplaces [4.1].
+Developers building custom logistics apps [4.9]. 
+In essence, any company, team, or developer managing a fleet, deliveries, or supply chain operations acts as a tenant within the Fleetbase ecosystem.

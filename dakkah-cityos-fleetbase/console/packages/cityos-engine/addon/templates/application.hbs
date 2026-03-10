@@ -1,0 +1,49 @@
+<EmberWormhole @to="sidebar-menu-items">
+    <Layout::Sidebar::Panel @open={{true}} @title="CityOS">
+        <Layout::Sidebar::Item @route="console.cityos.home" @icon="home">Dashboard</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.hierarchy" @icon="sitemap">Hierarchy</Layout::Sidebar::Item>
+    </Layout::Sidebar::Panel>
+    <Layout::Sidebar::Panel @open={{true}} @title="Entities">
+        <Layout::Sidebar::Item @route="console.cityos.hierarchy.regions" @icon="earth-americas">Regions</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.hierarchy.countries" @icon="globe">Countries</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.hierarchy.cities" @icon="city">Cities</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.hierarchy.sectors" @icon="industry">Sectors</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.hierarchy.categories" @icon="tags">Categories</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.hierarchy.nodes" @icon="project-diagram">Nodes</Layout::Sidebar::Item>
+    </Layout::Sidebar::Panel>
+    <Layout::Sidebar::Panel @open={{true}} @title="Operations">
+        <Layout::Sidebar::Item @route="console.cityos.tenants" @icon="building">Tenants</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.channels" @icon="broadcast-tower">Channels</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.surfaces" @icon="desktop">Surfaces</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.portals" @icon="door-open">Portals</Layout::Sidebar::Item>
+    </Layout::Sidebar::Panel>
+    <Layout::Sidebar::Panel @open={{true}} @title="Governance">
+        <Layout::Sidebar::Item @route="console.cityos.governance" @icon="shield-halved">Overview</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.governance.authorities" @icon="landmark">Authorities</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.governance.policies" @icon="scroll">Policies</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.governance.feature-flags" @icon="flag">Feature Flags</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.governance.compliance" @icon="clipboard-check">Compliance</Layout::Sidebar::Item>
+    </Layout::Sidebar::Panel>
+    <Layout::Sidebar::Panel @open={{true}} @title="Integrations">
+        <Layout::Sidebar::Item @route="console.cityos.integrations" @icon="plug">Overview</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.integrations.temporal" @icon="clock-rotate-left">Temporal</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.integrations.cms" @icon="database">CMS</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.integrations.erpnext" @icon="file-invoice-dollar">ERPNext</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.integrations.outbox" @icon="paper-plane">Outbox</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.integrations.logs" @icon="list">Logs</Layout::Sidebar::Item>
+    </Layout::Sidebar::Panel>
+    <Layout::Sidebar::Panel @open={{true}} @title="Cross-Engine">
+        <Layout::Sidebar::Item @route="console.cityos.cross-engine" @icon="arrows-spin">Overview</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.cross-engine.fleetops" @icon="truck">FleetOps</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.cross-engine.pallet" @icon="warehouse">Pallet WMS</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.cross-engine.storefront" @icon="store">Storefront</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.cross-engine.iam" @icon="shield-halved">IAM</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.cross-engine.feature-gates" @icon="toggle-on">Feature Gates</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.cross-engine.event-bridge" @icon="bridge">Event Bridge</Layout::Sidebar::Item>
+        <Layout::Sidebar::Item @route="console.cityos.cross-engine.audit-trail" @icon="clock-rotate-left">Audit Trail</Layout::Sidebar::Item>
+    </Layout::Sidebar::Panel>
+</EmberWormhole>
+
+<Layout::Section::Container>
+    {{outlet}}
+</Layout::Section::Container>

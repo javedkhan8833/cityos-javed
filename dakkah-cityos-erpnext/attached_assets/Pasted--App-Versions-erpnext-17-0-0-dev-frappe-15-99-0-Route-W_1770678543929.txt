@@ -1,0 +1,142 @@
+### App Versions
+```
+{
+	"erpnext": "17.0.0-dev",
+	"frappe": "15.99.0"
+}
+```
+### Route
+```
+Workspaces/Accounting
+```
+### Traceback
+```
+Traceback (most recent call last):
+  File "apps/frappe/frappe/desk/query_report.py", line 229, in run
+    result = generate_report_result(report, filters, user, custom_columns, is_tree, parent_field)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/__init__.py", line 891, in wrapper_fn
+    retval = fn(*args, **get_newargs(fn, kwargs))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/desk/query_report.py", line 85, in generate_report_result
+    res = get_report_result(report, filters) or []
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/desk/query_report.py", line 66, in get_report_result
+    res = report.execute_script_report(filters)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/core/doctype/report/report.py", line 179, in execute_script_report
+    res = self.execute_module(filters)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/core/doctype/report/report.py", line 195, in execute_module
+    return frappe.get_attr(method_name)(frappe._dict(filters))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/erpnext/erpnext/accounts/report/profit_and_loss_statement/profit_and_loss_statement.py", line 36, in execute
+    income = get_data(
+             ^^^^^^^^^
+  File "apps/erpnext/erpnext/accounts/report/financial_statements.py", line 188, in get_data
+    set_gl_entries_by_account(
+  File "apps/erpnext/erpnext/accounts/report/financial_statements.py", line 482, in set_gl_entries_by_account
+    gl_entries += get_accounting_entries(
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/erpnext/erpnext/accounts/report/financial_statements.py", line 578, in get_accounting_entries
+    return frappe.db.sql(query, params, as_dict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/database/postgres/database.py", line 220, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/database/database.py", line 230, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.SyntaxError: syntax error at or near "INDEX"
+LINE 1: ...s_opening","fiscal_year" FROM "tabGL Entry" FORCE INDEX ("po...
+                                                             ^
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "apps/frappe/frappe/app.py", line 120, in application
+    response = frappe.api.handle(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/api/__init__.py", line 52, in handle
+    data = endpoint(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/api/v1.py", line 40, in handle_rpc_call
+    return frappe.handler.handle()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/handler.py", line 53, in handle
+    data = execute_cmd(cmd)
+           ^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/handler.py", line 86, in execute_cmd
+    return frappe.call(method, **frappe.form_dict)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/__init__.py", line 1754, in call
+    return fn(*args, **newargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/utils/typing_validations.py", line 32, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/__init__.py", line 891, in wrapper_fn
+    retval = fn(*args, **get_newargs(fn, kwargs))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/desk/query_report.py", line 232, in run
+    frappe.log_error("Report Error")
+  File "apps/frappe/frappe/utils/error.py", line 61, in log_error
+    error_log = frappe.get_doc(
+                ^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/__init__.py", line 1308, in get_doc
+    return frappe.model.document.get_doc(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/model/document.py", line 83, in get_doc
+    controller = get_controller(doctype)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/model/base_document.py", line 71, in get_controller
+    site_controllers[doctype] = import_controller(doctype)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/model/base_document.py", line 82, in import_controller
+    doctype_info = frappe.db.get_value("DocType", doctype, ("module", "custom", "is_tree"), as_dict=True)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/database/database.py", line 514, in get_value
+    result = self.get_values(
+             ^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/database/database.py", line 618, in get_values
+    out = self._get_values_from_table(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/database/database.py", line 891, in _get_values_from_table
+    return query.run(as_dict=as_dict, debug=debug, update=update, run=run, pluck=pluck)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/query_builder/utils.py", line 87, in execute_query
+    result = frappe.db.sql(query, params, *args, **kwargs)  # nosemgrep
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/database/postgres/database.py", line 220, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "apps/frappe/frappe/database/database.py", line 230, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands ignored until end of transaction block
+
+
+```
+### Request Data
+```
+{
+	"type": "POST",
+	"args": {
+		"report_name": "Profit and Loss Statement",
+		"filters": "{\"filter_based_on\":\"Fiscal Year\",\"period_start_date\":\"2020-04-01\",\"period_end_date\":\"2021-03-31\",\"periodicity\":\"Yearly\",\"include_default_book_entries\":1,\"company\":\"Dakkah CityOS\",\"from_fiscal_year\":\"2026\",\"to_fiscal_year\":\"2026\"}",
+		"ignore_prepared_report": 1
+	},
+	"headers": {},
+	"error_handlers": {},
+	"url": "/api/method/frappe.desk.query_report.run",
+	"request_id": null
+}
+```
+### Response Data
+```
+{
+	"exception": "",
+	"exc_type": "InFailedSqlTransaction",
+	"_exc_source": "erpnext (app)",
+	"_debug_messages": "[\"Syntax error in query:\\nSELECT \\\"account\\\",\\\"debit\\\",\\\"credit\\\",\\\"debit_in_account_currency\\\",\\\"credit_in_account_currency\\\",\\\"account_currency\\\",\\\"posting_date\\\",\\\"is_opening\\\",\\\"fiscal_year\\\" FROM \\\"tabGL Entry\\\" FORCE INDEX (\\\"posting_date_company_index\\\") WHERE \\\"company\\\"=%(param1)s AND \\\"is_cancelled\\\"= '0' AND \\\"posting_date\\\"<='2026-12-31' AND \\\"voucher_type\\\"<>%(param2)s AND \\\"posting_date\\\">='2026-01-01' AND (\\\"finance_book\\\" IN (%(param3)s,%(param4)s,%(param5)s) OR \\\"finance_book\\\" IS NULL) AND EXISTS (SELECT \\\"tabAccount\\\".\\\"name\\\" FROM \\\"tabAccount\\\" WHERE \\\"tabAccount\\\".\\\"name\\\"=\\\"tabGL Entry\\\".\\\"account\\\" AND \\\"tabAccount\\\".\\\"is_group\\\"= '0' AND \\\"tabAccount\\\".\\\"lft\\\">= '127' AND \\\"tabAccount\\\".\\\"rgt\\\"<= '136' AND \\\"tabAccount\\\".\\\"root_type\\\"=%(param6)s) {'param1': 'Dakkah CityOS', 'param2': 'Period Closing Voucher', 'param3': '', 'param4': '', 'param5': '', 'param6': 'Income'}\", \"Error in query:\\ncurrent transaction is aborted, commands ignored until end of transaction block\\n\"]"
+}
+```

@@ -1,0 +1,25 @@
+data = {
+    "set_value": [],
+    "default_portal_role": "CityOS Citizen Services",
+    "restricted_roles": [
+        "CityOS Administrator",
+        "CityOS Finance Manager",
+        "CityOS Procurement Officer",
+        "CityOS Asset Manager",
+        "CityOS HR Manager",
+        "CityOS Project Manager",
+        "CityOS Compliance Officer",
+        "CityOS Auditor",
+    ],
+    "modules": [
+        "Governance",
+        "Finance",
+        "Procurement",
+        "Assets Management",
+        "HR Management",
+        "CityOS Projects",
+        "Compliance",
+    ],
+    "custom_fields": {},
+    "on_setup": None,
+}

@@ -1,0 +1,283 @@
+{
+    "name": "Fiscal Allocation",
+    "module": "Finance",
+    "doctype": "DocType",
+    "document_type": "Document",
+    "engine": "InnoDB",
+    "naming_rule": "Expression (old style)",
+    "autoname": "hash",
+    "field_order": [
+        "allocation_name",
+        "column_break_1",
+        "status",
+        "section_break_links",
+        "budget_program",
+        "fiscal_year",
+        "column_break_2",
+        "department",
+        "project",
+        "column_break_3",
+        "cost_center",
+        "section_break_amounts",
+        "allocated_amount",
+        "column_break_4",
+        "spent_amount",
+        "section_break_source",
+        "funding_source",
+        "allocation_period",
+        "column_break_src1",
+        "period_start",
+        "period_end",
+        "section_break_tracking2",
+        "committed_amount",
+        "column_break_trk1",
+        "remaining_amount",
+        "section_break_node_context",
+        "cityos_tenant",
+        "cityos_country",
+        "column_break_5",
+        "cityos_city",
+        "cityos_sector",
+        "column_break_6",
+        "cityos_correlation_id",
+        "cityos_source_system",
+        "cityos_workflow_state"
+    ],
+    "fields": [
+        {
+            "fieldname": "allocation_name",
+            "fieldtype": "Data",
+            "label": "Allocation Name",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "\nDraft\nActive\nFully Utilized\nClosed\nFrozen",
+            "default": "Active",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_links",
+            "fieldtype": "Section Break",
+            "label": "Allocation Details"
+        },
+        {
+            "fieldname": "budget_program",
+            "fieldtype": "Link",
+            "label": "Budget Program",
+            "options": "Budget Program",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "fiscal_year",
+            "fieldtype": "Link",
+            "label": "Fiscal Year",
+            "options": "Fiscal Year",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "department",
+            "fieldtype": "Link",
+            "label": "Department",
+            "options": "Department",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "project",
+            "fieldtype": "Link",
+            "label": "Project",
+            "options": "Project"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cost_center",
+            "fieldtype": "Link",
+            "label": "Cost Center",
+            "options": "Cost Center"
+        },
+        {
+            "fieldname": "section_break_amounts",
+            "fieldtype": "Section Break",
+            "label": "Amounts"
+        },
+        {
+            "fieldname": "allocated_amount",
+            "fieldtype": "Currency",
+            "label": "Allocated Amount",
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "column_break_4",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "spent_amount",
+            "fieldtype": "Currency",
+            "label": "Spent Amount",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_source",
+            "fieldtype": "Section Break",
+            "label": "Funding & Period"
+        },
+        {
+            "fieldname": "funding_source",
+            "fieldtype": "Link",
+            "label": "Funding Source",
+            "options": "Funding Source"
+        },
+        {
+            "fieldname": "allocation_period",
+            "fieldtype": "Select",
+            "label": "Allocation Period",
+            "options": "\nMonthly\nQuarterly\nSemi-Annual\nAnnual"
+        },
+        {
+            "fieldname": "column_break_src1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "period_start",
+            "fieldtype": "Date",
+            "label": "Period Start"
+        },
+        {
+            "fieldname": "period_end",
+            "fieldtype": "Date",
+            "label": "Period End"
+        },
+        {
+            "fieldname": "section_break_tracking2",
+            "fieldtype": "Section Break",
+            "label": "Commitment Tracking"
+        },
+        {
+            "fieldname": "committed_amount",
+            "fieldtype": "Currency",
+            "label": "Committed Amount",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_trk1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "remaining_amount",
+            "fieldtype": "Currency",
+            "label": "Remaining Amount",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_node_context",
+            "fieldtype": "Section Break",
+            "label": "CityOS Node Context",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "cityos_tenant",
+            "fieldtype": "Data",
+            "label": "CityOS Tenant",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "cityos_country",
+            "fieldtype": "Data",
+            "label": "CityOS Country"
+        },
+        {
+            "fieldname": "column_break_5",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_city",
+            "fieldtype": "Data",
+            "label": "CityOS City"
+        },
+        {
+            "fieldname": "cityos_sector",
+            "fieldtype": "Data",
+            "label": "CityOS Sector"
+        },
+        {
+            "fieldname": "column_break_6",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_correlation_id",
+            "fieldtype": "Data",
+            "label": "CityOS Correlation ID"
+        },
+        {
+            "fieldname": "cityos_source_system",
+            "fieldtype": "Data",
+            "label": "CityOS Source System"
+        },
+        {
+            "fieldname": "cityos_workflow_state",
+            "fieldtype": "Data",
+            "label": "CityOS Workflow State"
+        }
+    ],
+    "modified": "2026-02-10 12:00:00.000000",
+    "creation": "2026-02-09 12:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 0,
+            "cancel": 0,
+            "amend": 0,
+            "report": 1,
+            "export": 1,
+            "import": 1
+        },
+        {
+            "role": "CityOS Finance Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "report": 1,
+            "export": 1
+        },
+        {
+            "role": "CityOS Administrator",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "report": 1,
+            "export": 1,
+            "import": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "allow_import": 1,
+    "search_fields": "allocation_name,budget_program,department,status"
+}

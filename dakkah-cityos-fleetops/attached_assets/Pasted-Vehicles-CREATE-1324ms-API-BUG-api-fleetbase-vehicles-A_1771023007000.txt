@@ -1,0 +1,105 @@
+Vehicles — CREATE
+1324ms
+API BUG
+/api/fleetbase/vehicles
+
+API BUG: Server returned HTTP 500 (should be 422 with validation message) — The year must be a string.
+
+{
+  "sent": {
+    "name": "_Test Vehicle 825104",
+    "plate_number": "TST-825104",
+    "model": "Test Model",
+    "year": 2024,
+    "type": "car",
+    "status": "active"
+  },
+  "response": {
+    "error": "The year must be a string.",
+    "source": "fleetbase"
+  },
+  "httpStatus": 500
+}
+
+
+Zones — CREATE
+1322ms
+API BUG
+/api/fleetbase/zones
+
+API BUG: Server returned HTTP 500 (should be 422 with validation message) — The service area field is required. (and 1 more error)
+
+{
+  "sent": {
+    "name": "_Test Zone 877518",
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            46.5,
+            24.5
+          ],
+          [
+            46.8,
+            24.5
+          ],
+          [
+            46.8,
+            24.8
+          ],
+          [
+            46.5,
+            24.8
+          ],
+          [
+            46.5,
+            24.5
+          ]
+        ]
+      ]
+    },
+    "status": "active"
+  },
+  "response": {
+    "error": "The service area field is required. (and 1 more error)",
+    "source": "fleetbase"
+  },
+  "httpStatus": 500
+}
+
+
+Service Rates — CREATE
+1377ms
+API BUG
+/api/fleetbase/service-rates
+
+API BUG: Server returned HTTP 500 (should be 422 with validation message) — The selected rate calculation method is invalid.
+
+{
+  "sent": {
+    "name": "_Test Rate 880169",
+    "service_name": "test-svc-880169",
+    "service_type": "delivery",
+    "rate_calculation_method": "flat_rate",
+    "currency": "SAR",
+    "base_fee": 1000
+  },
+  "response": {
+    "error": "The selected rate calculation method is invalid.",
+    "source": "fleetbase"
+  },
+  "httpStatus": 500
+}
+
+
+GET unknown resource path
+592ms
+GET /api/fleetbase/nonexistent-resource-xyz
+
+Unexpected HTTP 200 for unknown resource — object response. This could be a wildcard route or frontend catch-all returning a non-404 response.
+
+{
+  "responseType": "object response",
+  "status": 200
+}

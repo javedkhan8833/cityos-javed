@@ -1,0 +1,197 @@
+<Layout::Section::Header @title="CityOS Dashboard">
+    <div class="flex items-center space-x-3">
+        <ContextSelector />
+        <Button @icon="sync" @text="Refresh" @onClick={{this.refresh}} @size="sm" @type="default" />
+    </div>
+</Layout::Section::Header>
+
+<Layout::Section::Body>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 border border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Countries</p>
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white">{{if this.isLoading "..." this.stats.countries}}</p>
+                </div>
+                <div class="p-3 bg-blue-100 dark:bg-blue-900 rounded-full">
+                    <FaIcon @icon="globe" class="text-blue-600 dark:text-blue-300 text-xl" />
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 border border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Cities</p>
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white">{{if this.isLoading "..." this.stats.cities}}</p>
+                </div>
+                <div class="p-3 bg-green-100 dark:bg-green-900 rounded-full">
+                    <FaIcon @icon="city" class="text-green-600 dark:text-green-300 text-xl" />
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 border border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Tenants</p>
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white">{{if this.isLoading "..." this.stats.tenants}}</p>
+                </div>
+                <div class="p-3 bg-purple-100 dark:bg-purple-900 rounded-full">
+                    <FaIcon @icon="building" class="text-purple-600 dark:text-purple-300 text-xl" />
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 border border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Portals</p>
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white">{{if this.isLoading "..." this.stats.portals}}</p>
+                </div>
+                <div class="p-3 bg-orange-100 dark:bg-orange-900 rounded-full">
+                    <FaIcon @icon="door-open" class="text-orange-600 dark:text-orange-300 text-xl" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 border border-gray-200 dark:border-gray-700">
+            <p class="text-sm text-gray-500 dark:text-gray-400">Regions</p>
+            <p class="text-2xl font-bold text-gray-900 dark:text-white">{{if this.isLoading "..." this.stats.regions}}</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 border border-gray-200 dark:border-gray-700">
+            <p class="text-sm text-gray-500 dark:text-gray-400">Sectors</p>
+            <p class="text-2xl font-bold text-gray-900 dark:text-white">{{if this.isLoading "..." this.stats.sectors}}</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 border border-gray-200 dark:border-gray-700">
+            <p class="text-sm text-gray-500 dark:text-gray-400">Channels</p>
+            <p class="text-2xl font-bold text-gray-900 dark:text-white">{{if this.isLoading "..." this.stats.channels}}</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 border border-gray-200 dark:border-gray-700">
+            <p class="text-sm text-gray-500 dark:text-gray-400">Surfaces</p>
+            <p class="text-2xl font-bold text-gray-900 dark:text-white">{{if this.isLoading "..." this.stats.surfaces}}</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                    <FaIcon @icon="sitemap" class="mr-2 text-blue-500" />
+                    Hierarchy Overview
+                </h3>
+            </div>
+            <div class="p-4 max-h-80 overflow-y-auto">
+                {{#if this.isLoading}}
+                    <div class="text-gray-500 text-sm">Loading hierarchy...</div>
+                {{else if this.hierarchyTree.length}}
+                    {{#each this.hierarchyTree as |country|}}
+                        <div class="mb-3">
+                            <div class="flex items-center text-gray-900 dark:text-white font-medium">
+                                <FaIcon @icon="globe" class="mr-2 text-blue-500 text-sm" />
+                                {{country.name}}
+                                {{#if country.name_ar}}
+                                    <span class="ml-2 text-xs text-gray-500">({{country.name_ar}})</span>
+                                {{/if}}
+                                {{#if country.code}}
+                                    <span class="ml-2 text-xs px-1.5 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded">{{country.code}}</span>
+                                {{/if}}
+                            </div>
+                            {{#if country.children}}
+                                <div class="ml-6 mt-1">
+                                    {{#each country.children as |city|}}
+                                        <div class="text-sm text-gray-600 dark:text-gray-400 py-0.5 flex items-center">
+                                            <FaIcon @icon="city" class="mr-1.5 text-xs text-green-500" />
+                                            {{city.name}}
+                                            {{#if city.name_ar}}
+                                                <span class="ml-1 text-xs text-gray-400">({{city.name_ar}})</span>
+                                            {{/if}}
+                                            {{#if city.children.length}}
+                                                <span class="ml-2 text-xs text-gray-400">{{city.children.length}} sectors</span>
+                                            {{/if}}
+                                        </div>
+                                    {{/each}}
+                                </div>
+                            {{/if}}
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <div class="text-gray-500 text-sm">No hierarchy data available.</div>
+                {{/if}}
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                    <FaIcon @icon="plug" class="mr-2 text-green-500" />
+                    Integration Status
+                </h3>
+            </div>
+            <div class="p-4 space-y-3">
+                <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-750 rounded-lg">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 rounded-full {{if this.integrations.temporal.configured 'bg-green-500' 'bg-yellow-500'}} mr-3"></div>
+                        <span class="text-gray-900 dark:text-white font-medium">Temporal Cloud</span>
+                    </div>
+                    <span class="text-xs px-2 py-1 rounded-full {{if this.integrations.temporal.configured 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'}}">
+                        {{if this.integrations.temporal.configured "Connected" "Pending"}}
+                    </span>
+                </div>
+
+                <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-750 rounded-lg">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 rounded-full {{if this.integrations.payload_cms.connected 'bg-green-500' 'bg-red-500'}} mr-3"></div>
+                        <span class="text-gray-900 dark:text-white font-medium">Payload CMS</span>
+                    </div>
+                    <span class="text-xs px-2 py-1 rounded-full {{if this.integrations.payload_cms.connected 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'}}">
+                        {{if this.integrations.payload_cms.connected "Connected" "Disconnected"}}
+                    </span>
+                </div>
+
+                <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-750 rounded-lg">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 rounded-full bg-yellow-500 mr-3"></div>
+                        <span class="text-gray-900 dark:text-white font-medium">ERPNext</span>
+                    </div>
+                    <span class="text-xs px-2 py-1 rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+                        {{or this.integrations.erpnext.mode "stub"}}
+                    </span>
+                </div>
+
+                <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-750 rounded-lg">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 rounded-full bg-green-500 mr-3"></div>
+                        <span class="text-gray-900 dark:text-white font-medium">CityBus Outbox</span>
+                    </div>
+                    <span class="text-xs px-2 py-1 rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                        {{or this.integrations.citybus.outbox.total 0}} events
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-6 pt-0">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                    <FaIcon @icon="shield-halved" class="mr-2 text-indigo-500" />
+                    NodeContext Fields
+                </h3>
+            </div>
+            <div class="p-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                    {{#each this.nodeContextFields as |field|}}
+                        <div class="p-2 bg-gray-50 dark:bg-gray-750 rounded text-center">
+                            <div class="text-xs text-gray-500 dark:text-gray-400">{{field.label}}</div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-white mt-1">{{field.source}}</div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout::Section::Body>

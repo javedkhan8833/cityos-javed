@@ -1,0 +1,207 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"gov_header_1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"id\":\"gov_sc_1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Node Context\",\"col\":3}},{\"id\":\"gov_sc_2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Governance Authority\",\"col\":3}},{\"id\":\"gov_sc_3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Policy Doctrine\",\"col\":3}},{\"id\":\"gov_sc_4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"CityOS Persona\",\"col\":3}},{\"id\":\"gov_spacer_1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"gov_header_2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Documents</b></span>\",\"col\":12}},{\"id\":\"gov_card_1\",\"type\":\"card\",\"data\":{\"card_name\":\"Governance Core\",\"col\":4}},{\"id\":\"gov_card_2\",\"type\":\"card\",\"data\":{\"card_name\":\"Taxonomy\",\"col\":4}},{\"id\":\"gov_card_3\",\"type\":\"card\",\"data\":{\"card_name\":\"Portals & Stores\",\"col\":4}}]",
+ "creation": "2026-02-12 00:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "shield",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "CityOS Governance",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Governance Core",
+   "link_count": 5,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Node Context",
+   "link_count": 0,
+   "link_to": "Node Context",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Governance Authority",
+   "link_count": 0,
+   "link_to": "Governance Authority",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Policy Doctrine",
+   "link_count": 0,
+   "link_to": "Policy Doctrine",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "CityOS Audit Log",
+   "link_count": 0,
+   "link_to": "CityOS Audit Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Integration Outbox Event",
+   "link_count": 0,
+   "link_to": "Integration Outbox Event",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Taxonomy",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "CityOS Scope",
+   "link_count": 0,
+   "link_to": "CityOS Scope",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "CityOS Category",
+   "link_count": 0,
+   "link_to": "CityOS Category",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "CityOS Subcategory",
+   "link_count": 0,
+   "link_to": "CityOS Subcategory",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Portals & Stores",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "CityOS Store",
+   "link_count": 0,
+   "link_to": "CityOS Store",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "CityOS Portal",
+   "link_count": 0,
+   "link_to": "CityOS Portal",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "CityOS Persona",
+   "link_count": 0,
+   "link_to": "CityOS Persona",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "CityOS Persona Assignment",
+   "link_count": 0,
+   "link_to": "CityOS Persona Assignment",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-02-12 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Governance",
+ "name": "CityOS Governance",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "label": "Node Context",
+   "link_to": "Node Context",
+   "type": "DocType"
+  },
+  {
+   "label": "Governance Authority",
+   "link_to": "Governance Authority",
+   "type": "DocType"
+  },
+  {
+   "label": "Policy Doctrine",
+   "link_to": "Policy Doctrine",
+   "type": "DocType"
+  },
+  {
+   "label": "CityOS Persona",
+   "link_to": "CityOS Persona",
+   "type": "DocType"
+  }
+ ],
+ "title": "CityOS Governance"
+}

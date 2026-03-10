@@ -1,0 +1,106 @@
+<div class="relative">
+    <button type="button" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg text-sm transition-colors {{if this.hasContext 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/50' 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'}}" {{on "click" this.toggleExpanded}}>
+        <FaIcon @icon="layer-group" class="text-xs" />
+        <span class="max-w-48 truncate">{{this.contextSummary}}</span>
+        <FaIcon @icon={{if this.isExpanded "chevron-up" "chevron-down"}} class="text-xs" />
+    </button>
+
+    {{#if this.isExpanded}}
+        <div class="absolute right-0 top-full mt-2 w-96 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-50">
+            <div class="p-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                <h4 class="text-sm font-semibold text-gray-900 dark:text-white flex items-center">
+                    <FaIcon @icon="sitemap" class="mr-2 text-blue-500" />
+                    Node Context
+                </h4>
+                <div class="flex items-center space-x-2">
+                    {{#if this.hasContext}}
+                        <button type="button" class="text-xs text-red-500 hover:text-red-700 dark:hover:text-red-400" {{on "click" this.clearContext}}>
+                            <FaIcon @icon="xmark" class="mr-1" />Clear
+                        </button>
+                    {{/if}}
+                    <button type="button" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" {{on "click" this.close}}>
+                        <FaIcon @icon="xmark" />
+                    </button>
+                </div>
+            </div>
+
+            <div class="p-3 space-y-3">
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+                        <FaIcon @icon="globe" class="mr-1 text-blue-500" />Country
+                    </label>
+                    <select class="w-full px-2 py-1.5 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white" {{on "change" this.selectCountry}}>
+                        <option value="">All Countries</option>
+                        {{#each this.countries as |country|}}
+                            <option value={{country.id}} selected={{if this.selectedCountry (eq this.selectedCountry.id country.id) false}}>
+                                {{country.name}} {{if country.iso2 (concat "(" country.iso2 ")") ""}}
+                            </option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                {{#if this.selectedCountry}}
+                    <div>
+                        <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+                            <FaIcon @icon="city" class="mr-1 text-green-500" />City
+                        </label>
+                        <select class="w-full px-2 py-1.5 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white" {{on "change" this.selectCity}}>
+                            <option value="">All Cities</option>
+                            {{#each this.cities as |city|}}
+                                <option value={{city.id}} selected={{if this.selectedCity (eq this.selectedCity.id city.id) false}}>{{city.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                {{/if}}
+
+                {{#if (or this.selectedCountry this.selectedCity)}}
+                    <div>
+                        <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+                            <FaIcon @icon="building" class="mr-1 text-purple-500" />Tenant
+                        </label>
+                        <select class="w-full px-2 py-1.5 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white" {{on "change" this.selectTenant}}>
+                            <option value="">All Tenants</option>
+                            {{#each this.tenants as |tenant|}}
+                                <option value={{tenant.id}} selected={{if this.selectedTenant (eq this.selectedTenant.id tenant.id) false}}>
+                                    {{tenant.name}}
+                                    {{#if tenant.tier}}
+                                        ({{tenant.tier}})
+                                    {{/if}}
+                                </option>
+                            {{/each}}
+                        </select>
+                    </div>
+                {{/if}}
+
+                {{#if this.selectedTenant}}
+                    <div>
+                        <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+                            <FaIcon @icon="broadcast-tower" class="mr-1 text-orange-500" />Channel
+                        </label>
+                        <select class="w-full px-2 py-1.5 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white" {{on "change" this.selectChannel}}>
+                            <option value="">All Channels</option>
+                            {{#each this.channels as |channel|}}
+                                <option value={{channel.id}} selected={{if this.selectedChannel (eq this.selectedChannel.id channel.id) false}}>{{channel.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                {{/if}}
+            </div>
+
+            {{#if this.hasContext}}
+                <div class="px-3 pb-3">
+                    <div class="bg-gray-50 dark:bg-gray-750 rounded p-2">
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Active Context</p>
+                        <div class="flex flex-wrap gap-1">
+                            {{#each this.breadcrumb as |item|}}
+                                <span class="inline-flex items-center px-2 py-0.5 text-xs rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
+                                    {{item.level}}: {{item.name}}
+                                </span>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+    {{/if}}
+</div>

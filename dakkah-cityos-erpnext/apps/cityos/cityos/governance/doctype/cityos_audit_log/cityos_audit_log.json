@@ -1,0 +1,144 @@
+{
+    "name": "CityOS Audit Log",
+    "module": "Governance",
+    "doctype": "DocType",
+    "document_type": "Other",
+    "engine": "InnoDB",
+    "field_order": [
+        "document_type",
+        "document_name",
+        "action",
+        "column_break_1",
+        "user",
+        "timestamp",
+        "section_break_context",
+        "tenant",
+        "country",
+        "column_break_2",
+        "city",
+        "correlation_id",
+        "section_break_details",
+        "details"
+    ],
+    "fields": [
+        {
+            "fieldname": "document_type",
+            "fieldtype": "Data",
+            "label": "Document Type",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "document_name",
+            "fieldtype": "Data",
+            "label": "Document Name",
+            "reqd": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "action",
+            "fieldtype": "Select",
+            "label": "Action",
+            "options": "\nCreated\nUpdated\nSubmitted\nCancelled\nDeleted\nApproved\nRejected\nEscalated",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "user",
+            "fieldtype": "Link",
+            "label": "User",
+            "options": "User",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "timestamp",
+            "fieldtype": "Datetime",
+            "label": "Timestamp",
+            "default": "Now"
+        },
+        {
+            "fieldname": "section_break_context",
+            "fieldtype": "Section Break",
+            "label": "Node Context"
+        },
+        {
+            "fieldname": "tenant",
+            "fieldtype": "Data",
+            "label": "Tenant",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "country",
+            "fieldtype": "Data",
+            "label": "Country"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "city",
+            "fieldtype": "Data",
+            "label": "City"
+        },
+        {
+            "fieldname": "correlation_id",
+            "fieldtype": "Data",
+            "label": "Correlation ID"
+        },
+        {
+            "fieldname": "section_break_details",
+            "fieldtype": "Section Break",
+            "label": "Details"
+        },
+        {
+            "fieldname": "details",
+            "fieldtype": "Long Text",
+            "label": "Details"
+        }
+    ],
+    "modified": "2026-02-09 12:00:00.000000",
+    "creation": "2026-02-09 12:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "naming_rule": "Expression (old style)",
+    "autoname": "hash",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 0,
+            "create": 0,
+            "delete": 0,
+            "report": 1,
+            "export": 1
+        },
+        {
+            "role": "CityOS Auditor",
+            "read": 1,
+            "write": 0,
+            "create": 0,
+            "delete": 0,
+            "report": 1,
+            "export": 1
+        },
+        {
+            "role": "CityOS Administrator",
+            "read": 1,
+            "report": 1,
+            "export": 1
+        }
+    ],
+    "sort_field": "creation",
+    "sort_order": "DESC",
+    "track_changes": 0,
+    "in_create": 1,
+    "search_fields": "document_type,document_name,action,tenant"
+}

@@ -1,0 +1,23 @@
+{
+    "name": "Contract Payment Schedule",
+    "module": "Procurement",
+    "doctype": "DocType",
+    "istable": 1,
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "fields": [
+        {"fieldname": "payment_date", "fieldtype": "Date", "label": "Payment Date", "in_list_view": 1, "reqd": 1},
+        {"fieldname": "amount", "fieldtype": "Currency", "label": "Amount", "in_list_view": 1, "reqd": 1},
+        {"fieldname": "description", "fieldtype": "Data", "label": "Description", "in_list_view": 1},
+        {"fieldname": "status", "fieldtype": "Select", "label": "Status", "options": "\nScheduled\nInvoiced\nPaid\nOverdue", "in_list_view": 1, "default": "Scheduled"},
+        {"fieldname": "linked_invoice", "fieldtype": "Link", "label": "Linked Invoice", "options": "Municipal Invoice"}
+    ],
+    "permissions": [],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "creation": "2026-02-10 00:00:00.000000",
+    "modified": "2026-02-10 00:00:00.000000",
+    "modified_by": "Administrator",
+    "owner": "Administrator"
+}

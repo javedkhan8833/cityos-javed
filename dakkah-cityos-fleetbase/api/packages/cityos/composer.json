@@ -1,0 +1,28 @@
+{
+    "name": "fleetbase/cityos-api",
+    "version": "0.1.0",
+    "description": "CityOS Multi-Hierarchy Extension for Fleetbase - Dakkah Platform",
+    "license": "AGPL-3.0-or-later",
+    "require": {
+        "php": "^8.0",
+        "fleetbase/core-api": "^1.4.27",
+        "fleetbase/fleetops-api": "^0.5.2 || ^0.6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fleetbase\\CityOS\\": "src/",
+            "GPBMetadata\\": "src/Temporal/Proto/GPBMetadata/",
+            "Temporal\\": "src/Temporal/Proto/Temporal/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fleetbase\\CityOS\\Providers\\CityOSServiceProvider"
+            ]
+        },
+        "fleetbase": {
+            "sandbox-migrations": false
+        }
+    }
+}

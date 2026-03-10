@@ -1,0 +1,396 @@
+{
+    "name": "Node Context",
+    "module": "Governance",
+    "doctype": "DocType",
+    "document_type": "Setup",
+    "engine": "InnoDB",
+    "field_order": [
+        "context_name",
+        "column_break_1",
+        "enabled",
+        "tenant_tier",
+        "section_break_tenant_governance",
+        "parent_context",
+        "parent_tenant",
+        "governance_authority",
+        "column_break_tg2",
+        "residency_zone",
+        "default_persona",
+        "status",
+        "section_break_tg3",
+        "domain",
+        "slug",
+        "column_break_tg4",
+        "default_locale",
+        "supported_locales",
+        "section_break_tg5",
+        "timezone",
+        "default_currency",
+        "section_break_hierarchy",
+        "country",
+        "scope",
+        "column_break_2",
+        "category",
+        "subcategory",
+        "section_break_tenant",
+        "tenant",
+        "store",
+        "column_break_3",
+        "portal",
+        "organization_unit",
+        "section_break_org",
+        "cost_center",
+        "project",
+        "column_break_org2",
+        "city_or_theme",
+        "sector",
+        "section_break_channel",
+        "channel",
+        "surface",
+        "column_break_4",
+        "persona",
+        "brand",
+        "section_break_locale",
+        "locale",
+        "theme",
+        "column_break_5",
+        "version",
+        "section_break_metadata",
+        "description"
+    ],
+    "fields": [
+        {
+            "fieldname": "context_name",
+            "fieldtype": "Data",
+            "label": "Context Name",
+            "reqd": 1,
+            "unique": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "enabled",
+            "fieldtype": "Check",
+            "label": "Enabled",
+            "default": "1",
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "tenant_tier",
+            "fieldtype": "Select",
+            "label": "Tenant Tier",
+            "options": "\nMASTER\nGLOBAL\nREGIONAL\nCOUNTRY\nCITY",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_tenant_governance",
+            "fieldtype": "Section Break",
+            "label": "Tenant Hierarchy & Governance"
+        },
+        {
+            "fieldname": "parent_context",
+            "fieldtype": "Link",
+            "label": "Parent Context",
+            "options": "Node Context"
+        },
+        {
+            "fieldname": "parent_tenant",
+            "fieldtype": "Link",
+            "label": "Parent Tenant",
+            "options": "Node Context"
+        },
+        {
+            "fieldname": "governance_authority",
+            "fieldtype": "Link",
+            "label": "Governance Authority",
+            "options": "Governance Authority"
+        },
+        {
+            "fieldname": "column_break_tg2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "residency_zone",
+            "fieldtype": "Select",
+            "label": "Residency Zone",
+            "options": "\nGCC\nEU\nMENA\nAPAC\nAMERICAS\nGLOBAL",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "default_persona",
+            "fieldtype": "Link",
+            "label": "Default Persona",
+            "options": "CityOS Persona"
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "\nActive\nSuspended\nPending\nArchived",
+            "default": "Active"
+        },
+        {
+            "fieldname": "section_break_tg3",
+            "fieldtype": "Section Break"
+        },
+        {
+            "fieldname": "domain",
+            "fieldtype": "Data",
+            "label": "Domain"
+        },
+        {
+            "fieldname": "slug",
+            "fieldtype": "Data",
+            "label": "Slug",
+            "unique": 1
+        },
+        {
+            "fieldname": "column_break_tg4",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "default_locale",
+            "fieldtype": "Data",
+            "label": "Default Locale",
+            "default": "en-SA"
+        },
+        {
+            "fieldname": "supported_locales",
+            "fieldtype": "Small Text",
+            "label": "Supported Locales"
+        },
+        {
+            "fieldname": "section_break_tg5",
+            "fieldtype": "Section Break"
+        },
+        {
+            "fieldname": "timezone",
+            "fieldtype": "Data",
+            "label": "Timezone",
+            "default": "Asia/Riyadh"
+        },
+        {
+            "fieldname": "default_currency",
+            "fieldtype": "Link",
+            "label": "Default Currency",
+            "options": "Currency"
+        },
+        {
+            "fieldname": "section_break_hierarchy",
+            "fieldtype": "Section Break",
+            "label": "CityOS Hierarchy (Country \u2192 Scope \u2192 Category \u2192 Subcategory)"
+        },
+        {
+            "fieldname": "country",
+            "fieldtype": "Link",
+            "label": "Country",
+            "options": "Country",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "scope",
+            "fieldtype": "Link",
+            "label": "Scope",
+            "options": "CityOS Scope",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "category",
+            "fieldtype": "Link",
+            "label": "Category",
+            "options": "CityOS Category"
+        },
+        {
+            "fieldname": "subcategory",
+            "fieldtype": "Link",
+            "label": "Subcategory",
+            "options": "CityOS Subcategory"
+        },
+        {
+            "fieldname": "section_break_tenant",
+            "fieldtype": "Section Break",
+            "label": "Business Hierarchy (Tenant \u2192 Store \u2192 Portal)"
+        },
+        {
+            "fieldname": "tenant",
+            "fieldtype": "Data",
+            "label": "Tenant",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "store",
+            "fieldtype": "Link",
+            "label": "Store",
+            "options": "CityOS Store",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "portal",
+            "fieldtype": "Link",
+            "label": "Portal",
+            "options": "CityOS Portal"
+        },
+        {
+            "fieldname": "organization_unit",
+            "fieldtype": "Data",
+            "label": "Organization Unit"
+        },
+        {
+            "fieldname": "section_break_org",
+            "fieldtype": "Section Break",
+            "label": "ERPNext Links"
+        },
+        {
+            "fieldname": "cost_center",
+            "fieldtype": "Link",
+            "label": "Cost Center",
+            "options": "Cost Center"
+        },
+        {
+            "fieldname": "project",
+            "fieldtype": "Link",
+            "label": "Project",
+            "options": "Project"
+        },
+        {
+            "fieldname": "column_break_org2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "city_or_theme",
+            "fieldtype": "Data",
+            "label": "City or Theme",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "sector",
+            "fieldtype": "Data",
+            "label": "Sector",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_channel",
+            "fieldtype": "Section Break",
+            "label": "Channel & Surface"
+        },
+        {
+            "fieldname": "channel",
+            "fieldtype": "Data",
+            "label": "Channel"
+        },
+        {
+            "fieldname": "surface",
+            "fieldtype": "Data",
+            "label": "Surface"
+        },
+        {
+            "fieldname": "column_break_4",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "persona",
+            "fieldtype": "Link",
+            "label": "Persona",
+            "options": "CityOS Persona"
+        },
+        {
+            "fieldname": "brand",
+            "fieldtype": "Data",
+            "label": "Brand"
+        },
+        {
+            "fieldname": "section_break_locale",
+            "fieldtype": "Section Break",
+            "label": "Locale & Versioning"
+        },
+        {
+            "fieldname": "locale",
+            "fieldtype": "Data",
+            "label": "Locale",
+            "default": "en-SA"
+        },
+        {
+            "fieldname": "theme",
+            "fieldtype": "Data",
+            "label": "Theme"
+        },
+        {
+            "fieldname": "column_break_5",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "version",
+            "fieldtype": "Data",
+            "label": "Version",
+            "default": "1.0"
+        },
+        {
+            "fieldname": "section_break_metadata",
+            "fieldtype": "Section Break",
+            "label": "Metadata"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Small Text",
+            "label": "Description"
+        }
+    ],
+    "modified": "2026-02-09 18:00:00.000000",
+    "creation": "2026-02-09 12:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "naming_rule": "By fieldname",
+    "autoname": "field:context_name",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 0,
+            "cancel": 0,
+            "amend": 0,
+            "report": 1,
+            "export": 1,
+            "import": 1
+        },
+        {
+            "role": "CityOS Administrator",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "report": 1,
+            "export": 1
+        },
+        {
+            "role": "Governance Authority",
+            "read": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "allow_import": 1,
+    "title_field": "context_name",
+    "search_fields": "country,tenant,scope,store",
+    "show_title_field_in_link": 1
+}

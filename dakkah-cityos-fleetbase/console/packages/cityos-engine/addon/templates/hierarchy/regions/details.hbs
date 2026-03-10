@@ -1,0 +1,63 @@
+<Layout::Section::Header @title="Region Detail" />
+<Layout::Section::Body>
+    <div class="p-6 space-y-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">General Information</h3>
+            </div>
+            <div class="p-4">
+                <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Code</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{@model.code}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Name</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{@model.name}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Name (Arabic)</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white" dir="rtl">{{@model.name_ar}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Residency Zone</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{@model.residency_zone}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Status</dt>
+                        <dd class="mt-1">
+                            <span class="px-2 py-1 rounded-full text-xs font-medium {{if (eq @model.status "active") "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300"}}">{{@model.status}}</span>
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Created At</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{@model.created_at}}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Updated At</dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{@model.updated_at}}</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Policies</h3>
+            </div>
+            <div class="p-4 space-y-4">
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Data Residency Policy</dt>
+                    <pre class="mt-1 text-sm text-gray-900 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 p-3 rounded-lg overflow-x-auto font-mono">{{@model.data_residency_policy}}</pre>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Compliance Policy</dt>
+                    <pre class="mt-1 text-sm text-gray-900 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 p-3 rounded-lg overflow-x-auto font-mono">{{@model.compliance_policy}}</pre>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Classification Policy</dt>
+                    <pre class="mt-1 text-sm text-gray-900 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 p-3 rounded-lg overflow-x-auto font-mono">{{@model.classification_policy}}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout::Section::Body>

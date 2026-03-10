@@ -1,0 +1,403 @@
+{
+    "name": "Staff Assignment",
+    "module": "HR Management",
+    "doctype": "DocType",
+    "document_type": "Document",
+    "engine": "InnoDB",
+    "naming_rule": "Random",
+    "autoname": "hash",
+    "is_submittable": 1,
+    "field_order": [
+        "assignment_title",
+        "employee",
+        "column_break_1",
+        "from_position",
+        "to_department",
+        "to_project",
+        "section_break_details",
+        "assignment_type",
+        "start_date",
+        "column_break_2",
+        "end_date",
+        "status",
+        "section_break_approval",
+        "approved_by",
+        "section_break_justification",
+        "justification",
+        "section_break_employee_info",
+        "employee_name",
+        "position",
+        "column_break_ei1",
+        "position_title",
+        "section_break_dates2",
+        "effective_from",
+        "column_break_ed1",
+        "effective_to",
+        "section_break_prev",
+        "previous_position",
+        "column_break_prev1",
+        "previous_assignment",
+        "section_break_compensation2",
+        "salary_amount",
+        "column_break_comp1",
+        "allowances",
+        "section_break_dept2",
+        "department",
+        "section_break_approval2",
+        "approval_status",
+        "column_break_app1",
+        "approved_date",
+        "section_break_ending",
+        "end_reason",
+        "column_break_end1",
+        "remarks",
+        "section_break_node_context",
+        "cityos_tenant",
+        "cityos_country",
+        "column_break_nc1",
+        "cityos_city",
+        "cityos_sector",
+        "column_break_nc2",
+        "cityos_correlation_id",
+        "cityos_source_system",
+        "cityos_workflow_state"
+    ],
+    "fields": [
+        {
+            "fieldname": "assignment_title",
+            "fieldtype": "Data",
+            "label": "Assignment Title",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "employee",
+            "fieldtype": "Link",
+            "label": "Employee",
+            "options": "Employee",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "from_position",
+            "fieldtype": "Link",
+            "label": "From Position",
+            "options": "Position Control"
+        },
+        {
+            "fieldname": "to_department",
+            "fieldtype": "Link",
+            "label": "To Department",
+            "options": "Department"
+        },
+        {
+            "fieldname": "to_project",
+            "fieldtype": "Link",
+            "label": "To Project",
+            "options": "Project"
+        },
+        {
+            "fieldname": "section_break_details",
+            "fieldtype": "Section Break",
+            "label": "Assignment Details"
+        },
+        {
+            "fieldname": "assignment_type",
+            "fieldtype": "Select",
+            "label": "Assignment Type",
+            "options": "\nPermanent\nActing\nInterim\nTemporary\nSecondment",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "start_date",
+            "fieldtype": "Date",
+            "label": "Start Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "end_date",
+            "fieldtype": "Date",
+            "label": "End Date"
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "\nProposed\nActive\nCompleted\nCancelled",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_approval",
+            "fieldtype": "Section Break",
+            "label": "Approval"
+        },
+        {
+            "fieldname": "approved_by",
+            "fieldtype": "Link",
+            "label": "Approved By",
+            "options": "User",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_justification",
+            "fieldtype": "Section Break",
+            "label": "Justification"
+        },
+        {
+            "fieldname": "justification",
+            "fieldtype": "Text",
+            "label": "Justification"
+        },
+        {
+            "fieldname": "section_break_employee_info",
+            "fieldtype": "Section Break",
+            "label": "Employee & Position"
+        },
+        {
+            "fieldname": "employee_name",
+            "fieldtype": "Data",
+            "label": "Employee Name",
+            "read_only": 1
+        },
+        {
+            "fieldname": "position",
+            "fieldtype": "Link",
+            "label": "Position",
+            "options": "Position Control"
+        },
+        {
+            "fieldname": "column_break_ei1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "position_title",
+            "fieldtype": "Data",
+            "label": "Position Title",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_dates2",
+            "fieldtype": "Section Break",
+            "label": "Effective Dates"
+        },
+        {
+            "fieldname": "effective_from",
+            "fieldtype": "Date",
+            "label": "Effective From"
+        },
+        {
+            "fieldname": "column_break_ed1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "effective_to",
+            "fieldtype": "Date",
+            "label": "Effective To"
+        },
+        {
+            "fieldname": "section_break_prev",
+            "fieldtype": "Section Break",
+            "label": "Previous Assignment"
+        },
+        {
+            "fieldname": "previous_position",
+            "fieldtype": "Link",
+            "label": "Previous Position",
+            "options": "Position Control"
+        },
+        {
+            "fieldname": "column_break_prev1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "previous_assignment",
+            "fieldtype": "Link",
+            "label": "Previous Assignment",
+            "options": "Staff Assignment"
+        },
+        {
+            "fieldname": "section_break_compensation2",
+            "fieldtype": "Section Break",
+            "label": "Compensation"
+        },
+        {
+            "fieldname": "salary_amount",
+            "fieldtype": "Currency",
+            "label": "Salary Amount"
+        },
+        {
+            "fieldname": "column_break_comp1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "allowances",
+            "fieldtype": "Currency",
+            "label": "Allowances"
+        },
+        {
+            "fieldname": "section_break_dept2",
+            "fieldtype": "Section Break",
+            "label": "Department"
+        },
+        {
+            "fieldname": "department",
+            "fieldtype": "Link",
+            "label": "Department",
+            "options": "Department",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_approval2",
+            "fieldtype": "Section Break",
+            "label": "Approval Details"
+        },
+        {
+            "fieldname": "approval_status",
+            "fieldtype": "Select",
+            "label": "Approval Status",
+            "options": "\nDraft\nPending Approval\nApproved\nRejected\nEnded"
+        },
+        {
+            "fieldname": "column_break_app1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "approved_date",
+            "fieldtype": "Date",
+            "label": "Approved Date"
+        },
+        {
+            "fieldname": "section_break_ending",
+            "fieldtype": "Section Break",
+            "label": "Assignment End"
+        },
+        {
+            "fieldname": "end_reason",
+            "fieldtype": "Select",
+            "label": "End Reason",
+            "options": "\nTransfer\nPromotion\nResignation\nRetirement\nTermination\nContract End"
+        },
+        {
+            "fieldname": "column_break_end1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "remarks",
+            "fieldtype": "Small Text",
+            "label": "Remarks"
+        },
+        {
+            "fieldname": "section_break_node_context",
+            "fieldtype": "Section Break",
+            "label": "CityOS Node Context",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "cityos_tenant",
+            "fieldtype": "Data",
+            "label": "CityOS Tenant",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "cityos_country",
+            "fieldtype": "Data",
+            "label": "CityOS Country"
+        },
+        {
+            "fieldname": "column_break_nc1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_city",
+            "fieldtype": "Data",
+            "label": "CityOS City"
+        },
+        {
+            "fieldname": "cityos_sector",
+            "fieldtype": "Data",
+            "label": "CityOS Sector"
+        },
+        {
+            "fieldname": "column_break_nc2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_correlation_id",
+            "fieldtype": "Data",
+            "label": "CityOS Correlation ID",
+            "hidden": 1,
+            "read_only": 1
+        },
+        {
+            "fieldname": "cityos_source_system",
+            "fieldtype": "Data",
+            "label": "CityOS Source System",
+            "read_only": 1
+        },
+        {
+            "fieldname": "cityos_workflow_state",
+            "fieldtype": "Data",
+            "label": "CityOS Workflow State",
+            "read_only": 1
+        }
+    ],
+    "modified": "2026-02-10 12:00:00.000000",
+    "creation": "2026-02-09 12:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 1,
+            "cancel": 1,
+            "amend": 1,
+            "report": 1,
+            "export": 1
+        },
+        {
+            "role": "CityOS HR Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "submit": 1,
+            "cancel": 0,
+            "report": 1
+        },
+        {
+            "role": "CityOS Administrator",
+            "read": 1,
+            "write": 0,
+            "create": 0,
+            "delete": 0,
+            "report": 1,
+            "export": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "search_fields": "assignment_title,employee,assignment_type,status"
+}

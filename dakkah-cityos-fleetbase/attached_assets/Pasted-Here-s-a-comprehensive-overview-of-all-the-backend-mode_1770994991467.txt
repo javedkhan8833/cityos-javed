@@ -1,0 +1,123 @@
+Here's a comprehensive overview of all the backend models and how they map to the admin panel:
+
+1. Core API (Platform Foundation)
+Model	Admin Panel	Status
+User	Settings > Users	Fully implemented
+Company	Admin > Organizations	Fully implemented
+CompanyUser	Internal (company-user link)	Working
+Role	IAM Engine	Fully implemented
+Permission	IAM Engine	Fully implemented
+Policy	IAM Engine	Fully implemented
+Group / GroupUser	Settings	Implemented
+ApiCredential	Settings > API Keys	Fully implemented
+ApiEvent / ApiRequestLog	Developer > Events/Logs	Fully implemented
+WebhookEndpoint / WebhookRequestLog	Developer > Webhooks	Fully implemented
+ChatChannel / ChatMessage / ChatParticipant / ChatAttachment / ChatReceipt / ChatLog	Chat feature	Implemented
+File	File uploads (internal)	Working
+Dashboard / DashboardWidget	Console Home	Implemented
+Category	Shared across engines	Working
+Extension / ExtensionInstall	Registry Bridge	Implemented
+Notification	Console notifications	Working
+VerificationCode	SMS/Email verification	Working
+Transaction / TransactionItem	Internal billing	Implemented
+Schedule / ScheduleItem / ScheduleTemplate / ScheduleAvailability / ScheduleConstraint	Admin > Schedule Monitor	Implemented
+Setting	Admin > Config	Working
+Activity	Activity logs	Working
+Alert	Internal alerts	Implemented
+Comment	Internal comments	Working
+CustomField / CustomFieldValue	Custom fields system	Implemented
+Directive	Internal directives	Partial — no dedicated UI
+Invite	Join org/fleet links	Working
+LoginAttempt	Internal security tracking	No UI
+Report / ReportAuditLog / ReportExecution	Reporting	Partial
+UserDevice	Push notification devices	Internal only
+Type	Type system	Internal
+2. FleetOps Engine (Logistics Operations)
+Model	Admin Panel	Status
+Order / OrderConfig	FleetOps > Orders	Fully implemented
+Driver	FleetOps > Drivers	Fully implemented
+Vehicle	FleetOps > Vehicles	Fully implemented
+Fleet / FleetDriver / FleetVehicle	FleetOps > Fleets	Fully implemented
+Contact	FleetOps > Contacts	Fully implemented
+Place	FleetOps > Places	Fully implemented
+Vendor / VendorPersonnel	FleetOps > Vendors	Fully implemented
+ServiceArea / Zone	FleetOps > Service Areas	Fully implemented
+ServiceRate / ServiceRateFee / ServiceRateParcelFee	FleetOps > Service Rates	Implemented
+ServiceQuote / ServiceQuoteItem	Quoting system	Implemented
+Payload / Entity / Waypoint	Order payload/items	Working (internal to orders)
+TrackingNumber / TrackingStatus	Order tracking	Working
+Route	Routing	Implemented
+FuelReport	FleetOps > Fuel Reports	Implemented
+Issue	FleetOps > Issues	Implemented
+PurchaseRate	Purchase rates	Implemented
+Proof	Proof of delivery	Working
+Maintenance / Part / WorkOrder / Warranty	Fleet maintenance	Partial — basic UI, limited functionality
+Equipment	Equipment tracking	Minimal UI
+Sensor	IoT sensors	Minimal — needs integration
+Telematic	Telematics integration	Partial — needs external service
+Device / DeviceEvent / VehicleDevice / VehicleDeviceEvent	Device management	Partial — basic framework
+IntegratedVendor	Vendor integrations	Implemented
+Position	GPS position tracking	Internal (no dedicated UI)
+Asset	Asset management	Minimal
+3. Storefront Engine (E-Commerce)
+Model	Admin Panel	Status
+Store / StoreHour / StoreLocation	Storefront > Stores	Implemented
+Product / ProductVariant / ProductVariantOption	Storefront > Products	Implemented
+ProductAddon / ProductAddonCategory / AddonCategory	Product addons	Implemented
+Catalog / CatalogCategory / CatalogProduct / CatalogSubject / CatalogHour	Storefront > Catalogs	Implemented
+Customer	Storefront > Customers	Implemented
+Order (via core)	Storefront > Orders	Implemented
+Checkout	Checkout flow	Implemented
+Cart	Shopping cart	Working (API-driven)
+Gateway	Payment gateways	Implemented
+Network / NetworkStore	Multi-vendor networks	Implemented
+Review / Vote	Reviews system	Partial
+PaymentMethod	Payment methods	Implemented
+NotificationChannel	Push notifications	Implemented
+FoodTruck	Food truck module	Partial — niche feature
+ProductHour	Product availability hours	Implemented
+4. Pallet Engine (Warehouse Management)
+Model	Admin Panel	Status
+Warehouse / WarehouseSection / WarehouseAisle / WarehouseRack / WarehouseBin / WarehouseDock	Pallet > Warehouses	Implemented
+Inventory	Pallet > Inventory	Implemented
+Product	Pallet > Products	Implemented
+Batch	Pallet > Batches	Implemented
+PurchaseOrder	Pallet > Purchase Orders	Implemented
+SalesOrder	Pallet > Sales Orders	Implemented
+StockAdjustment	Pallet > Stock Adjustments	Implemented
+StockTransaction	Internal stock tracking	Working (internal)
+Supplier	Pallet > Suppliers	Implemented
+Audit	Audit trails	Working
+5. CityOS Engine (Multi-Hierarchy Governance)
+Model	Admin Panel	Status
+Country	CityOS > Countries	Implemented
+City	CityOS > Cities	Implemented
+Sector	CityOS > Sectors	Implemented
+Tenant	CityOS > Tenants	Implemented
+Category	CityOS > Categories	Implemented
+Channel	CityOS > Channels	Implemented
+Surface	CityOS > Surfaces	Implemented
+Portal	CityOS > Portals	Implemented
+Region	CityOS > Regions	Implemented
+Node	Hierarchy tree	Implemented
+GovernanceAuthority	Governance	Implemented
+Policy	Governance policies	Implemented
+FeatureFlag	Feature gates	Implemented
+WorkflowRegistry	Temporal workflows	Partial — needs Temporal Cloud
+OutboxEvent	Event bridge audit trail	Internal (no dedicated UI)
+IntegrationLog	Integration logging	Internal (no dedicated UI)
+Store	CityOS stores	Implemented
+6. Other Engines
+Engine	Status
+IAM Engine	Uses Core API's Role/Permission/Policy models — Fully working
+Registry Bridge	RegistryExtension, RegistryUser, etc. — Working
+Key Gaps Summary
+Fleet Maintenance (Maintenance, WorkOrder, Part, Warranty) — Models exist but UI is basic
+Telematics/IoT (Sensor, Telematic, Device) — Framework exists, needs external service integration
+Reporting (Report, ReportExecution) — Backend models exist, UI is limited
+OutboxEvent / IntegrationLog — No dedicated admin UI for viewing these logs
+WorkflowRegistry — Depends on Temporal Cloud connection which isn't active
+LoginAttempt — Security audit model with no admin visibility
+FoodTruck — Niche storefront feature, partially implemented
+Reviews/Votes — Basic implementation in storefront
+Overall: ~127 unique models, ~90% have API endpoints, ~80% have admin panel UI. The main gaps are in fleet maintenance depth, IoT/telematics integration, and some internal audit/logging visibility.

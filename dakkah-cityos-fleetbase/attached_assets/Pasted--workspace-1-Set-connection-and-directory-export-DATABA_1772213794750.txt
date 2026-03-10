@@ -1,0 +1,118 @@
+~/workspace$ # 1. Set connection and directory
+export DATABASE_URL="postgresql://neondb_owner:npg_0SJWHs1UGtTp@ep-lively-band-aiwoo54w-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require"
+cd /home/runner/workspace/api
+
+# 2. Hard reset of the schema and extensions
+psql "$DATABASE_URL" -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+psql "$DATABASE_URL" -c "CREATE EXTENSION IF NOT EXISTS postgis; CREATE EXTENSION IF NOT EXISTS pg_trgm; CREATE EXTENSION IF NOT EXISTS btree_gist; CREATE EXTENSION IF NOT EXISTS unaccent; CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
+
+# 3. Initialize tracking
+php artisan migrate:install
+
+# 4. Manually create the first 10 tables to bypass transaction collisions
+psql "$DATABASE_URL" -c "CREATE TABLE personal_access_tokens (id serial PRIMARY KEY, tokenable_type varchar(255) NOT NULL, tokenable_id bigint NOT NULL, name varchar(255) NOT NULL, token varchar(64) NOT NULL UNIQUE, abilities text, last_used_at timestamp, created_at timestamp, updated_at timestamp); CREATE INDEX personal_access_tokens_tokenable_type_tokenable_id_index ON personal_access_tokens (tokenable_type, tokenable_id);"
+psql "$DATABASE_URL" -c "CREATE TABLE users (id serial PRIMARY KEY, uuid varchar(191) NOT NULL UNIQUE, name varchar(255) NOT NULL, email varchar(191) NOT NULL UNIQUE, email_verified_at timestamp, password varchar(255) NOT NULL, remember_token varchar(100), created_at timestamp, updated_at timestamp, deleted_at timestamp);"
+psql "$DATABASE_URL" -c "CREATE TABLE user_devices (id serial PRIMARY KEY, uuid varchar(191) NOT NULL UNIQUE, user_uuid varchar(191) NOT NULL, platform varchar(255), token text, created_at timestamp, updated_at timestamp);"
+psql "$DATABASE_URL" -c "CREATE TABLE permissions (id serial PRIMARY KEY, name varchar(191) NOT NULL, guard_name varchar(191) NOT NULL, created_at timestamp, updated_at timestamp, CONSTRAINT permissions_name_guard_name_unique UNIQUE (name, guard_name));"
+psql "$DATABASE_URL" -c "CREATE TABLE companies (id serial PRIMARY KEY, uuid varchar(191) NOT NULL UNIQUE, name varchar(255) NOT NULL, email varchar(191), logo_uuid varchar(191), backdrop_uuid varchar(191), website varchar(255), phone varchar(255), fax varchar(255), country varchar(255), timezone varchar(255), status varchar(255), options jsonb, created_at timestamp, updated_at timestamp, deleted_at timestamp);"
+psql "$DATABASE_URL" -c "CREATE TABLE groups (id serial PRIMARY KEY, uuid varchar(191) NOT NULL UNIQUE, company_uuid varchar(191) NOT NULL, name varchar(255) NOT NULL, description text, created_at timestamp, updated_at timestamp, deleted_at timestamp);"
+psql "$DATABASE_URL" -c "CREATE TABLE transactions (id serial PRIMARY KEY, uuid varchar(191) NOT NULL UNIQUE, customer_uuid varchar(191), gateway_uuid varchar(191), amount integer, currency varchar(255), description text, status varchar(255), created_at timestamp, updated_at timestamp, deleted_at timestamp);"
+psql "$DATABASE_URL" -c "CREATE TABLE files (id serial PRIMARY KEY, uuid varchar(191) NOT NULL UNIQUE, folder_uuid varchar(191), user_uuid varchar(191), company_uuid varchar(191), uploader_uuid varchar(191), bucket varchar(255), name varchar(255), original_filename varchar(255), extension varchar(255), mime_type varchar(255), size integer, path varchar(255), url text, type varchar(255), field_name varchar(255), disk varchar(255), slug varchar(255), options jsonb, created_at timestamp, updated_at timestamp, deleted_at timestamp);"
+psql "$DATABASE_URL" -c "CREATE TABLE activity (id serial PRIMARY KEY, log_name varchar(255), description text, subject_type varchar(255), event varchar(255), subject_id bigint, causer_type varchar(255), causer_id bigint, properties jsonb, batch_uuid uuid, created_at timestamp, updated_at timestamp); CREATE INDEX activity_log_name_index ON activity (log_name); CREATE INDEX activity_subject_id_subject_type_index ON activity (subject_id, subject_type); CREATE INDEX activity_causer_id_causer_type_index ON activity (causerphp artisan db:seed --force --no-interactionlog_table', 1);"7_create_transactions_table', 1), ('2023_04_25_094308_create_files_tabl
+NOTICE:  drop cascades to 15 other objects
+DETAIL:  drop cascades to extension postgis
+drop cascades to extension postgis_topology
+drop cascades to extension pg_trgm
+drop cascades to extension btree_gist
+drop cascades to extension unaccent
+drop cascades to extension uuid-ossp
+drop cascades to table migrations
+drop cascades to table personal_access_tokens
+drop cascades to table users
+drop cascades to table user_devices
+drop cascades to table permissions
+drop cascades to table companies
+drop cascades to table groups
+drop cascades to table transactions
+drop cascades to table files
+DROP SCHEMA
+CREATE SCHEMA
+CREATE EXTENSION
+CREATE EXTENSION
+CREATE EXTENSION
+CREATE EXTENSION
+CREATE EXTENSION
+
+   INFO  Migration table created successfully.  
+
+CREATE TABLE
+CREATE INDEX
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+INSERT 0 10
+
+   INFO  Running migrations.  
+
+  2023_04_25_094311_create_api_credentials_table ................................................................... 1,291ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[25P02]: In failed sql transaction: 7 ERROR:  current transaction is aborted, commands ignored until end of transaction block (Connection: pgsql, SQL: alter table "api_credentials" add constraint "api_credentials_uuid_unique" unique ("uuid"))
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+      +35 vendor frames 
+
+  36  artisan:35
+      Illuminate\Foundation\Console\Kernel::handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+
+
+   INFO  Seeding database.  
+
+  Fleetbase\CityOS\Seeders\CityOSHierarchySeeder ........................................................................ RUNNING  
+Seeding CityOS hierarchy data...
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "cityos_countries" does not exist
+LINE 1: select * from "cityos_countries" where ("code" = $1) and "ci...
+                      ^ (Connection: pgsql, SQL: select * from "cityos_countries" where ("code" = SA) and "cityos_countries"."deleted_at" is null limit 1)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+      +17 vendor frames 
+
+  18  packages/cityos/src/Seeders/CityOSHierarchySeeder.php:97
+      Illuminate\Database\Eloquent\Model::__callStatic("updateOrCreate")
+
+  19  packages/cityos/src/Seeders/CityOSHierarchySeeder.php:26
+      Fleetbase\CityOS\Seeders\CityOSHierarchySeeder::seedCountries()
+
+~/workspace/api$ 

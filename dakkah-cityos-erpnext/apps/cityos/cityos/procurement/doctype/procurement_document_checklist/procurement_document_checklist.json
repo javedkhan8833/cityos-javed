@@ -1,0 +1,22 @@
+{
+    "name": "Procurement Document Checklist",
+    "module": "Procurement",
+    "doctype": "DocType",
+    "istable": 1,
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "fields": [
+        {"fieldname": "document_name", "fieldtype": "Data", "label": "Document Name", "in_list_view": 1, "reqd": 1},
+        {"fieldname": "is_mandatory", "fieldtype": "Check", "label": "Is Mandatory", "in_list_view": 1},
+        {"fieldname": "is_attached", "fieldtype": "Check", "label": "Is Attached", "in_list_view": 1},
+        {"fieldname": "attachment", "fieldtype": "Attach", "label": "Attachment"}
+    ],
+    "permissions": [],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "creation": "2026-02-10 00:00:00.000000",
+    "modified": "2026-02-10 00:00:00.000000",
+    "modified_by": "Administrator",
+    "owner": "Administrator"
+}

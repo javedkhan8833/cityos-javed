@@ -1,0 +1,429 @@
+{
+    "name": "Contract Register",
+    "module": "Procurement",
+    "doctype": "DocType",
+    "document_type": "Document",
+    "engine": "InnoDB",
+    "is_submittable": 0,
+    "naming_rule": "Expression (old style)",
+    "autoname": "hash",
+    "field_order": [
+        "contract_title",
+        "column_break_1",
+        "contract_type",
+        "status",
+        "section_break_details",
+        "supplier",
+        "column_break_2",
+        "start_date",
+        "end_date",
+        "section_break_value",
+        "contract_value",
+        "column_break_3",
+        "currency",
+        "payment_terms",
+        "section_break_contract_info",
+        "contract_number",
+        "amended_value",
+        "column_break_ci1",
+        "total_value",
+        "contract_status",
+        "section_break_dates",
+        "renewal_date",
+        "auto_renew",
+        "column_break_dt1",
+        "notice_period_days",
+        "section_break_vendor_link",
+        "linked_vendor",
+        "linked_vendor_profile",
+        "column_break_vl1",
+        "linked_procurement_request",
+        "contract_manager",
+        "section_break_financial",
+        "performance_bond_amount",
+        "performance_bond_expiry",
+        "column_break_fin1",
+        "retention_percentage",
+        "retention_amount",
+        "section_break_payment_track",
+        "paid_amount",
+        "remaining_value",
+        "column_break_pt1",
+        "sla_compliance_percentage",
+        "section_break_milestones",
+        "milestones",
+        "section_break_pay_schedule",
+        "payment_schedule",
+        "section_break_amendments",
+        "amendments",
+        "section_break_node_context",
+        "cityos_tenant",
+        "cityos_country",
+        "column_break_4",
+        "cityos_city",
+        "cityos_sector",
+        "column_break_5",
+        "cityos_correlation_id",
+        "cityos_source_system",
+        "cityos_workflow_state"
+    ],
+    "fields": [
+        {
+            "fieldname": "contract_title",
+            "fieldtype": "Data",
+            "label": "Contract Title",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "contract_type",
+            "fieldtype": "Select",
+            "label": "Contract Type",
+            "options": "\nGoods\nServices\nWorks\nConsultancy\nFramework\nLease",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "\nDraft\nActive\nExpired\nTerminated\nRenewing",
+            "default": "Draft",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_details",
+            "fieldtype": "Section Break",
+            "label": "Contract Details"
+        },
+        {
+            "fieldname": "supplier",
+            "fieldtype": "Link",
+            "label": "Supplier",
+            "options": "Supplier"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "start_date",
+            "fieldtype": "Date",
+            "label": "Start Date"
+        },
+        {
+            "fieldname": "end_date",
+            "fieldtype": "Date",
+            "label": "End Date"
+        },
+        {
+            "fieldname": "section_break_value",
+            "fieldtype": "Section Break",
+            "label": "Contract Value"
+        },
+        {
+            "fieldname": "contract_value",
+            "fieldtype": "Currency",
+            "label": "Contract Value",
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "currency",
+            "fieldtype": "Link",
+            "label": "Currency",
+            "options": "Currency",
+            "default": "USD"
+        },
+        {
+            "fieldname": "payment_terms",
+            "fieldtype": "Small Text",
+            "label": "Payment Terms"
+        },
+        {
+            "fieldname": "section_break_contract_info",
+            "fieldtype": "Section Break",
+            "label": "Contract Information"
+        },
+        {
+            "fieldname": "contract_number",
+            "fieldtype": "Data",
+            "label": "Contract Number"
+        },
+        {
+            "fieldname": "amended_value",
+            "fieldtype": "Currency",
+            "label": "Amended Value"
+        },
+        {
+            "fieldname": "column_break_ci1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "total_value",
+            "fieldtype": "Currency",
+            "label": "Total Value",
+            "read_only": 1
+        },
+        {
+            "fieldname": "contract_status",
+            "fieldtype": "Select",
+            "label": "Contract Status",
+            "options": "\nDraft\nUnder Review\nActive\nUnder Amendment\nSuspended\nExpired\nRenewed\nTerminated"
+        },
+        {
+            "fieldname": "section_break_dates",
+            "fieldtype": "Section Break",
+            "label": "Contract Dates"
+        },
+        {
+            "fieldname": "renewal_date",
+            "fieldtype": "Date",
+            "label": "Renewal Date"
+        },
+        {
+            "fieldname": "auto_renew",
+            "fieldtype": "Check",
+            "label": "Auto Renew"
+        },
+        {
+            "fieldname": "column_break_dt1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "notice_period_days",
+            "fieldtype": "Int",
+            "label": "Notice Period (Days)"
+        },
+        {
+            "fieldname": "section_break_vendor_link",
+            "fieldtype": "Section Break",
+            "label": "Vendor & Procurement Links"
+        },
+        {
+            "fieldname": "linked_vendor",
+            "fieldtype": "Link",
+            "label": "Linked Vendor",
+            "options": "Supplier"
+        },
+        {
+            "fieldname": "linked_vendor_profile",
+            "fieldtype": "Link",
+            "label": "Linked Vendor Profile",
+            "options": "Vendor Compliance Profile"
+        },
+        {
+            "fieldname": "column_break_vl1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "linked_procurement_request",
+            "fieldtype": "Link",
+            "label": "Linked Procurement Request",
+            "options": "CityOS Procurement Request"
+        },
+        {
+            "fieldname": "contract_manager",
+            "fieldtype": "Link",
+            "label": "Contract Manager",
+            "options": "User"
+        },
+        {
+            "fieldname": "section_break_financial",
+            "fieldtype": "Section Break",
+            "label": "Financial Details"
+        },
+        {
+            "fieldname": "performance_bond_amount",
+            "fieldtype": "Currency",
+            "label": "Performance Bond Amount"
+        },
+        {
+            "fieldname": "performance_bond_expiry",
+            "fieldtype": "Date",
+            "label": "Performance Bond Expiry"
+        },
+        {
+            "fieldname": "column_break_fin1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "retention_percentage",
+            "fieldtype": "Percent",
+            "label": "Retention Percentage"
+        },
+        {
+            "fieldname": "retention_amount",
+            "fieldtype": "Currency",
+            "label": "Retention Amount",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_payment_track",
+            "fieldtype": "Section Break",
+            "label": "Payment Tracking"
+        },
+        {
+            "fieldname": "paid_amount",
+            "fieldtype": "Currency",
+            "label": "Paid Amount",
+            "read_only": 1
+        },
+        {
+            "fieldname": "remaining_value",
+            "fieldtype": "Currency",
+            "label": "Remaining Value",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_pt1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "sla_compliance_percentage",
+            "fieldtype": "Percent",
+            "label": "SLA Compliance Percentage",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_milestones",
+            "fieldtype": "Section Break",
+            "label": "Milestones"
+        },
+        {
+            "fieldname": "milestones",
+            "fieldtype": "Table",
+            "label": "Milestones",
+            "options": "Contract Milestone"
+        },
+        {
+            "fieldname": "section_break_pay_schedule",
+            "fieldtype": "Section Break",
+            "label": "Payment Schedule"
+        },
+        {
+            "fieldname": "payment_schedule",
+            "fieldtype": "Table",
+            "label": "Payment Schedule",
+            "options": "Contract Payment Schedule"
+        },
+        {
+            "fieldname": "section_break_amendments",
+            "fieldtype": "Section Break",
+            "label": "Amendments"
+        },
+        {
+            "fieldname": "amendments",
+            "fieldtype": "Table",
+            "label": "Amendments",
+            "options": "Contract Amendment"
+        },
+        {
+            "fieldname": "section_break_node_context",
+            "fieldtype": "Section Break",
+            "label": "CityOS Node Context",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "cityos_tenant",
+            "fieldtype": "Data",
+            "label": "CityOS Tenant",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "cityos_country",
+            "fieldtype": "Data",
+            "label": "CityOS Country"
+        },
+        {
+            "fieldname": "column_break_4",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_city",
+            "fieldtype": "Data",
+            "label": "CityOS City"
+        },
+        {
+            "fieldname": "cityos_sector",
+            "fieldtype": "Data",
+            "label": "CityOS Sector"
+        },
+        {
+            "fieldname": "column_break_5",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_correlation_id",
+            "fieldtype": "Data",
+            "label": "CityOS Correlation ID"
+        },
+        {
+            "fieldname": "cityos_source_system",
+            "fieldtype": "Data",
+            "label": "CityOS Source System"
+        },
+        {
+            "fieldname": "cityos_workflow_state",
+            "fieldtype": "Data",
+            "label": "CityOS Workflow State"
+        }
+    ],
+    "modified": "2026-02-10 12:00:00.000000",
+    "creation": "2026-02-10 12:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "report": 1,
+            "export": 1,
+            "import": 1
+        },
+        {
+            "role": "CityOS Procurement Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "report": 1,
+            "export": 1
+        },
+        {
+            "role": "CityOS Administrator",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "report": 1,
+            "export": 1,
+            "import": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "allow_import": 1,
+    "title_field": "contract_title",
+    "search_fields": "contract_type,status,supplier",
+    "show_title_field_in_link": 1
+}

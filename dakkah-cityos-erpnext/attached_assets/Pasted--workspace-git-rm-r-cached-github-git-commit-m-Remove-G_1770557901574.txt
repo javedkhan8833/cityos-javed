@@ -1,0 +1,113 @@
+~/workspace$ git rm -r --cached .github && git commit -m "Remove GitHub workflows" && git push -u origin fresh-main:main --force~
+rm '.github/CONTRIBUTING.md'
+rm '.github/ISSUE_TEMPLATE/bug_report.yaml'
+rm '.github/ISSUE_TEMPLATE/config.yml'
+rm '.github/ISSUE_TEMPLATE/feature_request.md'
+rm '.github/PULL_REQUEST_TEMPLATE.md'
+rm '.github/helper/.flake8_strict'
+rm '.github/helper/documentation.py'
+rm '.github/helper/install.sh'
+rm '.github/helper/site_config_mariadb.json'
+rm '.github/helper/site_config_postgres.json'
+rm '.github/helper/translation.py'
+rm '.github/helper/update_pot_file.sh'
+rm '.github/labeler.yml'
+rm '.github/release.yml'
+rm '.github/stale.yml'
+rm '.github/try-on-f-cloud-button.svg'
+rm '.github/workflows/backport.yml'
+rm '.github/workflows/docker-release.yml'
+rm '.github/workflows/docs-checker.yml'
+rm '.github/workflows/generate-pot-file.yml'
+rm '.github/workflows/initiate_release.yml'
+rm '.github/workflows/label-base-on-title.yml'
+rm '.github/workflows/labeller.yml'
+rm '.github/workflows/linters.yml'
+rm '.github/workflows/lock.yml'
+rm '.github/workflows/patch.yml'
+rm '.github/workflows/patch_faux.yml'
+rm '.github/workflows/release.yml'
+rm '.github/workflows/release_notes.yml'
+rm '.github/workflows/run-indinvidual-tests.yml'
+rm '.github/workflows/semantic-commits.yml'
+rm '.github/workflows/server-tests-mariadb-faux.yml'
+rm '.github/workflows/server-tests-mariadb.yml'
+rm '.github/workflows/server-tests-postgres.yml'
+[fresh-main 3c90fc7] Remove GitHub workflows
+ 34 files changed, 1706 deletions(-)
+ delete mode 100644 .github/CONTRIBUTING.md
+ delete mode 100644 .github/ISSUE_TEMPLATE/bug_report.yaml
+ delete mode 100644 .github/ISSUE_TEMPLATE/config.yml
+ delete mode 100644 .github/ISSUE_TEMPLATE/feature_request.md
+ delete mode 100644 .github/PULL_REQUEST_TEMPLATE.md
+ delete mode 100644 .github/helper/.flake8_strict
+ delete mode 100644 .github/helper/documentation.py
+ delete mode 100644 .github/helper/install.sh
+ delete mode 100644 .github/helper/site_config_mariadb.json
+ delete mode 100644 .github/helper/site_config_postgres.json
+ delete mode 100644 .github/helper/translation.py
+ delete mode 100644 .github/helper/update_pot_file.sh
+ delete mode 100644 .github/labeler.yml
+ delete mode 100644 .github/release.yml
+ delete mode 100644 .github/stale.yml
+ delete mode 100644 .github/try-on-f-cloud-button.svg
+ delete mode 100644 .github/workflows/backport.yml
+ delete mode 100644 .github/workflows/docker-release.yml
+ delete mode 100644 .github/workflows/docs-checker.yml
+ delete mode 100644 .github/workflows/generate-pot-file.yml
+ delete mode 100644 .github/workflows/initiate_release.yml
+ delete mode 100644 .github/workflows/label-base-on-title.yml
+ delete mode 100644 .github/workflows/labeller.yml
+ delete mode 100644 .github/workflows/linters.yml
+ delete mode 100644 .github/workflows/lock.yml
+ delete mode 100644 .github/workflows/patch.yml
+ delete mode 100644 .github/workflows/patch_faux.yml
+ delete mode 100644 .github/workflows/release.yml
+ delete mode 100644 .github/workflows/release_notes.yml
+ delete mode 100644 .github/workflows/run-indinvidual-tests.yml
+ delete mode 100644 .github/workflows/semantic-commits.yml
+ delete mode 100644 .github/workflows/server-tests-mariadb-faux.yml
+ delete mode 100644 .github/workflows/server-tests-mariadb.yml
+ delete mode 100644 .github/workflows/server-tests-postgres.yml
+error: unknown option `force~'
+usage: git push [<options>] [<repository> [<refspec>...]]
+
+    -v, --[no-]verbose    be more verbose
+    -q, --[no-]quiet      be more quiet
+    --[no-]repo <repository>
+                          repository
+    --[no-]all            push all branches
+    --[no-]branches       alias of --all
+    --[no-]mirror         mirror all refs
+    -d, --[no-]delete     delete refs
+    --[no-]tags           push tags (can't be used with --all or --branches or --mirror)
+    -n, --[no-]dry-run    dry run
+    --[no-]porcelain      machine-readable output
+    -f, --[no-]force      force updates
+    --[no-]force-with-lease[=<refname>:<expect>]
+                          require old value of ref to be at this value
+    --[no-]force-if-includes
+                          require remote updates to be integrated locally
+    --[no-]recurse-submodules (check|on-demand|no)
+                          control recursive pushing of submodules
+    --[no-]thin           use thin pack
+    --[no-]receive-pack <receive-pack>
+                          receive pack program
+    --[no-]exec <receive-pack>
+                          receive pack program
+    -u, --[no-]set-upstream
+                          set upstream for git pull/status
+    --[no-]progress       force progress reporting
+    --[no-]prune          prune locally removed refs
+    --no-verify           bypass pre-push hook
+    --verify              opposite of --no-verify
+    --[no-]follow-tags    push missing but relevant tags
+    --[no-]signed[=(yes|no|if-asked)]
+                          GPG sign the push
+    --[no-]atomic         request atomic transaction on remote side
+    -o, --[no-]push-option <server-specific>
+                          option to transmit
+    -4, --ipv4            use IPv4 addresses only
+    -6, --ipv6            use IPv6 addresses only
+
+~/workspace$ 

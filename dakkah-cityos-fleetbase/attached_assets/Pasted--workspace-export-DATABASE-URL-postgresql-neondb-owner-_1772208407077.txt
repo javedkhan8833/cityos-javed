@@ -1,0 +1,60 @@
+~/workspace$ export DATABASE_URL="postgresql://neondb_owner:npg_0SJWHs1UGtTp@ep-lively-band-aiwoo54w-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require"
+~/workspace$ cd /home/runner/workspace/api
+~/workspace/api$ 
+~/workspace/api$ # 1. Reset the schema to ensure a clean state
+~/workspace/api$ psql "$DATABASE_URL" -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+NOTICE:  drop cascades to 3 other objects
+DETAIL:  drop cascades to table migrations
+drop cascades to extension postgis
+drop cascades to extension postgis_topology
+DROP SCHEMA
+CREATE SCHEMA
+~/workspace/api$ 
+~/workspace/api$ # 2. Re-install PostGIS and required extensions
+~/workspace/api$ psql "$DATABASE_URL" -c "CREATE EXTENSION IF NOT EXISTS postgis; CREATE EXTENSION IF NOT EXISTS pg_trgm; CREATE EXTENSION IF NOT EXISTS btree_gist; CREATE EXTENSION IF NOT EXISTS unaccent; CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
+CREATE EXTENSION
+CREATE EXTENSION
+CREATE EXTENSION
+CREATE EXTENSION
+CREATE EXTENSION
+~/workspace/api$ 
+~/workspace/api$ # 3. Manually create the migrations and personal_access_tokens tables to bypass the failure point
+~/workspace/api$ psql "$DATABASE_URL" -c "CREATE TABLE migrations (id serial PRIMARY KEY, migration varchar(255) NOT NULL, batch int NOT NULL);"
+CREATE TABLE
+~/workspace/api$ psql "$DATABASE_URL" -c "CREATE TABLE personal_access_tokens (id serial PRIMARY KEY, tokenable_type varchar(255) NOT NULL, tokenable_id bigint NOT NULL, name varchar(255) NOT NULL, token varchar(64) NOT NULL UNIQUE, abilities text, last_used_at timestamp, created_at timestamp, updated_at timestamp); CREATE INDEX personal_access_tokens_tokenable_type_tokenable_id_index ON personal_access_tokens (tokenable_type, tokenable_id);"
+CREATE TABLE
+CREATE INDEX
+~/workspace/api$ 
+~/workspace/api$ # 4. Mark these as already "migrated" so Laravel skips them
+~/workspace/api$ psql "$DATABASE_URL" -c "INSERT INTO migrations (migration, batch) VALUES ('2014_01_01_000000_install_postgresql_extensions', 1), ('2019_12_14_000001_create_personal_access_tokens_table', 1);"
+INSERT 0 2
+~/workspace/api$ 
+~/workspace/api$ # 5. Run the rest of the migrations
+~/workspace/api$ php artisan migrate --force --no-interaction
+
+
+   INFO  Running migrations.  
+
+  2023_04_25_094301_create_users_table  1,312ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[25P02]: In failed sql transaction: 7 ERROR:  current transaction is aborted, commands ignored until end of transaction block (Connection: pgsql, SQL: alter table "users" add constraint "users_uuid_unique" unique ("uuid"))
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+      +35 vendor frames 
+
+  36  artisan:35
+      Illuminate\Foundation\Console\Kernel::handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+
+~/workspace/api$ 

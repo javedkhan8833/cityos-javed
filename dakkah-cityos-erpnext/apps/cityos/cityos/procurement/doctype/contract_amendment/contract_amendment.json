@@ -1,0 +1,23 @@
+{
+    "name": "Contract Amendment",
+    "module": "Procurement",
+    "doctype": "DocType",
+    "istable": 1,
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "fields": [
+        {"fieldname": "amendment_date", "fieldtype": "Date", "label": "Amendment Date", "in_list_view": 1, "reqd": 1},
+        {"fieldname": "amendment_number", "fieldtype": "Data", "label": "Amendment Number", "in_list_view": 1},
+        {"fieldname": "description", "fieldtype": "Small Text", "label": "Description", "in_list_view": 1, "reqd": 1},
+        {"fieldname": "value_change", "fieldtype": "Currency", "label": "Value Change (+/-)", "in_list_view": 1},
+        {"fieldname": "approved_by", "fieldtype": "Link", "label": "Approved By", "options": "User"}
+    ],
+    "permissions": [],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "creation": "2026-02-10 00:00:00.000000",
+    "modified": "2026-02-10 00:00:00.000000",
+    "modified_by": "Administrator",
+    "owner": "Administrator"
+}

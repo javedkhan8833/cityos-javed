@@ -1,0 +1,87 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"asset_header_1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"id\":\"asset_sc_1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Municipal Asset\",\"col\":3}},{\"id\":\"asset_sc_2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Municipal Facility\",\"col\":3}},{\"id\":\"asset_sc_3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Maintenance Plan\",\"col\":3}},{\"id\":\"asset_spacer_1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"asset_header_2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Documents</b></span>\",\"col\":12}},{\"id\":\"asset_card_1\",\"type\":\"card\",\"data\":{\"card_name\":\"Assets Management\",\"col\":4}}]",
+ "creation": "2026-02-12 00:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "server",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "CityOS Assets",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Assets Management",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Municipal Asset",
+   "link_count": 0,
+   "link_to": "Municipal Asset",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Municipal Facility",
+   "link_count": 0,
+   "link_to": "Municipal Facility",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Maintenance Plan",
+   "link_count": 0,
+   "link_to": "Maintenance Plan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-02-12 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Assets Management",
+ "name": "CityOS Assets",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [],
+ "sequence_id": 4.0,
+ "shortcuts": [
+  {
+   "label": "Municipal Asset",
+   "link_to": "Municipal Asset",
+   "type": "DocType"
+  },
+  {
+   "label": "Municipal Facility",
+   "link_to": "Municipal Facility",
+   "type": "DocType"
+  },
+  {
+   "label": "Maintenance Plan",
+   "link_to": "Maintenance Plan",
+   "type": "DocType"
+  }
+ ],
+ "title": "CityOS Assets"
+}

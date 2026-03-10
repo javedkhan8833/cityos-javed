@@ -1,0 +1,71 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"proj_header_1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"id\":\"proj_sc_1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Capital Project\",\"col\":3}},{\"id\":\"proj_sc_2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Community Impact Report\",\"col\":3}},{\"id\":\"proj_spacer_1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"proj_header_2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Documents</b></span>\",\"col\":12}},{\"id\":\"proj_card_1\",\"type\":\"card\",\"data\":{\"card_name\":\"CityOS Projects\",\"col\":4}}]",
+ "creation": "2026-02-12 00:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "project",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "CityOS Projects",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "CityOS Projects",
+   "link_count": 2,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Capital Project",
+   "link_count": 0,
+   "link_to": "Capital Project",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Community Impact Report",
+   "link_count": 0,
+   "link_to": "Community Impact Report",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-02-12 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "CityOS Projects",
+ "name": "CityOS Projects",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [],
+ "sequence_id": 6.0,
+ "shortcuts": [
+  {
+   "label": "Capital Project",
+   "link_to": "Capital Project",
+   "type": "DocType"
+  },
+  {
+   "label": "Community Impact Report",
+   "link_to": "Community Impact Report",
+   "type": "DocType"
+  }
+ ],
+ "title": "CityOS Projects"
+}

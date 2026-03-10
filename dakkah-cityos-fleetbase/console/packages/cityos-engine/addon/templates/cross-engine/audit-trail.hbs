@@ -1,0 +1,157 @@
+<Layout::Section::Header @title="Cross-Engine Audit Trail">
+    <div class="flex items-center space-x-3">
+        <LinkTo @route="console.cityos.cross-engine" class="text-sm text-blue-500 hover:text-blue-700"><FaIcon @icon="arrow-left" class="mr-1" />Back</LinkTo>
+        <ContextSelector />
+        <Button @icon="sync" @text="Refresh" @onClick={{this.refresh}} @size="sm" @type="default" />
+    </div>
+</Layout::Section::Header>
+
+<Layout::Section::Body>
+    <div class="p-6 space-y-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-4">
+            <div class="flex items-center space-x-4 flex-wrap gap-y-2">
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Module</label>
+                    <select class="px-2 py-1.5 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white" {{on "change" this.setModuleFilter}}>
+                        {{#each this.moduleOptions as |opt|}}
+                            <option value={{opt}} selected={{if (eq this.selectedModule opt) true false}}>{{if (eq opt "all") "All Modules" opt}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Action</label>
+                    <select class="px-2 py-1.5 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white" {{on "change" this.setActionFilter}}>
+                        {{#each this.actionOptions as |opt|}}
+                            <option value={{opt}} selected={{if (eq this.selectedAction opt) true false}}>{{if (eq opt "all") "All Actions" opt}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="flex-1 min-w-48">
+                    <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Search by Correlation ID</label>
+                    <input type="text" placeholder="Enter correlation ID or event type..." value={{this.correlationSearch}} class="w-full px-3 py-1.5 text-sm bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded text-gray-900 dark:text-white" {{on "input" this.setCorrelationSearch}} />
+                </div>
+                <div class="pt-4">
+                    <span class="text-xs text-gray-500 dark:text-gray-400">
+                        {{this.filteredEvents.length}} events
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        {{#if this.isLoading}}
+            <div class="flex items-center justify-center py-12">
+                <FaIcon @icon="spinner" @spin={{true}} class="text-gray-400 text-2xl" />
+            </div>
+        {{else}}
+            <div class="relative">
+                <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700"></div>
+
+                <div class="space-y-4">
+                    {{#each this.timelineEvents as |event|}}
+                        <div class="relative flex items-start pl-16">
+                            <div class="absolute left-6 w-5 h-5 rounded-full border-2 border-white dark:border-gray-800 flex items-center justify-center
+                                {{if (eq event.moduleColor "blue") "bg-blue-500"
+                                (if (eq event.moduleColor "amber") "bg-amber-500"
+                                (if (eq event.moduleColor "green") "bg-green-500"
+                                "bg-gray-500"))}}">
+                                <FaIcon @icon={{event.actionIcon}} class="text-white text-xs" style="font-size: 0.5rem" />
+                            </div>
+
+                            <div class="flex-1 bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 border-l-4
+                                {{if (eq event.moduleColor "blue") "border-l-blue-500"
+                                (if (eq event.moduleColor "amber") "border-l-amber-500"
+                                (if (eq event.moduleColor "green") "border-l-green-500"
+                                "border-l-gray-500"))}}">
+                                <div class="p-4">
+                                    <div class="flex items-center justify-between flex-wrap gap-2">
+                                        <div class="flex items-center space-x-2">
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium
+                                                {{if (eq event.moduleColor "blue") "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                                                (if (eq event.moduleColor "amber") "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200"
+                                                (if (eq event.moduleColor "green") "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                                                "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"))}}">
+                                                <FaIcon @icon={{event.moduleIcon}} class="mr-1" />
+                                                {{event.moduleLabel}}
+                                            </span>
+                                            <span class="{{event.actionClass}} text-sm font-medium">
+                                                <FaIcon @icon={{event.actionIcon}} class="mr-1" />
+                                                {{event.action}}
+                                            </span>
+                                            <span class="text-sm font-medium text-gray-900 dark:text-white">{{event.modelType}}</span>
+                                        </div>
+                                        <div class="flex items-center space-x-3 text-xs text-gray-500 dark:text-gray-400">
+                                            {{#if event.shortCorrelationId}}
+                                                <span class="font-mono" title={{event.correlationId}}>
+                                                    <FaIcon @icon="link" class="mr-1" />{{event.shortCorrelationId}}
+                                                </span>
+                                            {{/if}}
+                                            <span>{{event.timestamp}}</span>
+                                            <button type="button" class="text-blue-500 hover:text-blue-700" {{on "click" (fn this.toggleEventDetails event.event_id)}}>
+                                                <FaIcon @icon={{if (eq this.expandedEventId event.event_id) "chevron-up" "chevron-down"}} />
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {{#if (gt event.changedFields.length 0)}}
+                                        <div class="mt-2 flex flex-wrap gap-1">
+                                            {{#each event.changedFields as |field|}}
+                                                <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-mono bg-gray-100 text-gray-600 dark:bg-gray-750 dark:text-gray-400">{{field}}</span>
+                                            {{/each}}
+                                        </div>
+                                    {{/if}}
+                                </div>
+
+                                {{#if (eq this.expandedEventId event.event_id)}}
+                                    <div class="border-t border-gray-200 dark:border-gray-700 p-4 bg-gray-50 dark:bg-gray-750">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <h5 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2">Event Details</h5>
+                                                <div class="space-y-1.5">
+                                                    <div class="flex justify-between text-xs">
+                                                        <span class="text-gray-500 dark:text-gray-400">Event ID</span>
+                                                        <span class="font-mono text-gray-900 dark:text-white">{{event.event_id}}</span>
+                                                    </div>
+                                                    <div class="flex justify-between text-xs">
+                                                        <span class="text-gray-500 dark:text-gray-400">Event Type</span>
+                                                        <span class="font-mono text-gray-900 dark:text-white">{{event.event_type}}</span>
+                                                    </div>
+                                                    <div class="flex justify-between text-xs">
+                                                        <span class="text-gray-500 dark:text-gray-400">Correlation ID</span>
+                                                        <span class="font-mono text-gray-900 dark:text-white">{{event.correlationId}}</span>
+                                                    </div>
+                                                    <div class="flex justify-between text-xs">
+                                                        <span class="text-gray-500 dark:text-gray-400">Status</span>
+                                                        <span class="font-mono text-gray-900 dark:text-white">{{event.status}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <h5 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2">Node Context</h5>
+                                                <div class="space-y-1.5">
+                                                    {{#each-in event.nodeContext as |key value|}}
+                                                        {{#if value}}
+                                                            <div class="flex justify-between text-xs">
+                                                                <span class="text-gray-500 dark:text-gray-400">{{key}}</span>
+                                                                <span class="font-mono text-gray-900 dark:text-white truncate max-w-32">{{value}}</span>
+                                                            </div>
+                                                        {{/if}}
+                                                    {{/each-in}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    {{else}}
+                        <div class="text-center py-12">
+                            <FaIcon @icon="clock-rotate-left" class="text-4xl text-gray-300 dark:text-gray-600 mb-3" />
+                            <p class="text-gray-500 dark:text-gray-400">No audit events recorded</p>
+                            <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">Audit events are generated when the event bridge is enabled and models are created, updated, or deleted.</p>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        {{/if}}
+    </div>
+</Layout::Section::Body>

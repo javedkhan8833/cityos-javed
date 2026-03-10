@@ -1,0 +1,183 @@
+{
+    "name": "CityOS Portal",
+    "module": "Governance",
+    "doctype": "DocType",
+    "document_type": "Setup",
+    "engine": "InnoDB",
+    "field_order": [
+        "portal_name",
+        "portal_handle",
+        "column_break_1",
+        "enabled",
+        "portal_type",
+        "section_break_hierarchy",
+        "store",
+        "tenant",
+        "column_break_h1",
+        "scope",
+        "section_break_config",
+        "domain",
+        "default_locale",
+        "column_break_c1",
+        "theme",
+        "section_break_integration",
+        "medusa_portal_id",
+        "payload_portal_id",
+        "section_break_details",
+        "description"
+    ],
+    "fields": [
+        {
+            "fieldname": "portal_name",
+            "fieldtype": "Data",
+            "label": "Portal Name",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "portal_handle",
+            "fieldtype": "Data",
+            "label": "Portal Handle",
+            "unique": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "enabled",
+            "fieldtype": "Check",
+            "label": "Enabled",
+            "default": "1"
+        },
+        {
+            "fieldname": "portal_type",
+            "fieldtype": "Select",
+            "label": "Portal Type",
+            "options": "\nStorefront\nAdmin\nVendor\nCitizen\nGovernment\nB2B",
+            "default": "Storefront",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_hierarchy",
+            "fieldtype": "Section Break",
+            "label": "Hierarchy"
+        },
+        {
+            "fieldname": "store",
+            "fieldtype": "Link",
+            "label": "Store",
+            "options": "CityOS Store",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "tenant",
+            "fieldtype": "Link",
+            "label": "Tenant",
+            "options": "Node Context",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_h1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "scope",
+            "fieldtype": "Link",
+            "label": "Scope",
+            "options": "CityOS Scope"
+        },
+        {
+            "fieldname": "section_break_config",
+            "fieldtype": "Section Break",
+            "label": "Configuration"
+        },
+        {
+            "fieldname": "domain",
+            "fieldtype": "Data",
+            "label": "Domain"
+        },
+        {
+            "fieldname": "default_locale",
+            "fieldtype": "Data",
+            "label": "Default Locale",
+            "default": "en-SA"
+        },
+        {
+            "fieldname": "column_break_c1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "theme",
+            "fieldtype": "Data",
+            "label": "Theme"
+        },
+        {
+            "fieldname": "section_break_integration",
+            "fieldtype": "Section Break",
+            "label": "Integration IDs"
+        },
+        {
+            "fieldname": "medusa_portal_id",
+            "fieldtype": "Data",
+            "label": "Medusa Portal ID",
+            "read_only": 1,
+            "hidden": 1
+        },
+        {
+            "fieldname": "payload_portal_id",
+            "fieldtype": "Data",
+            "label": "Payload CMS Portal ID",
+            "read_only": 1,
+            "hidden": 1
+        },
+        {
+            "fieldname": "section_break_details",
+            "fieldtype": "Section Break",
+            "label": "Details"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Small Text",
+            "label": "Description"
+        }
+    ],
+    "modified": "2026-02-09 13:00:00.000000",
+    "creation": "2026-02-09 13:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "naming_rule": "By fieldname",
+    "autoname": "field:portal_handle",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "report": 1,
+            "export": 1,
+            "import": 1
+        },
+        {
+            "role": "CityOS Administrator",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "report": 1,
+            "export": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "allow_import": 1,
+    "title_field": "portal_name",
+    "search_fields": "store,tenant,portal_type",
+    "show_title_field_in_link": 1
+}

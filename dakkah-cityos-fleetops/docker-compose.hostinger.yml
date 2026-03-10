@@ -1,0 +1,24 @@
+services:
+  fleetops:
+    build: .
+    container_name: fleetops
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - PORT=5000
+    networks:
+      - ${CITYOS_NETWORK}
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: ${CITYOS_NETWORK}
+      traefik.http.routers.fleetops.rule: Host(`${FLEETOPS_DOMAIN}`)
+      traefik.http.routers.fleetops.entrypoints: websecure
+      traefik.http.routers.fleetops.tls: "true"
+      traefik.http.routers.fleetops.tls.certresolver: letsencrypt
+      traefik.http.services.fleetops.loadbalancer.server.port: "5000"
+
+networks:
+  cityos-network:
+    name: ${CITYOS_NETWORK}
+    external: true

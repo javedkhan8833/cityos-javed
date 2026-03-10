@@ -1,0 +1,112 @@
+<Layout::Section::Header @title="Cross-Engine Integration">
+    <div class="flex items-center space-x-3">
+        <ContextSelector />
+        <span class="text-sm text-gray-500 dark:text-gray-400">NodeContext scoping across all Fleetbase engines</span>
+    </div>
+</Layout::Section::Header>
+
+<Layout::Section::Body>
+    <div class="p-6 space-y-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                <FaIcon @icon="sitemap" class="mr-2 text-blue-500" />
+                Active Context
+            </h3>
+            {{#if this.hasContext}}
+                <div class="flex items-center flex-wrap gap-2">
+                    {{#each this.contextBreadcrumb as |item index|}}
+                        {{#if index}}
+                            <FaIcon @icon="chevron-right" class="text-gray-400 text-xs" />
+                        {{/if}}
+                        <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium {{item.badgeClass}}">
+                            <FaIcon @icon={{item.icon}} class="mr-1.5" />
+                            <span class="text-xs text-gray-500 dark:text-gray-400 mr-1">{{item.level}}:</span>
+                            {{item.name}}
+                        </span>
+                    {{/each}}
+                </div>
+                <div class="mt-3 flex items-center text-sm text-gray-500 dark:text-gray-400">
+                    <FaIcon @icon="layer-group" class="mr-1.5" />
+                    Context depth: {{this.contextDepth}} {{if (gt this.contextDepth 1) "levels" "level"}} active
+                </div>
+            {{else}}
+                <div class="flex items-center p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                    <FaIcon @icon="info-circle" class="text-yellow-500 mr-3 text-lg" />
+                    <div>
+                        <p class="text-sm font-medium text-yellow-800 dark:text-yellow-200">No context set</p>
+                        <p class="text-xs text-yellow-600 dark:text-yellow-400 mt-0.5">Use the context selector to set a country, city, or tenant to scope engine operations.</p>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {{#each this.engines as |engine|}}
+                <LinkTo @route={{engine.route}} class="block bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg {{engine.hoverClass}} transition-all duration-200">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-lg {{engine.bgClass}} flex items-center justify-center">
+                                <FaIcon @icon={{engine.icon}} class="{{engine.iconClass}}" />
+                            </div>
+                            <div class="ml-3">
+                                <h4 class="text-lg font-semibold text-gray-900 dark:text-white">{{engine.name}}</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{engine.description}}</p>
+                            </div>
+                        </div>
+                        <FaIcon @icon="arrow-right" class="text-gray-400 mt-1" />
+                    </div>
+                    <div class="mt-4">
+                        <label class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Scoping Levels</label>
+                        <div class="flex flex-wrap gap-1.5 mt-1.5">
+                            {{#each engine.scoping as |level|}}
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300">{{level}}</span>
+                            {{/each}}
+                        </div>
+                    </div>
+                </LinkTo>
+            {{/each}}
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <LinkTo @route="console.cityos.cross-engine.feature-gates" class="block bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-200">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900 flex items-center justify-center">
+                        <FaIcon @icon="toggle-on" class="text-purple-600 dark:text-purple-400" />
+                    </div>
+                    <div class="ml-3">
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Feature Gates</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Tier-based feature toggles</p>
+                    </div>
+                </div>
+            </LinkTo>
+            <LinkTo @route="console.cityos.cross-engine.event-bridge" class="block bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg hover:border-teal-300 dark:hover:border-teal-600 transition-all duration-200">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-lg bg-teal-100 dark:bg-teal-900 flex items-center justify-center">
+                        <FaIcon @icon="bridge" class="text-teal-600 dark:text-teal-400" />
+                    </div>
+                    <div class="ml-3">
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Event Bridge</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Live CityBus event monitor</p>
+                    </div>
+                </div>
+            </LinkTo>
+            <LinkTo @route="console.cityos.cross-engine.audit-trail" class="block bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg hover:border-orange-300 dark:hover:border-orange-600 transition-all duration-200">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-900 flex items-center justify-center">
+                        <FaIcon @icon="clock-rotate-left" class="text-orange-600 dark:text-orange-400" />
+                    </div>
+                    <div class="ml-3">
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Audit Trail</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Cross-engine operation timeline</p>
+                    </div>
+                </div>
+            </LinkTo>
+        </div>
+
+        {{#if this.isLoading}}
+            <div class="flex items-center justify-center py-8">
+                <FaIcon @icon="spinner" @spin={{true}} class="text-gray-400 text-2xl" />
+            </div>
+        {{/if}}
+    </div>
+</Layout::Section::Body>

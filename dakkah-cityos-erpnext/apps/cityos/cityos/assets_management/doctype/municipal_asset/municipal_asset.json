@@ -1,0 +1,519 @@
+{
+    "name": "Municipal Asset",
+    "module": "Assets Management",
+    "doctype": "DocType",
+    "document_type": "Document",
+    "engine": "InnoDB",
+    "naming_rule": "By fieldname",
+    "autoname": "field:asset_code",
+    "field_order": [
+        "asset_name",
+        "asset_code",
+        "asset_type",
+        "column_break_1",
+        "linked_asset",
+        "department",
+        "status",
+        "section_break_location",
+        "location_description",
+        "column_break_2",
+        "gps_latitude",
+        "gps_longitude",
+        "section_break_financial",
+        "acquisition_date",
+        "acquisition_cost",
+        "column_break_3",
+        "current_value",
+        "depreciation_method",
+        "useful_life_years",
+        "section_break_condition",
+        "condition",
+        "last_inspection_date",
+        "column_break_4",
+        "next_inspection_date",
+        "assigned_to",
+        "section_break_details",
+        "warranty_expiry",
+        "manufacturer",
+        "column_break_5",
+        "model_number",
+        "serial_number",
+        "section_break_notes",
+        "notes",
+        "section_break_classification",
+        "asset_class",
+        "section_break_depreciation",
+        "accumulated_depreciation",
+        "column_break_dep1",
+        "salvage_value",
+        "section_break_condition2",
+        "condition_rating",
+        "section_break_location2",
+        "location",
+        "column_break_loc1",
+        "facility",
+        "section_break_custodian",
+        "custodian",
+        "column_break_cust1",
+        "custodian_department",
+        "section_break_insurance",
+        "insurance_policy",
+        "column_break_ins1",
+        "insurance_expiry",
+        "section_break_erpnext_link",
+        "linked_erpnext_asset",
+        "column_break_erp1",
+        "linked_procurement",
+        "section_break_status2",
+        "asset_status",
+        "disposal_date",
+        "column_break_disp1",
+        "disposal_method",
+        "disposal_value",
+        "section_break_node_context",
+        "cityos_tenant",
+        "cityos_country",
+        "column_break_nc1",
+        "cityos_city",
+        "cityos_sector",
+        "column_break_nc2",
+        "cityos_correlation_id",
+        "cityos_source_system",
+        "cityos_workflow_state"
+    ],
+    "fields": [
+        {
+            "fieldname": "asset_name",
+            "fieldtype": "Data",
+            "label": "Asset Name",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "asset_code",
+            "fieldtype": "Data",
+            "label": "Asset Code",
+            "unique": 1,
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "asset_type",
+            "fieldtype": "Select",
+            "label": "Asset Type",
+            "options": "\nInfrastructure\nVehicle\nEquipment\nBuilding\nLand\nTechnology\nUtility",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "linked_asset",
+            "fieldtype": "Link",
+            "label": "Linked Asset",
+            "options": "Asset"
+        },
+        {
+            "fieldname": "department",
+            "fieldtype": "Link",
+            "label": "Department",
+            "options": "Department",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "\nActive\nUnder Maintenance\nRetired\nDisposed\nLost",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_location",
+            "fieldtype": "Section Break",
+            "label": "Location"
+        },
+        {
+            "fieldname": "location_description",
+            "fieldtype": "Small Text",
+            "label": "Location Description"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "gps_latitude",
+            "fieldtype": "Float",
+            "label": "GPS Latitude"
+        },
+        {
+            "fieldname": "gps_longitude",
+            "fieldtype": "Float",
+            "label": "GPS Longitude"
+        },
+        {
+            "fieldname": "section_break_financial",
+            "fieldtype": "Section Break",
+            "label": "Financial Details"
+        },
+        {
+            "fieldname": "acquisition_date",
+            "fieldtype": "Date",
+            "label": "Acquisition Date"
+        },
+        {
+            "fieldname": "acquisition_cost",
+            "fieldtype": "Currency",
+            "label": "Acquisition Cost"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "current_value",
+            "fieldtype": "Currency",
+            "label": "Current Value",
+            "read_only": 1
+        },
+        {
+            "fieldname": "depreciation_method",
+            "fieldtype": "Select",
+            "label": "Depreciation Method",
+            "options": "\nStraight Line\nDeclining Balance\nNone"
+        },
+        {
+            "fieldname": "useful_life_years",
+            "fieldtype": "Int",
+            "label": "Useful Life (Years)"
+        },
+        {
+            "fieldname": "section_break_condition",
+            "fieldtype": "Section Break",
+            "label": "Condition & Inspection"
+        },
+        {
+            "fieldname": "condition",
+            "fieldtype": "Select",
+            "label": "Condition",
+            "options": "\nExcellent\nGood\nFair\nPoor\nDecommissioned"
+        },
+        {
+            "fieldname": "last_inspection_date",
+            "fieldtype": "Date",
+            "label": "Last Inspection Date"
+        },
+        {
+            "fieldname": "column_break_4",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "next_inspection_date",
+            "fieldtype": "Date",
+            "label": "Next Inspection Date"
+        },
+        {
+            "fieldname": "assigned_to",
+            "fieldtype": "Link",
+            "label": "Assigned To",
+            "options": "Employee"
+        },
+        {
+            "fieldname": "section_break_details",
+            "fieldtype": "Section Break",
+            "label": "Asset Details"
+        },
+        {
+            "fieldname": "warranty_expiry",
+            "fieldtype": "Date",
+            "label": "Warranty Expiry"
+        },
+        {
+            "fieldname": "manufacturer",
+            "fieldtype": "Data",
+            "label": "Manufacturer"
+        },
+        {
+            "fieldname": "column_break_5",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "model_number",
+            "fieldtype": "Data",
+            "label": "Model Number"
+        },
+        {
+            "fieldname": "serial_number",
+            "fieldtype": "Data",
+            "label": "Serial Number"
+        },
+        {
+            "fieldname": "section_break_notes",
+            "fieldtype": "Section Break",
+            "label": "Notes"
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Text",
+            "label": "Notes"
+        },
+        {
+            "fieldname": "section_break_classification",
+            "fieldtype": "Section Break",
+            "label": "Classification"
+        },
+        {
+            "fieldname": "asset_class",
+            "fieldtype": "Select",
+            "label": "Asset Class",
+            "options": "\nLand\nBuilding\nInfrastructure\nVehicle\nEquipment\nFurniture\nIT Equipment\nOther"
+        },
+        {
+            "fieldname": "section_break_depreciation",
+            "fieldtype": "Section Break",
+            "label": "Depreciation"
+        },
+        {
+            "fieldname": "accumulated_depreciation",
+            "fieldtype": "Currency",
+            "label": "Accumulated Depreciation",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_dep1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "salvage_value",
+            "fieldtype": "Currency",
+            "label": "Salvage Value"
+        },
+        {
+            "fieldname": "section_break_condition2",
+            "fieldtype": "Section Break",
+            "label": "Condition Rating"
+        },
+        {
+            "fieldname": "condition_rating",
+            "fieldtype": "Select",
+            "label": "Condition Rating",
+            "options": "\nExcellent\nGood\nFair\nPoor\nCritical\nCondemned"
+        },
+        {
+            "fieldname": "section_break_location2",
+            "fieldtype": "Section Break",
+            "label": "Location Details"
+        },
+        {
+            "fieldname": "location",
+            "fieldtype": "Data",
+            "label": "Location"
+        },
+        {
+            "fieldname": "column_break_loc1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "facility",
+            "fieldtype": "Link",
+            "label": "Facility",
+            "options": "Municipal Facility"
+        },
+        {
+            "fieldname": "section_break_custodian",
+            "fieldtype": "Section Break",
+            "label": "Custodian"
+        },
+        {
+            "fieldname": "custodian",
+            "fieldtype": "Link",
+            "label": "Custodian",
+            "options": "Employee"
+        },
+        {
+            "fieldname": "column_break_cust1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "custodian_department",
+            "fieldtype": "Link",
+            "label": "Custodian Department",
+            "options": "Department"
+        },
+        {
+            "fieldname": "section_break_insurance",
+            "fieldtype": "Section Break",
+            "label": "Insurance & Policy"
+        },
+        {
+            "fieldname": "insurance_policy",
+            "fieldtype": "Data",
+            "label": "Insurance Policy"
+        },
+        {
+            "fieldname": "column_break_ins1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "insurance_expiry",
+            "fieldtype": "Date",
+            "label": "Insurance Expiry"
+        },
+        {
+            "fieldname": "section_break_erpnext_link",
+            "fieldtype": "Section Break",
+            "label": "ERPNext & Procurement Links"
+        },
+        {
+            "fieldname": "linked_erpnext_asset",
+            "fieldtype": "Link",
+            "label": "Linked ERPNext Asset",
+            "options": "Asset"
+        },
+        {
+            "fieldname": "column_break_erp1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "linked_procurement",
+            "fieldtype": "Link",
+            "label": "Linked Procurement",
+            "options": "CityOS Procurement Request"
+        },
+        {
+            "fieldname": "section_break_status2",
+            "fieldtype": "Section Break",
+            "label": "Asset Status & Disposal"
+        },
+        {
+            "fieldname": "asset_status",
+            "fieldtype": "Select",
+            "label": "Asset Status",
+            "options": "\nIn Procurement\nIn Service\nUnder Maintenance\nOut of Service\nDecommissioned\nDisposed"
+        },
+        {
+            "fieldname": "disposal_date",
+            "fieldtype": "Date",
+            "label": "Disposal Date"
+        },
+        {
+            "fieldname": "column_break_disp1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "disposal_method",
+            "fieldtype": "Select",
+            "label": "Disposal Method",
+            "options": "\nSale\nAuction\nDonation\nScrap\nTransfer"
+        },
+        {
+            "fieldname": "disposal_value",
+            "fieldtype": "Currency",
+            "label": "Disposal Value"
+        },
+        {
+            "fieldname": "section_break_node_context",
+            "fieldtype": "Section Break",
+            "label": "CityOS Node Context",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "cityos_tenant",
+            "fieldtype": "Data",
+            "label": "CityOS Tenant",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "cityos_country",
+            "fieldtype": "Data",
+            "label": "CityOS Country"
+        },
+        {
+            "fieldname": "column_break_nc1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_city",
+            "fieldtype": "Data",
+            "label": "CityOS City"
+        },
+        {
+            "fieldname": "cityos_sector",
+            "fieldtype": "Data",
+            "label": "CityOS Sector"
+        },
+        {
+            "fieldname": "column_break_nc2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_correlation_id",
+            "fieldtype": "Data",
+            "label": "CityOS Correlation ID",
+            "hidden": 1,
+            "read_only": 1
+        },
+        {
+            "fieldname": "cityos_source_system",
+            "fieldtype": "Data",
+            "label": "CityOS Source System",
+            "read_only": 1
+        },
+        {
+            "fieldname": "cityos_workflow_state",
+            "fieldtype": "Data",
+            "label": "CityOS Workflow State",
+            "read_only": 1
+        }
+    ],
+    "modified": "2026-02-10 12:00:00.000000",
+    "creation": "2026-02-09 12:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 0,
+            "cancel": 0,
+            "amend": 0,
+            "report": 1,
+            "export": 1
+        },
+        {
+            "role": "CityOS Asset Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "report": 1
+        },
+        {
+            "role": "CityOS Administrator",
+            "read": 1,
+            "write": 0,
+            "create": 0,
+            "delete": 0,
+            "report": 1,
+            "export": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "search_fields": "asset_name,asset_type,department,status"
+}

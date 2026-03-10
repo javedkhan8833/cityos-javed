@@ -1,0 +1,171 @@
+name: CityOS ERP CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint-and-validate:
+    name: Lint & Validate CityOS App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install ruff
+
+      - name: Lint CityOS app with ruff
+        run: |
+          ruff check apps/cityos/cityos/ --select F,E,W,I,UP,B --ignore E501,F401,F403,F405,E402,E741,B017,B023,B904 --target-version py312
+
+      - name: Compile all Python files
+        run: |
+          python -c "
+          import py_compile, os, sys
+          errors = []
+          count = 0
+          for root, dirs, files in os.walk('apps/cityos/cityos'):
+              dirs[:] = [d for d in dirs if d not in ('__pycache__', 'node_modules')]
+              for f in files:
+                  if f.endswith('.py'):
+                      path = os.path.join(root, f)
+                      count += 1
+                      try:
+                          py_compile.compile(path, doraise=True)
+                      except py_compile.PyCompileError as e:
+                          errors.append(str(e))
+          print(f'Compiled {count} Python files')
+          if errors:
+              print(f'{len(errors)} compilation errors:')
+              for e in errors:
+                  print(f'  {e}')
+              sys.exit(1)
+          else:
+              print('All files compile successfully')
+          "
+
+      - name: Validate JSON doctypes
+        run: |
+          python -c "
+          import json, glob, sys
+          errors = []
+          for f in glob.glob('apps/cityos/cityos/**/doctype/**/*.json', recursive=True):
+              try:
+                  with open(f) as fh:
+                      json.load(fh)
+              except json.JSONDecodeError as e:
+                  errors.append(f'{f}: {e}')
+          if errors:
+              print('Invalid JSON files:')
+              for e in errors:
+                  print(f'  {e}')
+              sys.exit(1)
+          else:
+              print('All doctype JSON files valid')
+          "
+
+      - name: Validate hooks.py syntax
+        run: |
+          python -c "
+          import ast, sys
+          try:
+              with open('apps/cityos/cityos/hooks.py') as f:
+                  tree = ast.parse(f.read())
+              print('hooks.py syntax OK')
+          except SyntaxError as e:
+              print(f'hooks.py syntax error: {e}')
+              sys.exit(1)
+          "
+
+      - name: Check for hardcoded secrets
+        run: |
+          python -c "
+          import re, glob, sys
+          patterns = [
+              r'sk_live_[A-Za-z0-9]{20,}',
+              r'sk_test_[A-Za-z0-9]{20,}',
+              r'-----BEGIN (RSA |EC )?PRIVATE KEY-----',
+              r'ghp_[A-Za-z0-9]{36}',
+              r'gho_[A-Za-z0-9]{36}',
+          ]
+          found = []
+          for f in glob.glob('apps/cityos/**/*.py', recursive=True):
+              try:
+                  with open(f) as fh:
+                      content = fh.read()
+                  for i, line in enumerate(content.splitlines(), 1):
+                      for p in patterns:
+                          if re.search(p, line, re.IGNORECASE):
+                              found.append(f'{f}:{i}')
+              except Exception:
+                  pass
+          if found:
+              print('Hardcoded secrets detected:')
+              for f in found:
+                  print(f'  {f}')
+              sys.exit(1)
+          else:
+              print('No hardcoded secrets detected')
+          "
+
+  doctype-integrity:
+    name: Doctype Integrity Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate all doctype definitions
+        run: |
+          python -c "
+          import json, glob, sys, os
+          errors = []
+          doctype_count = 0
+          for f in glob.glob('apps/cityos/cityos/**/doctype/**/*.json', recursive=True):
+              if os.path.basename(f) == 'package.json':
+                  continue
+              try:
+                  with open(f) as fh:
+                      data = json.load(fh)
+                  if 'doctype' not in data and 'name' not in data:
+                      continue
+                  doctype_count += 1
+                  name = data.get('name', os.path.basename(f))
+                  if 'fields' in data:
+                      fieldnames = [field.get('fieldname', '') for field in data['fields'] if field.get('fieldname')]
+                      dupes = set([fn for fn in fieldnames if fieldnames.count(fn) > 1])
+                      if dupes:
+                          errors.append(f'{name}: duplicate fieldnames: {dupes}')
+                      for field in data['fields']:
+                          ft = field.get('fieldtype', '')
+                          if ft == 'Link' and not field.get('options'):
+                              errors.append(f\"{name}.{field.get('fieldname','?')}: Link field missing options\")
+              except Exception as e:
+                  errors.append(f'{f}: {e}')
+          print(f'Checked {doctype_count} doctype definitions')
+          if errors:
+              print(f'{len(errors)} issues found:')
+              for e in errors:
+                  print(f'  {e}')
+              sys.exit(1)
+          else:
+              print('All doctypes valid')
+          "

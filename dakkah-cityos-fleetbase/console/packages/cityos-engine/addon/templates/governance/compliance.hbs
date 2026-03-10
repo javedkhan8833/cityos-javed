@@ -1,0 +1,94 @@
+<Layout::Section::Header @title="Compliance Checker">
+    <div class="flex items-center space-x-2">
+        <span class="text-sm text-gray-500 dark:text-gray-400">
+            <FaIcon @icon="shield-halved" class="mr-1" />
+            Governance
+            <FaIcon @icon="chevron-right" class="mx-1 text-xs" />
+            Compliance
+        </span>
+    </div>
+</Layout::Section::Header>
+
+<Layout::Section::Body>
+    <div class="p-6 space-y-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                <FaIcon @icon="magnifying-glass" class="mr-2 text-blue-500" />
+                Check Compliance
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tenant Handle / UUID</label>
+                    <input
+                        type="text"
+                        value={{this.tenantHandle}}
+                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Enter tenant handle or UUID"
+                        {{on "input" this.updateTenantHandle}}
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Operation Type</label>
+                    <select
+                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        {{on "change" this.updateOperation}}
+                    >
+                        <option value="read">Read</option>
+                        <option value="write">Write</option>
+                        <option value="export">Export</option>
+                        <option value="delete">Delete</option>
+                    </select>
+                </div>
+                <div class="flex items-end">
+                    <button
+                        type="button"
+                        class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors flex items-center justify-center"
+                        {{on "click" this.checkCompliance}}
+                    >
+                        <FaIcon @icon="check" class="mr-2" />
+                        Check Compliance
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        {{#if this.isLoading}}
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-12 text-center">
+                <FaIcon @icon="spinner" @spin={{true}} class="text-3xl text-blue-500 mb-3" />
+                <p class="text-gray-500 dark:text-gray-400">Checking compliance...</p>
+            </div>
+        {{/if}}
+
+        {{#if this.result}}
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                    <FaIcon @icon="clipboard-check" class="mr-2 text-green-500" />
+                    Results
+                </h3>
+                <div class="space-y-3">
+                    {{#each this.result.violations as |result|}}
+                        <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-750 rounded-lg">
+                            <FaIcon @icon={{if result.passed "circle-check" "circle-xmark"}} class="mr-3 mt-0.5 {{if result.passed "text-green-500" "text-red-500"}}" />
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">{{result.rule}}</p>
+                                    <span class="px-2 py-1 text-xs rounded-full {{if result.passed "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"}}">{{if result.passed "Passed" "Failed"}}</span>
+                                </div>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{result.message}}</p>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        {{/if}}
+
+        {{#if this.error}}
+            <div class="bg-red-50 dark:bg-red-900/20 rounded-lg shadow border border-red-200 dark:border-red-800 p-6">
+                <div class="flex items-center">
+                    <FaIcon @icon="triangle-exclamation" class="mr-3 text-red-500" />
+                    <p class="text-sm text-red-800 dark:text-red-200">{{this.error}}</p>
+                </div>
+            </div>
+        {{/if}}
+    </div>
+</Layout::Section::Body>

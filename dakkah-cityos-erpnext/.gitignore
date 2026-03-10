@@ -1,0 +1,32 @@
+*.pyc
+*.py~
+.DS_Store
+conf.py
+latest_updates.json
+.wnf-lang-status
+*.egg-info
+dist/
+erpnext/public/dist
+erpnext/docs/current
+*.swp
+*.swo
+__pycache__
+*~
+.idea/
+.vscode/
+.helix/
+node_modules/
+.backportrc.json
+# Aider AI Chat
+.aider*
+# Logs
+*.log
+/home/runner/logs/
+startup.log
+# Runtime
+.pythonlibs/
+*.pid
+/tmp/
+.venv/
+uv.lock
+uv.lock.bak

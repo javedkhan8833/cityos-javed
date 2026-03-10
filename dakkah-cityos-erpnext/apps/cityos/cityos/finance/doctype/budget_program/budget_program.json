@@ -1,0 +1,350 @@
+{
+    "name": "Budget Program",
+    "module": "Finance",
+    "doctype": "DocType",
+    "document_type": "Document",
+    "engine": "InnoDB",
+    "naming_rule": "By fieldname",
+    "autoname": "field:program_name",
+    "field_order": [
+        "program_name",
+        "column_break_1",
+        "status",
+        "budget_type",
+        "section_break_budget",
+        "fiscal_year",
+        "department",
+        "column_break_2",
+        "total_budget",
+        "allocated_amount",
+        "section_break_tracking",
+        "spent_amount",
+        "column_break_3",
+        "remaining_amount",
+        "section_break_description",
+        "description",
+        "section_break_approval",
+        "approval_status",
+        "column_break_4",
+        "approved_by",
+        "approved_date",
+        "section_break_revision",
+        "revision_number",
+        "original_amount",
+        "column_break_rev1",
+        "approved_amount",
+        "committed_amount",
+        "column_break_rev2",
+        "actual_amount",
+        "available_amount",
+        "utilization_percentage",
+        "section_break_erpnext",
+        "linked_erpnext_budget",
+        "section_break_funding",
+        "funding_sources",
+        "section_break_node_context",
+        "cityos_tenant",
+        "cityos_country",
+        "column_break_5",
+        "cityos_city",
+        "cityos_sector",
+        "column_break_6",
+        "cityos_correlation_id",
+        "cityos_source_system",
+        "cityos_workflow_state"
+    ],
+    "fields": [
+        {
+            "fieldname": "program_name",
+            "fieldtype": "Data",
+            "label": "Program Name",
+            "reqd": 1,
+            "unique": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "\nDraft\nSubmitted\nUnder Review\nApproved\nActive\nRevision Requested\nClosed\nRejected",
+            "default": "Draft",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "budget_type",
+            "fieldtype": "Select",
+            "label": "Budget Type",
+            "options": "\nOperating\nCapital\nGrant\nEmergency\nSpecial",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "section_break_budget",
+            "fieldtype": "Section Break",
+            "label": "Budget Details"
+        },
+        {
+            "fieldname": "fiscal_year",
+            "fieldtype": "Link",
+            "label": "Fiscal Year",
+            "options": "Fiscal Year",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "department",
+            "fieldtype": "Link",
+            "label": "Department",
+            "options": "Department",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "total_budget",
+            "fieldtype": "Currency",
+            "label": "Total Budget",
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "allocated_amount",
+            "fieldtype": "Currency",
+            "label": "Allocated Amount"
+        },
+        {
+            "fieldname": "section_break_tracking",
+            "fieldtype": "Section Break",
+            "label": "Expenditure Tracking"
+        },
+        {
+            "fieldname": "spent_amount",
+            "fieldtype": "Currency",
+            "label": "Spent Amount"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "remaining_amount",
+            "fieldtype": "Currency",
+            "label": "Remaining Amount",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_description",
+            "fieldtype": "Section Break",
+            "label": "Description"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Small Text",
+            "label": "Description"
+        },
+        {
+            "fieldname": "section_break_approval",
+            "fieldtype": "Section Break",
+            "label": "Approval"
+        },
+        {
+            "fieldname": "approval_status",
+            "fieldtype": "Select",
+            "label": "Approval Status",
+            "options": "\nDraft\nSubmitted\nUnder Review\nApproved\nRejected"
+        },
+        {
+            "fieldname": "column_break_4",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "approved_by",
+            "fieldtype": "Link",
+            "label": "Approved By",
+            "options": "User"
+        },
+        {
+            "fieldname": "approved_date",
+            "fieldtype": "Date",
+            "label": "Approved Date"
+        },
+        {
+            "fieldname": "section_break_revision",
+            "fieldtype": "Section Break",
+            "label": "Revision & Amounts"
+        },
+        {
+            "fieldname": "revision_number",
+            "fieldtype": "Int",
+            "label": "Revision Number"
+        },
+        {
+            "fieldname": "original_amount",
+            "fieldtype": "Currency",
+            "label": "Original Amount"
+        },
+        {
+            "fieldname": "column_break_rev1",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "approved_amount",
+            "fieldtype": "Currency",
+            "label": "Approved Amount"
+        },
+        {
+            "fieldname": "committed_amount",
+            "fieldtype": "Currency",
+            "label": "Committed Amount",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_rev2",
+            "fieldtype": "Column Break",
+            "label": ""
+        },
+        {
+            "fieldname": "actual_amount",
+            "fieldtype": "Currency",
+            "label": "Actual Amount",
+            "read_only": 1
+        },
+        {
+            "fieldname": "available_amount",
+            "fieldtype": "Currency",
+            "label": "Available Amount",
+            "read_only": 1
+        },
+        {
+            "fieldname": "utilization_percentage",
+            "fieldtype": "Percent",
+            "label": "Utilization Percentage",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_erpnext",
+            "fieldtype": "Section Break",
+            "label": "ERPNext Integration"
+        },
+        {
+            "fieldname": "linked_erpnext_budget",
+            "fieldtype": "Link",
+            "label": "Linked ERPNext Budget",
+            "options": "Budget"
+        },
+        {
+            "fieldname": "section_break_funding",
+            "fieldtype": "Section Break",
+            "label": "Funding Sources"
+        },
+        {
+            "fieldname": "funding_sources",
+            "fieldtype": "Table",
+            "label": "Funding Sources",
+            "options": "Budget Funding Source"
+        },
+        {
+            "fieldname": "section_break_node_context",
+            "fieldtype": "Section Break",
+            "label": "CityOS Node Context",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "cityos_tenant",
+            "fieldtype": "Data",
+            "label": "CityOS Tenant",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "cityos_country",
+            "fieldtype": "Data",
+            "label": "CityOS Country"
+        },
+        {
+            "fieldname": "column_break_5",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_city",
+            "fieldtype": "Data",
+            "label": "CityOS City"
+        },
+        {
+            "fieldname": "cityos_sector",
+            "fieldtype": "Data",
+            "label": "CityOS Sector"
+        },
+        {
+            "fieldname": "column_break_6",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "cityos_correlation_id",
+            "fieldtype": "Data",
+            "label": "CityOS Correlation ID"
+        },
+        {
+            "fieldname": "cityos_source_system",
+            "fieldtype": "Data",
+            "label": "CityOS Source System"
+        },
+        {
+            "fieldname": "cityos_workflow_state",
+            "fieldtype": "Data",
+            "label": "CityOS Workflow State"
+        }
+    ],
+    "modified": "2026-02-10 12:00:00.000000",
+    "creation": "2026-02-09 12:00:00.000000",
+    "owner": "Administrator",
+    "modified_by": "Administrator",
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 0,
+            "cancel": 0,
+            "amend": 0,
+            "report": 1,
+            "export": 1,
+            "import": 1
+        },
+        {
+            "role": "CityOS Finance Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "report": 1,
+            "export": 1
+        },
+        {
+            "role": "CityOS Administrator",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "report": 1,
+            "export": 1,
+            "import": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1,
+    "allow_import": 1,
+    "title_field": "program_name",
+    "search_fields": "fiscal_year,department,status,budget_type",
+    "show_title_field_in_link": 1
+}

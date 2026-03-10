@@ -1,0 +1,2539 @@
+2026-02-16 21:29:36,623 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProduct Bundle Item" CASCADE
+2026-02-16 21:29:36,635 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProduction Plan" CASCADE
+2026-02-16 21:29:36,637 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProduction Plan Item" CASCADE
+2026-02-16 21:29:36,639 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProduction Plan Item Reference" CASCADE
+2026-02-16 21:29:36,640 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProduction Plan Material Request" CASCADE
+2026-02-16 21:29:36,642 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProduction Plan Material Request Warehouse" CASCADE
+2026-02-16 21:29:36,644 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProduction Plan Sales Order" CASCADE
+2026-02-16 21:29:36,646 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProduction Plan Sub Assembly Item" CASCADE
+2026-02-16 21:29:36,649 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProject" CASCADE
+2026-02-16 21:29:36,651 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProject Milestone" CASCADE
+2026-02-16 21:29:36,653 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProject Template" CASCADE
+2026-02-16 21:29:36,654 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProject Template Task" CASCADE
+2026-02-16 21:29:36,656 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProject Update" CASCADE
+2026-02-16 21:29:36,658 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProject User" CASCADE
+2026-02-16 21:29:36,659 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabPromotional Scheme" CASCADE
+2026-02-16 21:29:36,661 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabPromotional Scheme Price Discount" CASCADE
+2026-02-16 21:29:36,663 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabPromotional Scheme Product Discount" CASCADE
+2026-02-16 21:29:36,665 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProspect" CASCADE
+2026-02-16 21:29:36,667 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProspect Lead" CASCADE
+2026-02-16 21:29:36,668 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabProspect Opportunity" CASCADE
+2026-02-16 21:29:36,673 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabPurchase Invoice" CASCADE
+2026-02-16 21:29:36,675 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabPurchase Invoice Advance" CASCADE
+2026-02-16 21:29:36,680 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabPurchase Invoice Item" CASCADE
+2026-02-16 21:29:36,683 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabPurchase Order" CASCADE
+2026-02-16 21:29:36,687 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabPurchase Order Item" CASCADE
+2026-02-16 21:29:36,689 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabPurchase Order Item Supplied" CASCADE
+2026-02-16 21:29:36,693 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabPurchase Receipt" CASCADE
+2026-02-16 21:29:36,698 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabPurchase Receipt Item" CASCADE
+2026-02-16 21:29:36,700 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabPurchase Receipt Item Supplied" CASCADE
+2026-02-16 21:29:36,702 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabPurchase Taxes and Charges" CASCADE
+2026-02-16 21:29:36,704 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabPurchase Taxes and Charges Template" CASCADE
+2026-02-16 21:29:36,706 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabPutaway Rule" CASCADE
+2026-02-16 21:29:36,707 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Action" CASCADE
+2026-02-16 21:29:36,709 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Action Resolution" CASCADE
+2026-02-16 21:29:36,711 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Feedback" CASCADE
+2026-02-16 21:29:36,712 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Feedback Parameter" CASCADE
+2026-02-16 21:29:36,714 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Feedback Template" CASCADE
+2026-02-16 21:29:36,715 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Feedback Template Parameter" CASCADE
+2026-02-16 21:29:36,717 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Goal" CASCADE
+2026-02-16 21:29:36,719 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Goal Objective" CASCADE
+2026-02-16 21:29:36,720 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Inspection" CASCADE
+2026-02-16 21:29:36,722 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Inspection Parameter" CASCADE
+2026-02-16 21:29:36,724 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Inspection Parameter Group" CASCADE
+2026-02-16 21:29:36,726 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Inspection Reading" CASCADE
+2026-02-16 21:29:36,727 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Inspection Template" CASCADE
+2026-02-16 21:29:36,728 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Meeting" CASCADE
+2026-02-16 21:29:36,730 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Meeting Agenda" CASCADE
+2026-02-16 21:29:36,732 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Meeting Minutes" CASCADE
+2026-02-16 21:29:36,734 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Procedure" CASCADE
+2026-02-16 21:29:36,735 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Procedure Process" CASCADE
+2026-02-16 21:29:36,737 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Review" CASCADE
+2026-02-16 21:29:36,738 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuality Review Objective" CASCADE
+2026-02-16 21:29:36,740 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuery Parameters" CASCADE
+2026-02-16 21:29:36,743 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuotation" CASCADE
+2026-02-16 21:29:36,746 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuotation Item" CASCADE
+2026-02-16 21:29:36,748 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuotation Lost Reason" CASCADE
+2026-02-16 21:29:36,749 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabQuotation Lost Reason Detail" CASCADE
+2026-02-16 21:29:36,751 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabReminder" CASCADE
+2026-02-16 21:29:36,752 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabReport Column" CASCADE
+2026-02-16 21:29:36,754 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabRepost Accounting Ledger" CASCADE
+2026-02-16 21:29:36,756 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabRepost Accounting Ledger Items" CASCADE
+2026-02-16 21:29:36,757 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabRepost Allowed Types" CASCADE
+2026-02-16 21:29:36,759 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabRepost Item Valuation" CASCADE
+2026-02-16 21:29:36,761 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabRepost Payment Ledger" CASCADE
+2026-02-16 21:29:36,762 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabRepost Payment Ledger Items" CASCADE
+2026-02-16 21:29:36,764 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabRequest for Quotation" CASCADE
+2026-02-16 21:29:36,766 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabRequest for Quotation Item" CASCADE
+2026-02-16 21:29:36,767 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabRequest for Quotation Supplier" CASCADE
+2026-02-16 21:29:36,769 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabReview Level" CASCADE
+2026-02-16 21:29:36,771 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabRole Profile" CASCADE
+2026-02-16 21:29:36,772 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabRoute History" CASCADE
+2026-02-16 21:29:36,774 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabRouting" CASCADE
+2026-02-16 21:29:36,775 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSLA Fulfilled On Status" CASCADE
+2026-02-16 21:29:36,777 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSMS Log" CASCADE
+2026-02-16 21:29:36,778 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSMS Parameter" CASCADE
+2026-02-16 21:29:36,780 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSales Forecast" CASCADE
+2026-02-16 21:29:36,782 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSales Forecast Item" CASCADE
+2026-02-16 21:29:36,788 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSales Invoice" CASCADE
+2026-02-16 21:29:36,790 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSales Invoice Advance" CASCADE
+2026-02-16 21:29:36,794 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSales Invoice Item" CASCADE
+2026-02-16 21:29:36,795 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSales Invoice Payment" CASCADE
+2026-02-16 21:29:36,797 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSales Invoice Reference" CASCADE
+2026-02-16 21:29:36,798 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSales Invoice Timesheet" CASCADE
+2026-02-16 21:29:36,803 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSales Order" CASCADE
+2026-02-16 21:29:36,808 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSales Order Item" CASCADE
+2026-02-16 21:29:36,810 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSales Partner" CASCADE
+2026-02-16 21:29:36,811 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSales Partner Item" CASCADE
+2026-02-16 21:29:36,813 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSales Taxes and Charges" CASCADE
+2026-02-16 21:29:36,815 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSales Taxes and Charges Template" CASCADE
+2026-02-16 21:29:36,817 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSales Team" CASCADE
+2026-02-16 21:29:36,819 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabScheduled Job Log" CASCADE
+2026-02-16 21:29:36,820 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabScheduler Event" CASCADE
+2026-02-16 21:29:36,823 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSerial No" CASCADE
+2026-02-16 21:29:36,825 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSerial and Batch Bundle" CASCADE
+2026-02-16 21:29:36,827 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSerial and Batch Entry" CASCADE
+2026-02-16 21:29:36,829 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabServer Script" CASCADE
+2026-02-16 21:29:36,831 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabService Day" CASCADE
+2026-02-16 21:29:36,833 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabService Level Agreement" CASCADE
+2026-02-16 21:29:36,834 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabService Level Priority" CASCADE
+2026-02-16 21:29:36,836 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSession Default" CASCADE
+2026-02-16 21:29:36,838 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabShare Balance" CASCADE
+2026-02-16 21:29:36,839 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabShare Transfer" CASCADE
+2026-02-16 21:29:36,841 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabShareholder" CASCADE
+2026-02-16 21:29:36,843 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabShipment" CASCADE
+2026-02-16 21:29:36,845 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabShipment Delivery Note" CASCADE
+2026-02-16 21:29:36,847 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabShipment Parcel" CASCADE
+2026-02-16 21:29:36,849 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabShipment Parcel Template" CASCADE
+2026-02-16 21:29:36,851 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabShipping Rule" CASCADE
+2026-02-16 21:29:36,852 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabShipping Rule Condition" CASCADE
+2026-02-16 21:29:36,854 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabShipping Rule Country" CASCADE
+2026-02-16 21:29:36,856 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSlack Webhook URL" CASCADE
+2026-02-16 21:29:36,857 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSocial Link Settings" CASCADE
+2026-02-16 21:29:36,859 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSocial Login Key" CASCADE
+2026-02-16 21:29:36,860 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSouth Africa VAT Account" CASCADE
+2026-02-16 21:29:36,862 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSouth Africa VAT Settings" CASCADE
+2026-02-16 21:29:36,864 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabStock Closing Balance" CASCADE
+2026-02-16 21:29:36,865 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabStock Closing Entry" CASCADE
+2026-02-16 21:29:36,868 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabStock Entry" CASCADE
+2026-02-16 21:29:36,871 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabStock Entry Detail" CASCADE
+2026-02-16 21:29:36,873 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabStock Ledger Entry" CASCADE
+2026-02-16 21:29:36,875 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabStock Reconciliation" CASCADE
+2026-02-16 21:29:36,877 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabStock Reconciliation Item" CASCADE
+2026-02-16 21:29:36,880 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabStock Reservation Entry" CASCADE
+2026-02-16 21:29:36,882 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSub Operation" CASCADE
+2026-02-16 21:29:36,884 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubcontracting BOM" CASCADE
+2026-02-16 21:29:36,886 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubcontracting Inward Order" CASCADE
+2026-02-16 21:29:36,889 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubcontracting Inward Order Item" CASCADE
+2026-02-16 21:29:36,891 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubcontracting Inward Order Received Item" CASCADE
+2026-02-16 21:29:36,893 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubcontracting Inward Order Scrap Item" CASCADE
+2026-02-16 21:29:36,897 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubcontracting Inward Order Service Item" CASCADE
+2026-02-16 21:29:36,899 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubcontracting Order" CASCADE
+2026-02-16 21:29:36,902 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubcontracting Order Item" CASCADE
+2026-02-16 21:29:36,904 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubcontracting Order Service Item" CASCADE
+2026-02-16 21:29:36,906 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubcontracting Order Supplied Item" CASCADE
+2026-02-16 21:29:36,909 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubcontracting Receipt" CASCADE
+2026-02-16 21:29:36,911 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubcontracting Receipt Item" CASCADE
+2026-02-16 21:29:36,913 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubcontracting Receipt Supplied Item" CASCADE
+2026-02-16 21:29:36,915 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubmission Queue" CASCADE
+2026-02-16 21:29:36,918 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubscription" CASCADE
+2026-02-16 21:29:36,919 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubscription Invoice" CASCADE
+2026-02-16 21:29:36,921 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubscription Plan" CASCADE
+2026-02-16 21:29:36,923 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSubscription Plan Detail" CASCADE
+2026-02-16 21:29:36,924 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSuccess Action" CASCADE
+2026-02-16 21:29:36,927 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSupplier" CASCADE
+2026-02-16 21:29:36,929 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSupplier Group Item" CASCADE
+2026-02-16 21:29:36,931 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSupplier Item" CASCADE
+2026-02-16 21:29:36,932 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSupplier Number At Customer" CASCADE
+2026-02-16 21:29:36,936 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSupplier Quotation" CASCADE
+2026-02-16 21:29:36,940 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSupplier Quotation Item" CASCADE
+2026-02-16 21:29:36,942 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSupplier Scorecard" CASCADE
+2026-02-16 21:29:36,944 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSupplier Scorecard Criteria" CASCADE
+2026-02-16 21:29:36,947 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSupplier Scorecard Period" CASCADE
+2026-02-16 21:29:36,949 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSupplier Scorecard Scoring Criteria" CASCADE
+2026-02-16 21:29:36,952 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSupplier Scorecard Scoring Standing" CASCADE
+2026-02-16 21:29:36,954 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSupplier Scorecard Scoring Variable" CASCADE
+2026-02-16 21:29:36,956 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabSupport Search Source" CASCADE
+2026-02-16 21:29:36,958 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTag" CASCADE
+2026-02-16 21:29:36,960 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTag Link" CASCADE
+2026-02-16 21:29:36,963 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTarget Detail" CASCADE
+2026-02-16 21:29:36,967 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTask" CASCADE
+2026-02-16 21:29:36,969 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTask Depends On" CASCADE
+2026-02-16 21:29:36,971 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTask Type" CASCADE
+2026-02-16 21:29:36,974 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTax Category" CASCADE
+2026-02-16 21:29:36,976 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTax Rule" CASCADE
+2026-02-16 21:29:36,978 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTax Withheld Vouchers" CASCADE
+2026-02-16 21:29:36,980 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTax Withholding Account" CASCADE
+2026-02-16 21:29:36,983 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTax Withholding Category" CASCADE
+2026-02-16 21:29:36,985 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTax Withholding Entry" CASCADE
+2026-02-16 21:29:36,986 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTax Withholding Group" CASCADE
+2026-02-16 21:29:36,988 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTax Withholding Rate" CASCADE
+2026-02-16 21:29:36,990 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTelephony Call Type" CASCADE
+2026-02-16 21:29:36,992 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTerms and Conditions" CASCADE
+2026-02-16 21:29:36,994 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTerritory Item" CASCADE
+2026-02-16 21:29:36,997 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTimesheet" CASCADE
+2026-02-16 21:29:37,001 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTimesheet Detail" CASCADE
+2026-02-16 21:29:37,004 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabToDo" CASCADE
+2026-02-16 21:29:37,006 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabToken Cache" CASCADE
+2026-02-16 21:29:37,008 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTop Bar Item" CASCADE
+2026-02-16 21:29:37,010 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTransaction Deletion Record" CASCADE
+2026-02-16 21:29:37,012 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTransaction Deletion Record Details" CASCADE
+2026-02-16 21:29:37,014 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTransaction Deletion Record Item" CASCADE
+2026-02-16 21:29:37,016 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTransaction Deletion Record To Delete" CASCADE
+2026-02-16 21:29:37,017 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTransaction Log" CASCADE
+2026-02-16 21:29:37,020 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabTranslation" CASCADE
+2026-02-16 21:29:37,022 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUAE VAT Account" CASCADE
+2026-02-16 21:29:37,024 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUAE VAT Settings" CASCADE
+2026-02-16 21:29:37,026 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUOM Conversion Detail" CASCADE
+2026-02-16 21:29:37,028 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUnhandled Email" CASCADE
+2026-02-16 21:29:37,029 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUnreconcile Payment" CASCADE
+2026-02-16 21:29:37,031 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUnreconcile Payment Entries" CASCADE
+2026-02-16 21:29:37,033 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUser Document Type" CASCADE
+2026-02-16 21:29:37,035 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUser Email" CASCADE
+2026-02-16 21:29:37,036 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUser Group" CASCADE
+2026-02-16 21:29:37,037 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUser Group Member" CASCADE
+2026-02-16 21:29:37,039 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUser Invitation" CASCADE
+2026-02-16 21:29:37,041 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUser Permission" CASCADE
+2026-02-16 21:29:37,042 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUser Role" CASCADE
+2026-02-16 21:29:37,044 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUser Select Document Type" CASCADE
+2026-02-16 21:29:37,045 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUser Social Login" CASCADE
+2026-02-16 21:29:37,047 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabUser Type Module" CASCADE
+2026-02-16 21:29:37,051 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabVehicle" CASCADE
+2026-02-16 21:29:37,053 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabVendor Certificate" CASCADE
+2026-02-16 21:29:37,056 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabVersion" CASCADE
+2026-02-16 21:29:37,058 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabVideo" CASCADE
+2026-02-16 21:29:37,061 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabView Log" CASCADE
+2026-02-16 21:29:37,063 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabVoice Call Settings" CASCADE
+2026-02-16 21:29:37,066 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWarranty Claim" CASCADE
+2026-02-16 21:29:37,068 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWeb Form List Column" CASCADE
+2026-02-16 21:29:37,071 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWeb Page" CASCADE
+2026-02-16 21:29:37,074 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWeb Page Block" CASCADE
+2026-02-16 21:29:37,076 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWeb Page View" CASCADE
+2026-02-16 21:29:37,079 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWebhook" CASCADE
+2026-02-16 21:29:37,081 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWebhook Data" CASCADE
+2026-02-16 21:29:37,082 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWebhook Header" CASCADE
+2026-02-16 21:29:37,086 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWebhook Request Log" CASCADE
+2026-02-16 21:29:37,088 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWebsite Attribute" CASCADE
+2026-02-16 21:29:37,090 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWebsite Filter Field" CASCADE
+2026-02-16 21:29:37,092 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWebsite Item Group" CASCADE
+2026-02-16 21:29:37,093 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWebsite Meta Tag" CASCADE
+2026-02-16 21:29:37,095 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWebsite Route Meta" CASCADE
+2026-02-16 21:29:37,096 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWebsite Route Redirect" CASCADE
+2026-02-16 21:29:37,099 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWebsite Sidebar" CASCADE
+2026-02-16 21:29:37,102 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWebsite Sidebar Item" CASCADE
+2026-02-16 21:29:37,104 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWebsite Slideshow" CASCADE
+2026-02-16 21:29:37,107 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWebsite Slideshow Item" CASCADE
+2026-02-16 21:29:37,109 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWebsite Theme Ignore App" CASCADE
+2026-02-16 21:29:37,113 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWork Order" CASCADE
+2026-02-16 21:29:37,115 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWork Order Item" CASCADE
+2026-02-16 21:29:37,117 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWork Order Operation" CASCADE
+2026-02-16 21:29:37,119 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWorkflow" CASCADE
+2026-02-16 21:29:37,121 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWorkflow Action" CASCADE
+2026-02-16 21:29:37,123 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWorkflow Action Permitted Role" CASCADE
+2026-02-16 21:29:37,125 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWorkflow Document State" CASCADE
+2026-02-16 21:29:37,127 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWorkflow Transition" CASCADE
+2026-02-16 21:29:37,128 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWorkspace Custom Block" CASCADE
+2026-02-16 21:29:37,129 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWorkspace Quick List" CASCADE
+2026-02-16 21:29:37,132 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWorkstation" CASCADE
+2026-02-16 21:29:37,133 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWorkstation Cost" CASCADE
+2026-02-16 21:29:37,135 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWorkstation Operating Component" CASCADE
+2026-02-16 21:29:37,136 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWorkstation Operating Component Account" CASCADE
+2026-02-16 21:29:37,138 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWorkstation Type" CASCADE
+2026-02-16 21:29:37,140 WARNING database DDL Query made to DB:
+DROP TABLE IF EXISTS "tabWorkstation Working Hour" CASCADE
+2026-02-16 21:51:48,313 WARNING database DDL Query made to DB:
+create table "tabProcess Period Closing Voucher Detail" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"processing_date" date,
+"report_type" varchar(140) default 'Profit and Loss',
+"status" varchar(140) default 'Queued',
+"closing_balance" json,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:48,352 WARNING database DDL Query made to DB:
+create table "tabSupplier Quotation Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item_code" varchar(140),
+"supplier_part_no" varchar(140),
+"item_name" varchar(140),
+"lead_time_days" bigint not null default 0,
+"expected_delivery_date" date,
+"is_free_item" smallint not null default 0,
+"description" text,
+"item_group" varchar(140),
+"brand" varchar(140),
+"image" text,
+"qty" decimal(21,9) not null default 0,
+"stock_uom" varchar(140),
+"uom" varchar(140),
+"conversion_factor" decimal(21,9) not null default 0,
+"stock_qty" decimal(21,9) not null default 0,
+"price_list_rate" decimal(21,9) not null default 0,
+"base_price_list_rate" decimal(21,9) not null default 0,
+"margin_type" varchar(140),
+"margin_rate_or_amount" decimal(21,9) not null default 0,
+"rate_with_margin" decimal(21,9) not null default 0,
+"discount_percentage" decimal(21,9) not null default 0,
+"discount_amount" decimal(21,9) not null default 0,
+"distributed_discount_amount" decimal(21,9) not null default 0,
+"rate" decimal(21,9) not null default 0,
+"amount" decimal(21,9) not null default 0,
+"item_tax_template" varchar(140),
+"base_rate" decimal(21,9) not null default 0,
+"base_amount" decimal(21,9) not null default 0,
+"pricing_rules" text,
+"net_rate" decimal(21,9) not null default 0,
+"net_amount" decimal(21,9) not null default 0,
+"base_net_rate" decimal(21,9) not null default 0,
+"base_net_amount" decimal(21,9) not null default 0,
+"weight_per_unit" decimal(21,9) not null default 0,
+"total_weight" decimal(21,9) not null default 0,
+"weight_uom" varchar(140),
+"warehouse" varchar(140),
+"prevdoc_doctype" varchar(140),
+"material_request" varchar(140),
+"sales_order" varchar(140),
+"request_for_quotation" varchar(140),
+"material_request_item" varchar(140),
+"request_for_quotation_item" varchar(140),
+"item_tax_rate" text,
+"manufacturer" varchar(140),
+"manufacturer_part_no" varchar(140),
+"cost_center" varchar(140),
+"project" varchar(140),
+"page_break" smallint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:48,371 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "item_code" ON "tabSupplier Quotation Item"("item_code");CREATE INDEX IF NOT EXISTS "item_name" ON "tabSupplier Quotation Item"("item_name");CREATE INDEX IF NOT EXISTS "material_request" ON "tabSupplier Quotation Item"("material_request");CREATE INDEX IF NOT EXISTS "sales_order" ON "tabSupplier Quotation Item"("sales_order");CREATE INDEX IF NOT EXISTS "material_request_item" ON "tabSupplier Quotation Item"("material_request_item");
+2026-02-16 21:51:48,414 WARNING database DDL Query made to DB:
+create table "tabRequest for Quotation Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item_code" varchar(140),
+"supplier_part_no" varchar(140),
+"item_name" varchar(140),
+"schedule_date" date,
+"description" text,
+"item_group" varchar(140),
+"brand" varchar(140),
+"image" text,
+"qty" decimal(21,9) not null default 0,
+"stock_uom" varchar(140),
+"uom" varchar(140),
+"conversion_factor" decimal(21,9) not null default 0,
+"stock_qty" decimal(21,9) not null default 0,
+"warehouse" varchar(140),
+"material_request" varchar(140),
+"material_request_item" varchar(140),
+"project_name" varchar(140),
+"page_break" smallint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:48,415 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "item_code" ON "tabRequest for Quotation Item"("item_code");CREATE INDEX IF NOT EXISTS "item_name" ON "tabRequest for Quotation Item"("item_name");
+2026-02-16 21:51:48,441 WARNING database DDL Query made to DB:
+create table "tabSupplier Scorecard Scoring Criteria" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"criteria_name" varchar(140),
+"score" decimal(21,9) not null default 0,
+"weight" decimal(21,9) not null default 0,
+"max_score" decimal(21,9) not null default 100.0,
+"formula" text,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:48,466 WARNING database DDL Query made to DB:
+create table "tabRequest for Quotation Supplier" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"supplier" varchar(140),
+"contact" varchar(140),
+"quote_status" varchar(140),
+"supplier_name" varchar(140),
+"email_id" varchar(140),
+"send_email" smallint not null default 1,
+"email_sent" smallint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:48,528 WARNING database DDL Query made to DB:
+create table "tabProcess Statement Of Accounts CC" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"cc" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:48,576 WARNING database DDL Query made to DB:
+create table "tabSupplier Scorecard Scoring Standing" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"standing_name" varchar(140),
+"standing_color" varchar(140),
+"min_grade" decimal(21,9) not null default 0,
+"max_grade" decimal(21,9) not null default 0,
+"warn_rfqs" smallint not null default 0,
+"warn_pos" smallint not null default 0,
+"prevent_rfqs" smallint not null default 0,
+"prevent_pos" smallint not null default 0,
+"notify_supplier" smallint not null default 0,
+"notify_employee" smallint not null default 0,
+"employee_link" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:48,611 WARNING database DDL Query made to DB:
+create table "tabSupplier Scorecard Scoring Variable" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"variable_label" varchar(140),
+"description" text,
+"value" decimal(21,9) not null default 0,
+"param_name" varchar(140),
+"path" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:48,647 WARNING database DDL Query made to DB:
+create table "tabDependent Task" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"task" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:48,694 WARNING database DDL Query made to DB:
+create table "tabNewsletter Email Group" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"email_group" varchar(140),
+"total_subscribers" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:48,745 WARNING database DDL Query made to DB:
+create table "tabCustomize Form Field" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"is_system_generated" smallint not null default 0,
+"label" varchar(140),
+"fieldtype" varchar(140) default 'Data',
+"fieldname" varchar(140),
+"non_negative" smallint not null default 0,
+"reqd" smallint not null default 0,
+"unique" smallint not null default 0,
+"is_virtual" smallint not null default 0,
+"in_list_view" smallint not null default 0,
+"in_standard_filter" smallint not null default 0,
+"in_global_search" smallint not null default 0,
+"in_preview" smallint not null default 0,
+"bold" smallint not null default 0,
+"no_copy" smallint not null default 0,
+"allow_in_quick_entry" smallint not null default 0,
+"translatable" smallint not null default 1,
+"link_filters" json,
+"default" text,
+"precision" varchar(140),
+"length" bigint not null default 0,
+"options" text,
+"sort_options" smallint not null default 0,
+"fetch_from" text,
+"fetch_if_empty" smallint not null default 0,
+"show_dashboard" smallint not null default 0,
+"depends_on" text,
+"permlevel" bigint not null default 0,
+"hidden" smallint not null default 0,
+"read_only" smallint not null default 0,
+"collapsible" smallint not null default 0,
+"allow_bulk_edit" smallint not null default 0,
+"collapsible_depends_on" text,
+"ignore_user_permissions" smallint not null default 0,
+"allow_on_submit" smallint not null default 0,
+"report_hide" smallint not null default 0,
+"remember_last_selected_value" smallint not null default 0,
+"hide_border" smallint not null default 0,
+"ignore_xss_filter" smallint not null default 0,
+"mandatory_depends_on" text,
+"read_only_depends_on" text,
+"in_filter" smallint not null default 0,
+"hide_seconds" smallint not null default 0,
+"hide_days" smallint not null default 0,
+"description" text,
+"placeholder" varchar(140),
+"print_hide" smallint not null default 0,
+"print_hide_if_no_value" smallint not null default 0,
+"print_width" varchar(140),
+"columns" bigint not null default 0,
+"width" varchar(140),
+"is_custom_field" smallint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:48,756 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "label" ON "tabCustomize Form Field"("label");CREATE INDEX IF NOT EXISTS "fieldtype" ON "tabCustomize Form Field"("fieldtype");CREATE INDEX IF NOT EXISTS "fieldname" ON "tabCustomize Form Field"("fieldname");
+2026-02-16 21:51:48,803 WARNING database DDL Query made to DB:
+create table "tabDocType Layout Field" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"label" varchar(140),
+"fieldname" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:48,885 WARNING database DDL Query made to DB:
+create table "tabEvent Notifications" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"type" varchar(140) default 'Notification',
+"before" bigint not null default 0,
+"interval" varchar(140),
+"time" time(6),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:48,910 WARNING database DDL Query made to DB:
+create table "tabEvent Participants" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"reference_doctype" varchar(140),
+"reference_docname" varchar(140),
+"email" varchar(140),
+"attending" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:48,954 WARNING database DDL Query made to DB:
+create table "tabProject Template Task" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"task" varchar(140),
+"subject" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,007 WARNING database DDL Query made to DB:
+create table "tabProject User" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"user" varchar(140),
+"email" varchar(140),
+"image" varchar(140),
+"full_name" varchar(140),
+"welcome_email_sent" smallint not null default 0,
+"view_attachments" smallint not null default 0,
+"hide_timesheets" smallint not null default 0,
+"project_status" text,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,011 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "user" ON "tabProject User"("user");
+2026-02-16 21:51:49,049 WARNING database DDL Query made to DB:
+create table "tabTimesheet Detail" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"activity_type" varchar(140),
+"from_time" timestamp,
+"description" text,
+"expected_hours" decimal(21,9) not null default 0,
+"to_time" timestamp,
+"hours" decimal(21,9) not null default 0,
+"completed" smallint not null default 0,
+"project" varchar(140),
+"project_name" varchar(140),
+"task" varchar(140),
+"is_billable" smallint not null default 0,
+"sales_invoice" varchar(140),
+"billing_hours" decimal(21,9) not null default 0,
+"base_billing_rate" decimal(21,9) not null default 0,
+"base_billing_amount" decimal(21,9) not null default 0,
+"base_costing_rate" decimal(21,9) not null default 0,
+"base_costing_amount" decimal(21,9) not null default 0,
+"billing_rate" decimal(21,9) not null default 0,
+"billing_amount" decimal(21,9) not null default 0,
+"costing_rate" decimal(21,9) not null default 0,
+"costing_amount" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,073 WARNING database DDL Query made to DB:
+create table "tabTask Depends On" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"task" varchar(140),
+"subject" text,
+"project" text,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,098 WARNING database DDL Query made to DB:
+create table "tabInstallation Note Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item_code" varchar(140),
+"serial_and_batch_bundle" varchar(140),
+"serial_no" text,
+"qty" decimal(21,9) not null default 0,
+"description" text,
+"prevdoc_detail_docname" varchar(140),
+"prevdoc_docname" varchar(140),
+"prevdoc_doctype" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,105 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "prevdoc_docname" ON "tabInstallation Note Item"("prevdoc_docname");CREATE INDEX IF NOT EXISTS "prevdoc_doctype" ON "tabInstallation Note Item"("prevdoc_doctype");
+2026-02-16 21:51:49,144 WARNING database DDL Query made to DB:
+create table "tabCustomer Credit Limit" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"company" varchar(140),
+"credit_limit" decimal(21,9) not null default 0,
+"bypass_credit_limit_check" smallint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,209 WARNING database DDL Query made to DB:
+create table "tabProduct Bundle Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item_code" varchar(140),
+"qty" decimal(21,9) not null default 0,
+"description" text,
+"rate" decimal(21,9) not null default 0,
+"uom" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,259 WARNING database DDL Query made to DB:
+create table "tabQuality Procedure Process" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"process_description" text,
+"procedure" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,317 WARNING database DDL Query made to DB:
+create table "tabQuotation Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item_code" varchar(140),
+"item_name" varchar(140),
+"customer_item_code" varchar(140),
+"is_free_item" smallint not null default 0,
+"is_alternative" smallint not null default 0,
+"has_alternative_item" smallint not null default 0,
+"description" text,
+"item_group" varchar(140),
+"brand" varchar(140),
+"image" text,
+"qty" decimal(21,9) not null default 0,
+"stock_uom" varchar(140),
+"uom" varchar(140),
+"conversion_factor" decimal(21,9) not null default 0,
+"stock_qty" decimal(21,9) not null default 0,
+"ordered_qty" decimal(21,9) not null default 0,
+"actual_qty" decimal(21,9) not null default 0,
+"company_total_stock" decimal(21,9) not null default 0,
+"price_list_rate" decimal(21,9) not null default 0,
+"base_price_list_rate" decimal(21,9) not null default 0,
+"margin_type" varchar(140),
+"margin_rate_or_amount" decimal(21,9) not null default 0,
+"rate_with_margin" decimal(21,9) not null default 0,
+"discount_percentage" decimal(21,9) not null default 0,
+"discount_amount" decimal(21,9) not null default 0,
+"distributed_discount_amount" decimal(21,9) not null default 0,
+"base_rate_with_margin" decimal(21,9) not null default 0,
+"rate" decimal(21,9) not null default 0,
+"net_rate" decimal(21,9) not null default 0,
+"amount" decimal(21,9) not null default 0,
+"net_amount" decimal(21,9) not null default 0,
+"item_tax_template" varchar(140),
+"base_rate" decimal(21,9) not null default 0,
+"base_net_rate" decimal(21,9) not null default 0,
+"base_amount" decimal(21,9) not null default 0,
+"base_net_amount" decimal(21,9) not null default 0,
+"pricing_rules" text,
+"stock_uom_rate" decimal(21,9) not null default 0,
+"valuation_rate" decimal(21,9) not null default 0,
+"gross_profit" decimal(21,9) not null default 0,
+"weight_per_unit" decimal(21,9) not null default 0,
+"total_weight" decimal(21,9) not null default 0,
+"weight_uom" varchar(140),
+"warehouse" varchar(140),
+"against_blanket_order" smallint not null default 0,
+"blanket_order" varchar(140),
+"blanket_order_rate" decimal(21,9) not null default 0,
+"prevdoc_doctype" varchar(140),
+"prevdoc_docname" varchar(140),
+"projected_qty" decimal(21,9) not null default 0,
+"item_tax_rate" text,
+"additional_notes" text,
+"page_break" smallint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,318 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "item_code" ON "tabQuotation Item"("item_code");
+2026-02-16 21:51:49,343 WARNING database DDL Query made to DB:
+create table "tabSupplier Number At Customer" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"company" varchar(140),
+"supplier_number" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,399 WARNING database DDL Query made to DB:
+create table "tabSales Order Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"fg_item" varchar(140),
+"fg_item_qty" decimal(21,9) not null default 0,
+"item_code" varchar(140),
+"customer_item_code" varchar(140),
+"ensure_delivery_based_on_produced_serial_no" smallint not null default 0,
+"is_stock_item" smallint not null default 0,
+"reserve_stock" smallint not null default 1,
+"delivery_date" date,
+"item_name" varchar(140),
+"description" text,
+"item_group" varchar(140),
+"brand" varchar(140),
+"image" text,
+"qty" decimal(21,9) not null default 0,
+"stock_uom" varchar(140),
+"subcontracted_qty" decimal(21,9) not null default 0,
+"uom" varchar(140),
+"conversion_factor" decimal(21,9) not null default 0,
+"stock_qty" decimal(21,9) not null default 0,
+"stock_reserved_qty" decimal(21,9) not null default 0,
+"price_list_rate" decimal(21,9) not null default 0,
+"base_price_list_rate" decimal(21,9) not null default 0,
+"margin_type" varchar(140),
+"margin_rate_or_amount" decimal(21,9) not null default 0,
+"rate_with_margin" decimal(21,9) not null default 0,
+"discount_percentage" decimal(21,9) not null default 0,
+"discount_amount" decimal(21,9) not null default 0,
+"distributed_discount_amount" decimal(21,9) not null default 0,
+"base_rate_with_margin" decimal(21,9) not null default 0,
+"rate" decimal(21,9) not null default 0,
+"amount" decimal(21,9) not null default 0,
+"item_tax_template" varchar(140),
+"base_rate" decimal(21,9) not null default 0,
+"base_amount" decimal(21,9) not null default 0,
+"pricing_rules" text,
+"stock_uom_rate" decimal(21,9) not null default 0,
+"is_free_item" smallint not null default 0,
+"grant_commission" smallint not null default 0,
+"net_rate" decimal(21,9) not null default 0,
+"net_amount" decimal(21,9) not null default 0,
+"base_net_rate" decimal(21,9) not null default 0,
+"base_net_amount" decimal(21,9) not null default 0,
+"billed_amt" decimal(21,9) not null default 0,
+"valuation_rate" decimal(21,9) not null default 0,
+"gross_profit" decimal(21,9) not null default 0,
+"delivered_by_supplier" smallint not null default 0,
+"supplier" varchar(140),
+"weight_per_unit" decimal(21,9) not null default 0,
+"total_weight" decimal(21,9) not null default 0,
+"weight_uom" varchar(140),
+"warehouse" varchar(140),
+"target_warehouse" varchar(140),
+"prevdoc_docname" varchar(140),
+"quotation_item" varchar(140),
+"against_blanket_order" smallint not null default 0,
+"blanket_order" varchar(140),
+"blanket_order_rate" decimal(21,9) not null default 0,
+"actual_qty" decimal(21,9) not null default 0,
+"company_total_stock" decimal(21,9) not null default 0,
+"bom_no" varchar(140),
+"projected_qty" decimal(21,9) not null default 0,
+"ordered_qty" decimal(21,9) not null default 0,
+"planned_qty" decimal(21,9) not null default 0,
+"production_plan_qty" decimal(21,9) not null default 0,
+"work_order_qty" decimal(21,9) not null default 0,
+"delivered_qty" decimal(21,9) not null default 0,
+"produced_qty" decimal(21,9) not null default 0,
+"returned_qty" decimal(21,9) not null default 0,
+"picked_qty" decimal(21,9) not null default 0,
+"additional_notes" text,
+"page_break" smallint not null default 0,
+"item_tax_rate" text,
+"transaction_date" date,
+"material_request" varchar(140),
+"purchase_order" varchar(140),
+"material_request_item" varchar(140),
+"purchase_order_item" varchar(140),
+"cost_center" varchar(140),
+"project" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,407 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "prevdoc_docname" ON "tabSales Order Item"("prevdoc_docname");CREATE INDEX IF NOT EXISTS "purchase_order" ON "tabSales Order Item"("purchase_order");CREATE INDEX IF NOT EXISTS "project" ON "tabSales Order Item"("project");
+2026-02-16 21:51:49,432 WARNING database DDL Query made to DB:
+create table "tabSales Team" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"sales_person" varchar(140),
+"contact_no" varchar(140),
+"allocated_percentage" decimal(21,9) not null default 0,
+"allocated_amount" decimal(21,9) not null default 0,
+"commission_rate" varchar(140),
+"incentives" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,437 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "sales_person" ON "tabSales Team"("sales_person");
+2026-02-16 21:51:49,482 WARNING database DDL Query made to DB:
+create table "tabTax Withheld Vouchers" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"voucher_type" varchar(140),
+"voucher_name" varchar(140),
+"taxable_amount" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,518 WARNING database DDL Query made to DB:
+create table "tabDriving License Category" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"class" varchar(140),
+"description" varchar(140),
+"issuing_date" date,
+"expiry_date" date,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,555 WARNING database DDL Query made to DB:
+create table "tabEmail Digest Recipient" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"recipient" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,594 WARNING database DDL Query made to DB:
+create table "tabEmployee Education" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"school_univ" text,
+"qualification" varchar(140),
+"level" varchar(140),
+"year_of_passing" bigint not null default 0,
+"class_per" varchar(140),
+"maj_opt_subj" text,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,620 WARNING database DDL Query made to DB:
+create table "tabEmployee External Work History" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"company_name" varchar(140),
+"designation" varchar(140),
+"salary" decimal(21,9) not null default 0,
+"address" text,
+"contact" varchar(140),
+"total_experience" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,645 WARNING database DDL Query made to DB:
+create table "tabHoliday" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"holiday_date" date,
+"weekly_off" smallint not null default 0,
+"description" text,
+"is_half_day" smallint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,679 WARNING database DDL Query made to DB:
+create table "tabEmployee Group Table" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"employee" varchar(140),
+"employee_name" varchar(140),
+"user_id" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,706 WARNING database DDL Query made to DB:
+create table "tabEmployee Internal Work History" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"branch" varchar(140),
+"department" varchar(140),
+"designation" varchar(140),
+"from_date" date,
+"to_date" date,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,774 WARNING database DDL Query made to DB:
+create table "tabQuotation Lost Reason Detail" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"lost_reason" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,819 WARNING database DDL Query made to DB:
+create table "tabTarget Detail" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item_group" varchar(140),
+"fiscal_year" varchar(140),
+"target_qty" decimal(21,9) not null default 0,
+"target_amount" decimal(21,9) not null default 0,
+"distribution_id" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:49,843 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "item_group" ON "tabTarget Detail"("item_group");CREATE INDEX IF NOT EXISTS "fiscal_year" ON "tabTarget Detail"("fiscal_year");CREATE INDEX IF NOT EXISTS "target_amount" ON "tabTarget Detail"("target_amount");
+2026-02-16 21:51:49,914 WARNING database DDL Query made to DB:
+create table "tabAccounting Dimension Detail" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"company" varchar(140),
+"reference_document" varchar(140),
+"default_dimension" varchar(140),
+"mandatory_for_bs" smallint not null default 0,
+"mandatory_for_pl" smallint not null default 0,
+"automatically_post_balancing_accounting_entry" smallint not null default 0,
+"offsetting_account" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,004 WARNING database DDL Query made to DB:
+create table "tabAdvance Taxes and Charges" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"add_deduct_tax" varchar(140),
+"charge_type" varchar(140),
+"row_id" varchar(140),
+"account_head" varchar(140),
+"description" text,
+"included_in_paid_amount" smallint not null default 0,
+"set_by_item_tax_template" smallint not null default 0,
+"is_tax_withholding_account" smallint not null default 0,
+"cost_center" varchar(140),
+"project" varchar(140),
+"rate" decimal(21,9) not null default 0,
+"currency" varchar(140),
+"net_amount" decimal(21,9) not null default 0,
+"tax_amount" decimal(21,9) not null default 0,
+"total" decimal(21,9) not null default 0,
+"base_tax_amount" decimal(21,9) not null default 0,
+"base_net_amount" decimal(21,9) not null default 0,
+"base_total" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,009 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "account_head" ON "tabAdvance Taxes and Charges"("account_head");
+2026-02-16 21:51:50,034 WARNING database DDL Query made to DB:
+create table "tabAllowed Dimension" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"accounting_dimension" varchar(140),
+"dimension_value" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,068 WARNING database DDL Query made to DB:
+create table "tabAllowed To Transact With" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"company" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,107 WARNING database DDL Query made to DB:
+create table "tabApplicable On Account" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"applicable_on_account" varchar(140),
+"is_mandatory" smallint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,149 WARNING database DDL Query made to DB:
+create table "tabBank Clearance Detail" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"payment_document" varchar(140),
+"payment_entry" varchar(140),
+"against_account" varchar(140),
+"amount" varchar(140),
+"posting_date" date,
+"cheque_number" varchar(140),
+"cheque_date" date,
+"clearance_date" date,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,174 WARNING database DDL Query made to DB:
+create table "tabQuality Review Objective" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"objective" text,
+"target" varchar(140),
+"uom" varchar(140),
+"status" varchar(140) default 'Open',
+"review" text,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,211 WARNING database DDL Query made to DB:
+create table "tabCampaign Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"campaign" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,238 WARNING database DDL Query made to DB:
+create table "tabBank Transaction Mapping" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"bank_transaction_field" varchar(140),
+"file_field" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,267 WARNING database DDL Query made to DB:
+create table "tabBank Transaction Payments" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"payment_document" varchar(140),
+"payment_entry" varchar(140),
+"allocated_amount" decimal(21,9) not null default 0,
+"clearance_date" date,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,298 WARNING database DDL Query made to DB:
+create table "tabClosed Document" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"document_type" varchar(140),
+"closed" smallint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,376 WARNING database DDL Query made to DB:
+create table "tabBudget Account" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"account" varchar(140),
+"budget_amount" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,380 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "account" ON "tabBudget Account"("account");
+2026-02-16 21:51:50,405 WARNING database DDL Query made to DB:
+create table "tabCashier Closing Payments" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"mode_of_payment" varchar(140),
+"amount" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,429 WARNING database DDL Query made to DB:
+create table "tabBudget Distribution" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"start_date" date,
+"end_date" date,
+"amount" decimal(21,9) not null default 0,
+"percent" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,433 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "start_date" ON "tabBudget Distribution"("start_date");
+2026-02-16 21:51:50,458 WARNING database DDL Query made to DB:
+create table "tabCost Center Allocation Percentage" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"cost_center" varchar(140),
+"percentage" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,513 WARNING database DDL Query made to DB:
+create table "tabCurrency Exchange Settings Details" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"key" varchar(140),
+"value" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,537 WARNING database DDL Query made to DB:
+create table "tabCurrency Exchange Settings Result" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"key" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,562 WARNING database DDL Query made to DB:
+create table "tabCustomer Group Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"customer_group" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,598 WARNING database DDL Query made to DB:
+create table "tabCustomer Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"customer" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,624 WARNING database DDL Query made to DB:
+create table "tabFinancial Report Row" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"reference_code" varchar(140),
+"display_name" varchar(140),
+"indentation_level" bigint not null default 0,
+"data_source" varchar(140),
+"balance_type" varchar(140),
+"fieldtype" varchar(140),
+"color" varchar(140),
+"bold_text" smallint not null default 0,
+"italic_text" smallint not null default 0,
+"hidden_calculation" smallint not null default 0,
+"hide_when_empty" smallint not null default 0,
+"reverse_sign" smallint not null default 0,
+"include_in_charts" smallint not null default 0,
+"advanced_filtering" smallint not null default 0,
+"calculation_formula" text,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,650 WARNING database DDL Query made to DB:
+create table "tabDiscounted Invoice" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"sales_invoice" varchar(140),
+"customer" varchar(140),
+"posting_date" date,
+"outstanding_amount" decimal(21,9) not null default 0,
+"debit_to" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,655 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "sales_invoice" ON "tabDiscounted Invoice"("sales_invoice");
+2026-02-16 21:51:50,692 WARNING database DDL Query made to DB:
+create table "tabDunning Letter Text" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"language" varchar(140),
+"is_default_language" smallint not null default 0,
+"body_text" text,
+"closing_text" text,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,748 WARNING database DDL Query made to DB:
+create table "tabItem Tax Template Detail" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"tax_type" varchar(140),
+"tax_rate" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,774 WARNING database DDL Query made to DB:
+create table "tabExchange Rate Revaluation Account" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"account" varchar(140),
+"party_type" varchar(140),
+"party" varchar(140),
+"account_currency" varchar(140),
+"balance_in_account_currency" decimal(21,9) not null default 0,
+"new_balance_in_account_currency" decimal(21,9) not null default 0,
+"current_exchange_rate" decimal(21,9) not null default 0,
+"new_exchange_rate" decimal(21,9) not null default 0,
+"balance_in_base_currency" decimal(21,9) not null default 0,
+"new_balance_in_base_currency" decimal(21,9) not null default 0,
+"gain_loss" decimal(21,9) not null default 0,
+"zero_balance" smallint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,825 WARNING database DDL Query made to DB:
+create table "tabFiscal Year Company" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"company" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,874 WARNING database DDL Query made to DB:
+create table "tabItem Wise Tax Detail" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item_row" varchar(140),
+"tax_row" varchar(140),
+"rate" decimal(21,9) not null default 0,
+"amount" decimal(21,9) not null default 0,
+"taxable_amount" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,905 WARNING database DDL Query made to DB:
+create table "tabJournal Entry Account" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"account" varchar(140),
+"account_type" varchar(140),
+"bank_account" varchar(140),
+"party_type" varchar(140),
+"party" varchar(140),
+"cost_center" varchar(140),
+"project" varchar(140),
+"account_currency" varchar(140),
+"exchange_rate" decimal(21,9) not null default 0,
+"debit_in_account_currency" decimal(21,9) not null default 0,
+"debit" decimal(21,9) not null default 0,
+"credit_in_account_currency" decimal(21,9) not null default 0,
+"credit" decimal(21,9) not null default 0,
+"reference_type" varchar(140),
+"reference_name" varchar(140),
+"reference_due_date" date,
+"reference_detail_no" varchar(140),
+"advance_voucher_type" varchar(140),
+"advance_voucher_no" varchar(140),
+"is_tax_withholding_account" smallint not null default 0,
+"is_advance" varchar(140),
+"user_remark" text,
+"against_account" text,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:50,925 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "account" ON "tabJournal Entry Account"("account");CREATE INDEX IF NOT EXISTS "party_type" ON "tabJournal Entry Account"("party_type");CREATE INDEX IF NOT EXISTS "reference_type" ON "tabJournal Entry Account"("reference_type");CREATE INDEX IF NOT EXISTS "reference_name" ON "tabJournal Entry Account"("reference_name");CREATE INDEX IF NOT EXISTS "advance_voucher_type" ON "tabJournal Entry Account"("advance_voucher_type");CREATE INDEX IF NOT EXISTS "advance_voucher_no" ON "tabJournal Entry Account"("advance_voucher_no");
+2026-02-16 21:51:50,987 WARNING database DDL Query made to DB:
+create table "tabJournal Entry Template Account" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"account" varchar(140),
+"party_type" varchar(140),
+"party" varchar(140),
+"cost_center" varchar(140),
+"project" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,048 WARNING database DDL Query made to DB:
+create table "tabLedger Merge Accounts" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"account" varchar(140),
+"account_name" varchar(140),
+"merged" smallint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,073 WARNING database DDL Query made to DB:
+create table "tabMonthly Distribution Percentage" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"month" varchar(140),
+"percentage_allocation" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,108 WARNING database DDL Query made to DB:
+create table "tabLoyalty Point Entry Redemption" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"sales_invoice" varchar(140),
+"redemption_date" date,
+"redeemed_points" bigint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,143 WARNING database DDL Query made to DB:
+create table "tabLoyalty Program Collection" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"tier_name" varchar(140),
+"min_spent" decimal(21,9) not null default 0,
+"collection_factor" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,170 WARNING database DDL Query made to DB:
+create table "tabPayment Entry Reference" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"reference_doctype" varchar(140),
+"reference_name" varchar(140),
+"due_date" date,
+"bill_no" varchar(140),
+"payment_term" varchar(140),
+"payment_term_outstanding" decimal(21,9) not null default 0,
+"account_type" varchar(140),
+"payment_type" varchar(140),
+"reconcile_effect_on" date,
+"total_amount" decimal(21,9) not null default 0,
+"outstanding_amount" decimal(21,9) not null default 0,
+"allocated_amount" decimal(21,9) not null default 0,
+"exchange_rate" decimal(21,9) not null default 0,
+"exchange_gain_loss" decimal(21,9) not null default 0,
+"account" varchar(140),
+"payment_request" varchar(140),
+"advance_voucher_type" varchar(140),
+"advance_voucher_no" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,174 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "reference_doctype" ON "tabPayment Entry Reference"("reference_doctype");CREATE INDEX IF NOT EXISTS "reference_name" ON "tabPayment Entry Reference"("reference_name");
+2026-02-16 21:51:51,200 WARNING database DDL Query made to DB:
+create table "tabOpening Invoice Creation Tool Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"invoice_number" varchar(140),
+"party_type" varchar(140),
+"party" varchar(140),
+"temporary_opening_account" varchar(140),
+"posting_date" date,
+"due_date" date,
+"supplier_invoice_date" date,
+"item_name" varchar(140) default 'Opening Invoice Item',
+"outstanding_amount" decimal(21,9) not null default 0,
+"qty" varchar(140) default '1',
+"cost_center" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,251 WARNING database DDL Query made to DB:
+create table "tabOverdue Payment" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"sales_invoice" varchar(140),
+"payment_schedule" varchar(140),
+"dunning_level" bigint not null default 1,
+"payment_term" varchar(140),
+"description" text,
+"due_date" date,
+"overdue_days" varchar(140),
+"mode_of_payment" varchar(140),
+"invoice_portion" decimal(21,9) not null default 0,
+"payment_amount" decimal(21,9) not null default 0,
+"outstanding" decimal(21,9) not null default 0,
+"paid_amount" decimal(21,9) not null default 0,
+"discounted_amount" decimal(21,9) not null default 0,
+"interest" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,278 WARNING database DDL Query made to DB:
+create table "tabParty Account" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"company" varchar(140),
+"account" varchar(140),
+"advance_account" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,321 WARNING database DDL Query made to DB:
+create table "tabPayment Entry Deduction" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"account" varchar(140),
+"cost_center" varchar(140),
+"amount" decimal(21,9) not null default 0,
+"is_exchange_gain_loss" smallint not null default 0,
+"description" text,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,375 WARNING database DDL Query made to DB:
+create table "tabPayment Order Reference" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"reference_doctype" varchar(140),
+"reference_name" varchar(140),
+"amount" decimal(21,9) not null default 0,
+"supplier" varchar(140),
+"payment_request" varchar(140),
+"mode_of_payment" varchar(140),
+"bank_account" varchar(140),
+"account" varchar(140),
+"payment_reference" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,502 WARNING database DDL Query made to DB:
+create table "tabPOS Closing Entry Detail" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"mode_of_payment" varchar(140),
+"opening_amount" decimal(21,9) not null default 0,
+"expected_amount" decimal(21,9) not null default 0,
+"closing_amount" decimal(21,9) not null default 0,
+"difference" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,557 WARNING database DDL Query made to DB:
+create table "tabPayment Terms Template Detail" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"payment_term" varchar(140),
+"description" text,
+"invoice_portion" decimal(21,9) not null default 0,
+"mode_of_payment" varchar(140),
+"due_date_based_on" varchar(140),
+"credit_days" bigint not null default 0,
+"credit_months" bigint not null default 0,
+"discount_type" varchar(140) default 'Percentage',
+"discount" decimal(21,9) not null default 0,
+"discount_validity_based_on" varchar(140) default 'Day(s) after invoice date',
+"discount_validity" bigint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,586 WARNING database DDL Query made to DB:
+create table "tabPOS Closing Entry Taxes" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"account_head" varchar(140),
+"amount" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,628 WARNING database DDL Query made to DB:
+create table "tabPOS Item Group" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item_group" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,660 WARNING database DDL Query made to DB:
+create table "tabPOS Invoice Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"barcode" varchar(140),
+"has_item_scanned" smallint not null default 0,
+"item_code" varchar(140),
+"item_name" varchar(140),
+"customer_item_code" varchar(140),
+"description" text,
+"item_group" varchar(140),
+"brand" varchar(140),
+"image" text,
+"qty" decimal(21,9) not null default 0,
+"stock_uom" varchar(140),
+"uom" varchar(140),
+"conversion_factor" decimal(21,9) not null default 0,
+"stock_qty" decimal(21,9) not null default 0,
+"price_list_rate" decimal(21,9) not null default 0,
+"base_price_list_rate" decimal(21,9) not null default 0,
+"margin_type" varchar(140),
+"margin_rate_or_amount" decimal(21,9) not null default 0,
+"rate_with_margin" decimal(21,9) not null default 0,
+"discount_percentage" decimal(21,2) not null default 0,
+"discount_amount" decimal(21,9) not null default 0,
+"distributed_discount_amount" decimal(21,9) not null default 0,
+"base_rate_with_margin" decimal(21,9) not null default 0,
+"rate" decimal(21,9) not null default 0,
+"amount" decimal(21,9) not null default 0,
+"item_tax_template" varchar(140),
+"base_rate" decimal(21,9) not null default 0,
+"base_amount" decimal(21,9) not null default 0,
+"pricing_rules" text,
+"is_free_item" smallint not null default 0,
+"grant_commission" smallint not null default 0,
+"net_rate" decimal(21,9) not null default 0,
+"net_amount" decimal(21,9) not null default 0,
+"base_net_rate" decimal(21,9) not null default 0,
+"base_net_amount" decimal(21,9) not null default 0,
+"delivered_by_supplier" smallint not null default 0,
+"income_account" varchar(140),
+"is_fixed_asset" smallint not null default 0,
+"asset" varchar(140),
+"finance_book" varchar(140),
+"expense_account" varchar(140),
+"deferred_revenue_account" varchar(140),
+"service_stop_date" date,
+"enable_deferred_revenue" smallint not null default 0,
+"service_start_date" date,
+"service_end_date" date,
+"weight_per_unit" decimal(21,9) not null default 0,
+"total_weight" decimal(21,9) not null default 0,
+"weight_uom" varchar(140),
+"warehouse" varchar(140),
+"target_warehouse" varchar(140),
+"quality_inspection" varchar(140),
+"serial_and_batch_bundle" varchar(140),
+"use_serial_batch_fields" smallint not null default 0,
+"allow_zero_valuation_rate" smallint not null default 0,
+"item_tax_rate" text,
+"actual_batch_qty" decimal(21,9) not null default 0,
+"actual_qty" decimal(21,9) not null default 0,
+"serial_no" text,
+"batch_no" varchar(140),
+"sales_order" varchar(140),
+"so_detail" varchar(140),
+"pos_invoice_item" varchar(140),
+"delivery_note" varchar(140),
+"dn_detail" varchar(140),
+"delivered_qty" decimal(21,9) not null default 0,
+"cost_center" varchar(140),
+"project" varchar(140),
+"page_break" smallint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,672 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "item_code" ON "tabPOS Invoice Item"("item_code");CREATE INDEX IF NOT EXISTS "sales_order" ON "tabPOS Invoice Item"("sales_order");CREATE INDEX IF NOT EXISTS "so_detail" ON "tabPOS Invoice Item"("so_detail");CREATE INDEX IF NOT EXISTS "delivery_note" ON "tabPOS Invoice Item"("delivery_note");CREATE INDEX IF NOT EXISTS "dn_detail" ON "tabPOS Invoice Item"("dn_detail");
+2026-02-16 21:51:51,699 WARNING database DDL Query made to DB:
+create table "tabPOS Customer Group" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"customer_group" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,727 WARNING database DDL Query made to DB:
+create table "tabPOS Field" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"fieldname" varchar(140),
+"label" varchar(140),
+"fieldtype" varchar(140),
+"options" text,
+"default_value" varchar(140),
+"reqd" smallint not null default 0,
+"read_only" smallint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,769 WARNING database DDL Query made to DB:
+create table "tabPOS Invoice Reference" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"pos_invoice" varchar(140),
+"posting_date" date,
+"customer" varchar(140),
+"grand_total" decimal(21,9) not null default 0,
+"is_return" smallint not null default 0,
+"return_against" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,798 WARNING database DDL Query made to DB:
+create table "tabPOS Payment Method" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"default" smallint not null default 0,
+"allow_in_returns" smallint not null default 0,
+"mode_of_payment" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,836 WARNING database DDL Query made to DB:
+create table "tabPOS Opening Entry Detail" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"mode_of_payment" varchar(140),
+"opening_amount" decimal(21,9) not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,865 WARNING database DDL Query made to DB:
+create table "tabPOS Profile User" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"default" smallint not null default 0,
+"user" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,895 WARNING database DDL Query made to DB:
+create table "tabPOS Search Fields" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"field" varchar(140),
+"fieldname" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,923 WARNING database DDL Query made to DB:
+create table "tabTransaction Deletion Record Item" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"doctype_name" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:51,950 WARNING database DDL Query made to DB:
+create table "tabCommunication Medium Timeslot" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"day_of_week" varchar(140),
+"from_time" time(6),
+"to_time" time(6),
+"employee_group" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:52,105 WARNING database DDL Query made to DB:
+create table "tabPSOA Project" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"project_name" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:52,148 WARNING database DDL Query made to DB:
+create table "tabProcess Payment Reconciliation Log Allocations" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"reference_type" varchar(140),
+"reference_name" varchar(140),
+"reference_row" varchar(140),
+"invoice_type" varchar(140),
+"invoice_number" varchar(140),
+"allocated_amount" decimal(21,9) not null default 0,
+"unreconciled_amount" decimal(21,9) not null default 0,
+"amount" decimal(21,9) not null default 0,
+"is_advance" varchar(140),
+"difference_amount" decimal(21,9) not null default 0,
+"gain_loss_posting_date" date,
+"difference_account" varchar(140),
+"exchange_rate" decimal(21,9) not null default 0,
+"currency" varchar(140),
+"reconciled" smallint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:52,175 WARNING database DDL Query made to DB:
+create table "tabPricing Rule Brand" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"brand" varchar(140),
+"uom" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:52,180 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "brand" ON "tabPricing Rule Brand"("brand");
+2026-02-16 21:51:52,209 WARNING database DDL Query made to DB:
+create table "tabPricing Rule Detail" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"pricing_rule" varchar(140),
+"item_code" varchar(140),
+"margin_type" varchar(140),
+"rate_or_discount" varchar(140),
+"child_docname" varchar(140),
+"rule_applied" smallint not null default 1,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:52,238 WARNING database DDL Query made to DB:
+create table "tabPromotional Scheme Price Discount" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"disable" smallint not null default 0,
+"apply_multiple_pricing_rules" smallint not null default 0,
+"rule_description" text,
+"min_qty" decimal(21,9) not null default 0,
+"max_qty" decimal(21,9) not null default 0,
+"min_amount" decimal(21,9) not null default 0,
+"max_amount" decimal(21,9) not null default 0,
+"rate_or_discount" varchar(140) default 'Discount Percentage',
+"rate" decimal(21,9) not null default 0,
+"discount_amount" decimal(21,9) not null default 0,
+"discount_percentage" decimal(21,9) not null default 0,
+"for_price_list" varchar(140),
+"warehouse" varchar(140),
+"threshold_percentage" decimal(21,9) not null default 0,
+"validate_applied_rule" smallint not null default 0,
+"priority" varchar(140),
+"apply_discount_on_rate" smallint not null default 0,
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:52,265 WARNING database DDL Query made to DB:
+create table "tabPricing Rule Item Code" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item_code" varchar(140),
+"uom" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:52,265 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "item_code" ON "tabPricing Rule Item Code"("item_code");
+2026-02-16 21:51:52,309 WARNING database DDL Query made to DB:
+create table "tabPricing Rule Item Group" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"item_group" varchar(140),
+"uom" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
+2026-02-16 21:51:52,309 WARNING database DDL Query made to DB:
+CREATE INDEX IF NOT EXISTS "item_group" ON "tabPricing Rule Item Group"("item_group");
+2026-02-16 21:51:52,364 WARNING database DDL Query made to DB:
+create table "tabProcess Statement Of Accounts Customer" (
+			name varchar(140) primary key,
+			creation timestamp(6),
+			modified timestamp(6),
+			modified_by varchar(140),
+			owner varchar(140),
+			docstatus smallint not null default '0',
+			idx bigint not null default '0',
+			"customer" varchar(140),
+"customer_name" varchar(140),
+"billing_email" varchar(140),
+"primary_email" varchar(140),
+parent varchar(140),
+parentfield varchar(140),
+parenttype varchar(140)
+			)
