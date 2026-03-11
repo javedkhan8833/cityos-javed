@@ -987,11 +987,11 @@ export default function DashboardPage() {
                   </div>
                   <div className="space-y-2">
                     <Label>Status</Label>
-                    <Select value={editForm.status || 'idle'} disabled={editSheet.mode === 'view'} onValueChange={(val) => setEditForm({ ...editForm, status: val })}>
+                    <Select value={editForm.status || 'inactive'} disabled={editSheet.mode === 'view'} onValueChange={(val) => setEditForm({ ...editForm, status: val })}>
                       <SelectTrigger data-testid="select-edit-status"><SelectValue /></SelectTrigger>
                       <SelectContent>
                         <SelectItem value="active">Active</SelectItem>
-                        <SelectItem value="idle">Idle</SelectItem>
+                        <SelectItem value="inactive">Inactive</SelectItem>
                         <SelectItem value="maintenance">Maintenance</SelectItem>
                       </SelectContent>
                     </Select>

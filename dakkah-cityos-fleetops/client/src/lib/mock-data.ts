@@ -18,7 +18,7 @@ export type Vehicle = {
   plate: string;
   model: string;
   type: "truck" | "van" | "scooter";
-  status: "active" | "maintenance" | "idle";
+  status: "active" | "maintenance" | "inactive";
   driverId?: string;
   fuelLevel: number;
   location: { lat: number; lng: number };
@@ -68,7 +68,7 @@ export const generateVehicles = (count = 15): Vehicle[] => {
     plate: faker.vehicle.vrm(),
     model: faker.vehicle.vehicle(),
     type: faker.helpers.arrayElement(["truck", "van", "scooter"]),
-    status: faker.helpers.arrayElement(["active", "maintenance", "idle"]),
+    status: faker.helpers.arrayElement(["active", "maintenance", "inactive"]),
     fuelLevel: faker.number.int({ min: 10, max: 100 }),
     location: {
       lat: faker.location.latitude(),

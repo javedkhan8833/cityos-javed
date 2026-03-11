@@ -9,7 +9,7 @@ import {
 const statuses = {
   order: ["pending", "assigned", "in_transit", "delivered", "cancelled"],
   driver: ["online", "offline", "busy"],
-  vehicle: ["active", "maintenance", "idle"],
+  vehicle: ["active", "maintenance", "inactive"],
   fleet: ["active", "inactive"],
   issue: ["open", "investigating", "resolved"],
   priority: ["low", "medium", "high", "critical"],

@@ -68,7 +68,7 @@ export default function VehiclesPage() {
       make: newVehicle.make,
       model: newVehicle.model,
       type: newVehicle.type,
-      status: "idle",
+      status: "inactive",
     }, {
       onSuccess: () => {
         toast({ title: "Vehicle Added", description: `${newVehicle.plate_number} has been added to the fleet.` });
@@ -171,7 +171,7 @@ export default function VehiclesPage() {
             <DropdownMenuContent align="end">
               <DropdownMenuItem onClick={() => setStatusFilter("all")}>All Statuses</DropdownMenuItem>
               <DropdownMenuItem onClick={() => setStatusFilter("active")}>Active</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setStatusFilter("idle")}>Inactive</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setStatusFilter("inactive")}>Inactive</DropdownMenuItem>
               <DropdownMenuItem onClick={() => setStatusFilter("maintenance")}>Maintenance</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
