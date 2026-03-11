@@ -23,6 +23,8 @@ node_modules/
 *.log
 /home/runner/logs/
 startup.log
+logs/
+sites/*/logs/
 # Runtime
 .pythonlibs/
 *.pid
@@ -30,3 +32,9 @@ startup.log
 .venv/
 uv.lock
 uv.lock.bak
+sites/assets/
+sites/*/indexes/
+sites/*/touched_tables.json
+sites/*/site_config.json
+sites/*/private/files/
+sites/*/public/files/
