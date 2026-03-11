@@ -88,3 +88,33 @@ curl -I http://erpnext.mvplab.sa
 curl -I http://fleetbase.mvplab.sa
 curl -I http://fleetops.mvplab.sa
 ```
+## Temporary public access without DNS
+
+If DNS for `erpnext.mvplab.sa`, `fleetbase.mvplab.sa`, and `fleetops.mvplab.sa` is not ready yet, you can expose the app ports directly on the VPS for temporary testing.
+
+Use these compose overrides:
+
+- `dakkah-cityos-erpnext/docker-compose.public-ports.yml`
+- `dakkah-cityos-fleetbase/docker-compose.public-ports.yml`
+- `dakkah-cityos-fleetops/docker-compose.public-ports.yml`
+
+Start each stack with both files:
+
+```bash
+cd ~/srv/apps/cityos-javed/dakkah-cityos-erpnext
+docker compose --env-file .env -f docker-compose.nginx-vps.yml -f docker-compose.public-ports.yml up -d
+
+cd ~/srv/apps/cityos-javed/dakkah-cityos-fleetbase
+docker compose --env-file .env -f docker-compose.nginx-vps.yml -f docker-compose.public-ports.yml up -d
+
+cd ~/srv/apps/cityos-javed/dakkah-cityos-fleetops
+docker compose --env-file .env -f docker-compose.nginx-vps.yml -f docker-compose.public-ports.yml up -d
+```
+
+Temporary public URLs:
+
+- `http://72.62.29.11:18080` for ERPNext
+- `http://72.62.29.11:14200` for Fleetbase
+- `http://72.62.29.11:15000` for FleetOps
+
+These ports should be treated as temporary only. They are not a replacement for proper DNS and HTTPS on `80/443`.

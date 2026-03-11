@@ -1,0 +1,4 @@
+services:
+  console:
+    ports:
+      - "14200:4200"

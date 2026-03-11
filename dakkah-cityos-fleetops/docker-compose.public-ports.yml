@@ -1,0 +1,4 @@
+services:
+  fleetops:
+    ports:
+      - "15000:5000"
