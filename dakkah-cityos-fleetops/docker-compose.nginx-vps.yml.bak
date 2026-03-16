@@ -1,0 +1,25 @@
+services:
+  fleetops:
+    build: .
+    container_name: fleetops
+    restart: unless-stopped
+    cpus: 1.0
+    mem_limit: 512M
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 512M
+    ports:
+      - "127.0.0.1:15000:5000"
+    env_file:
+      - .env
+    environment:
+      - PORT=5000
+    networks:
+      - ${CITYOS_NETWORK}
+
+networks:
+  cityos-network:
+    name: ${CITYOS_NETWORK}
+    external: true
