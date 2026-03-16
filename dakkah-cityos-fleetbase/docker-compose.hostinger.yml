@@ -3,6 +3,13 @@ services:
     image: redis:7-alpine
     container_name: fleetbase-redis
     restart: unless-stopped
+    cpus: 0.5
+    mem_limit: 256M
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
     networks:
       - ${CITYOS_NETWORK}
 
@@ -11,6 +18,13 @@ services:
     platform: linux/amd64
     container_name: fleetbase-socket
     restart: unless-stopped
+    cpus: 1.0
+    mem_limit: 384M
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 384M
     environment:
       SOCKETCLUSTER_WORKERS: 4
       SOCKETCLUSTER_BROKERS: 4
@@ -25,6 +39,13 @@ services:
     container_name: fleetbase-api
     command: [ "frankenphp", "run", "--config", "/fleetbase/Caddyfile" ]
     restart: unless-stopped
+    cpus: 1.5
+    mem_limit: 768M
+    deploy:
+      resources:
+        limits:
+          cpus: '1.50'
+          memory: 768M
     volumes:
       - ./api/.env:/fleetbase/api/.env
       - ./api/config/database.php:/fleetbase/api/config/database.php
@@ -46,6 +67,13 @@ services:
     container_name: fleetbase-queue
     command: [ "php", "artisan", "queue:work" ]
     restart: unless-stopped
+    cpus: 1.0
+    mem_limit: 512M
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 512M
     healthcheck:
       disable: true
     depends_on:
@@ -61,6 +89,13 @@ services:
     container_name: fleetbase-scheduler
     command: [ "go-crond", "--verbose", "root:./crontab" ]
     restart: unless-stopped
+    cpus: 0.5
+    mem_limit: 192M
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 192M
     healthcheck:
       disable: true
     depends_on:
@@ -72,6 +107,13 @@ services:
     image: fleetbase/fleetbase-console:latest
     container_name: fleetbase-console
     restart: unless-stopped
+    cpus: 0.5
+    mem_limit: 256M
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
     volumes:
       - ./docker/console/default.conf.template:/etc/nginx/templates/default.conf.template:ro
     networks:
@@ -91,6 +133,13 @@ services:
       dockerfile: docker/httpd/Dockerfile
     container_name: fleetbase-http
     restart: unless-stopped
+    cpus: 0.5
+    mem_limit: 128M
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 128M
     depends_on:
       - application
     networks:

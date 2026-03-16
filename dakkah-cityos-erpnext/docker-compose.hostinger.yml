@@ -28,6 +28,13 @@ services:
   erp-db:
     image: mariadb:10.6
     restart: unless-stopped
+    cpus: 2.0
+    mem_limit: 1536M
+    deploy:
+      resources:
+        limits:
+          cpus: '2.00'
+          memory: 1536M
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
@@ -56,6 +63,13 @@ services:
   redis-cache:
     image: redis:7-alpine
     restart: unless-stopped
+    cpus: 0.5
+    mem_limit: 256M
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
     networks:
       - ${CITYOS_NETWORK}
     labels:
@@ -64,6 +78,13 @@ services:
   redis-queue:
     image: redis:7-alpine
     restart: unless-stopped
+    cpus: 0.5
+    mem_limit: 256M
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
     networks:
       - ${CITYOS_NETWORK}
     labels:
@@ -72,6 +93,13 @@ services:
   configurator:
     <<: *backend-service
     restart: "no"
+    cpus: 1.0
+    mem_limit: 512M
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 512M
     depends_on:
       erp-db:
         condition: service_healthy
@@ -97,11 +125,25 @@ services:
   backend:
     <<: *backend-service
     container_name: erpnext-app
+    cpus: 1.5
+    mem_limit: 1024M
+    deploy:
+      resources:
+        limits:
+          cpus: '1.50'
+          memory: 1024M
 
   frontend:
     image: frappe/erpnext-nginx:${ERPNEXT_NGINX_IMAGE_TAG:-latest}
     pull_policy: if_not_present
     restart: unless-stopped
+    cpus: 0.5
+    mem_limit: 256M
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
     depends_on:
       backend:
         condition: service_started
@@ -133,12 +175,26 @@ services:
 
   websocket:
     <<: *backend-service
+    cpus: 1.0
+    mem_limit: 384M
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 384M
     command:
       - node
       - /home/frappe/frappe-bench/apps/frappe/socketio.js
 
   queue-short:
     <<: *backend-service
+    cpus: 1.0
+    mem_limit: 512M
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 512M
     command:
       - bench
       - worker
@@ -147,6 +203,13 @@ services:
 
   queue-long:
     <<: *backend-service
+    cpus: 1.5
+    mem_limit: 768M
+    deploy:
+      resources:
+        limits:
+          cpus: '1.50'
+          memory: 768M
     command:
       - bench
       - worker
@@ -155,6 +218,13 @@ services:
 
   scheduler:
     <<: *backend-service
+    cpus: 0.5
+    mem_limit: 256M
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
     command:
       - bench
       - schedule
@@ -162,6 +232,13 @@ services:
   create-site:
     <<: *backend-service
     restart: "no"
+    cpus: 1.0
+    mem_limit: 512M
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 512M
     profiles:
       - setup
     entrypoint:

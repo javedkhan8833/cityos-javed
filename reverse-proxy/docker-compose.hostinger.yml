@@ -3,6 +3,13 @@ services:
     image: traefik:v3.0
     container_name: cityos-traefik
     restart: unless-stopped
+    cpus: 0.5
+    mem_limit: 128M
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 128M
     command:
       - "--api.dashboard=true"
       - "--api.insecure=false"
