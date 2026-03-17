@@ -155,7 +155,7 @@ services:
       - ./logs:/home/frappe/frappe-bench/logs
       - ./sites/assets:/usr/share/nginx/html/assets:ro
     ports:
-      - "127.0.0.1:18080:8080"
+      - "18080:8080"
     networks:
       - ${CITYOS_NETWORK}
 

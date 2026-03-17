@@ -135,7 +135,7 @@ services:
           cpus: '0.50'
           memory: 128M
     ports:
-      - "127.0.0.1:18000:80"
+      - "18000:80"
     depends_on:
       - application
     networks:
