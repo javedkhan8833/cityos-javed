@@ -50,6 +50,7 @@ interface FleetbaseRequestOptions {
   params?: Record<string, string>;
   timeout?: number;
   cityosContext?: CityOSContext;
+  credentials?: FleetbaseCredentials;
 }
 
 interface FleetbaseResponse<T = any> {
@@ -59,17 +60,23 @@ interface FleetbaseResponse<T = any> {
   status?: number;
 }
 
-export { validateServerUrl };
-
-export async function getActiveServer(): Promise<FleetbaseCredentials | null> {
-  const [server] = await db.select().from(fleetbase_servers).where(eq(fleetbase_servers.is_active, true));
-  if (!server) return null;
-  return { url: server.url.replace(/\/+$/, ""), api_key: server.api_key };
+interface ActiveServerCache {
+  creds: FleetbaseCredentials;
+  cityosContext?: CityOSContext;
+  fetchedAt: number;
 }
 
-export async function getActiveServerCityOSContext(): Promise<CityOSContext | undefined> {
-  const [server] = await db.select().from(fleetbase_servers).where(eq(fleetbase_servers.is_active, true));
-  if (!server) return undefined;
+const ACTIVE_SERVER_CACHE_TTL_MS = Number(process.env.FLEETBASE_SERVER_CACHE_TTL_MS ?? 5 * 60 * 1000);
+let activeServerCache: ActiveServerCache | null = null;
+
+export { validateServerUrl };
+
+function buildCityOSContext(server: {
+  cityos_country?: string | null;
+  cityos_city?: string | null;
+  cityos_tenant?: string | null;
+  cityos_channel?: string | null;
+}): CityOSContext | undefined {
   const ctx: CityOSContext = {};
   if (server.cityos_country) ctx.country = server.cityos_country;
   if (server.cityos_city) ctx.city = server.cityos_city;
@@ -78,11 +85,97 @@ export async function getActiveServerCityOSContext(): Promise<CityOSContext | un
   return (ctx.country || ctx.city || ctx.tenant || ctx.channel) ? ctx : undefined;
 }
 
+function getFreshActiveServerCache(): ActiveServerCache | null {
+  if (!activeServerCache) return null;
+  if (Date.now() - activeServerCache.fetchedAt > ACTIVE_SERVER_CACHE_TTL_MS) return null;
+  return activeServerCache;
+}
+
+function setActiveServerCache(server: {
+  url: string;
+  api_key: string;
+  cityos_country?: string | null;
+  cityos_city?: string | null;
+  cityos_tenant?: string | null;
+  cityos_channel?: string | null;
+}) {
+  activeServerCache = {
+    creds: {
+      url: server.url.replace(/\/+$/, ""),
+      api_key: server.api_key,
+    },
+    cityosContext: buildCityOSContext(server),
+    fetchedAt: Date.now(),
+  };
+}
+
+function getEnvActiveServer(): FleetbaseCredentials | null {
+  const url = process.env.FLEETBASE_API_URL?.trim();
+  const apiKey = process.env.FLEETBASE_API_KEY?.trim();
+
+  if (!url || !apiKey) return null;
+
+  return {
+    url: url.replace(/\/+$/, ""),
+    api_key: apiKey,
+  };
+}
+
+export async function getActiveServer(): Promise<FleetbaseCredentials | null> {
+  const cached = getFreshActiveServerCache();
+  if (cached) return cached.creds;
+
+  try {
+    const [server] = await db.select().from(fleetbase_servers).where(eq(fleetbase_servers.is_active, true));
+    if (!server) {
+      const envCreds = getEnvActiveServer();
+      if (envCreds) {
+        activeServerCache = { creds: envCreds, fetchedAt: Date.now() };
+        return envCreds;
+      }
+
+      activeServerCache = null;
+      return null;
+    }
+
+    setActiveServerCache(server);
+    return activeServerCache?.creds ?? null;
+  } catch (error) {
+    const envCreds = getEnvActiveServer();
+    if (envCreds) {
+      activeServerCache = { creds: envCreds, fetchedAt: Date.now() };
+      return envCreds;
+    }
+
+    if (activeServerCache) return activeServerCache.creds;
+    throw error;
+  }
+}
+
+export async function getActiveServerCityOSContext(): Promise<CityOSContext | undefined> {
+  const cached = getFreshActiveServerCache();
+  if (cached) return cached.cityosContext;
+
+  try {
+    const [server] = await db.select().from(fleetbase_servers).where(eq(fleetbase_servers.is_active, true));
+    if (!server) {
+      activeServerCache = null;
+      return undefined;
+    }
+
+    setActiveServerCache(server);
+    return activeServerCache?.cityosContext;
+  } catch (error) {
+    if (activeServerCache) return activeServerCache.cityosContext;
+    return undefined;
+  }
+}
+
 export async function fleetbaseRequest<T = any>(
   endpoint: string,
   options: FleetbaseRequestOptions = {}
 ): Promise<FleetbaseResponse<T>> {
-  const creds = await getActiveServer();
+  const creds = options.credentials ?? await getActiveServer();
   if (!creds) {
     return { ok: false, error: "No active Fleetbase server configured" };
   }
@@ -175,24 +268,70 @@ export async function getEffectiveCityOSContext(req: { headers: Record<string, a
   return { ...serverCtx, ...reqCtx };
 }
 
-export async function fleetbaseList<T = any>(resource: string, params?: Record<string, string>, cityosContext?: CityOSContext): Promise<FleetbaseResponse<T[]>> {
-  return fleetbaseRequest<T[]>(resource, { params, cityosContext });
+export async function fleetbaseList<T = any>(
+  resource: string,
+  params?: Record<string, string>,
+  cityosContext?: CityOSContext,
+  credentials?: FleetbaseCredentials
+): Promise<FleetbaseResponse<T[]>> {
+  return fleetbaseRequest<T[]>(resource, { params, cityosContext, credentials });
 }
 
-export async function fleetbaseGet<T = any>(resource: string, id: string, cityosContext?: CityOSContext): Promise<FleetbaseResponse<T>> {
-  return fleetbaseRequest<T>(`${resource}/${id}`, { cityosContext });
+export async function fleetbaseListWithTimeout<T = any>(
+  resource: string,
+  timeout: number,
+  params?: Record<string, string>,
+  cityosContext?: CityOSContext,
+  credentials?: FleetbaseCredentials
+): Promise<FleetbaseResponse<T[]>> {
+  return fleetbaseRequest<T[]>(resource, { params, timeout, cityosContext, credentials });
 }
 
-export async function fleetbaseCreate<T = any>(resource: string, body: any, cityosContext?: CityOSContext): Promise<FleetbaseResponse<T>> {
-  return fleetbaseRequest<T>(resource, { method: "POST", body, cityosContext });
+export async function fleetbaseGet<T = any>(
+  resource: string,
+  id: string,
+  cityosContext?: CityOSContext,
+  credentials?: FleetbaseCredentials
+): Promise<FleetbaseResponse<T>> {
+  return fleetbaseRequest<T>(`${resource}/${id}`, { cityosContext, credentials });
 }
 
-export async function fleetbaseUpdate<T = any>(resource: string, id: string, body: any, cityosContext?: CityOSContext): Promise<FleetbaseResponse<T>> {
-  return fleetbaseRequest<T>(`${resource}/${id}`, { method: "PUT", body, cityosContext });
+export async function fleetbaseCreate<T = any>(
+  resource: string,
+  body: any,
+  cityosContext?: CityOSContext,
+  credentials?: FleetbaseCredentials
+): Promise<FleetbaseResponse<T>> {
+  return fleetbaseRequest<T>(resource, { method: "POST", body, cityosContext, credentials });
 }
 
-export async function fleetbaseDelete(resource: string, id: string, cityosContext?: CityOSContext): Promise<FleetbaseResponse<{ deleted: boolean }>> {
-  return fleetbaseRequest(`${resource}/${id}`, { method: "DELETE", cityosContext });
+export async function fleetbaseCreateWithTimeout<T = any>(
+  resource: string,
+  body: any,
+  timeout: number,
+  cityosContext?: CityOSContext,
+  credentials?: FleetbaseCredentials
+): Promise<FleetbaseResponse<T>> {
+  return fleetbaseRequest<T>(resource, { method: "POST", body, timeout, cityosContext, credentials });
+}
+
+export async function fleetbaseUpdate<T = any>(
+  resource: string,
+  id: string,
+  body: any,
+  cityosContext?: CityOSContext,
+  credentials?: FleetbaseCredentials
+): Promise<FleetbaseResponse<T>> {
+  return fleetbaseRequest<T>(`${resource}/${id}`, { method: "PUT", body, cityosContext, credentials });
+}
+
+export async function fleetbaseDelete(
+  resource: string,
+  id: string,
+  cityosContext?: CityOSContext,
+  credentials?: FleetbaseCredentials
+): Promise<FleetbaseResponse<{ deleted: boolean }>> {
+  return fleetbaseRequest(`${resource}/${id}`, { method: "DELETE", cityosContext, credentials });
 }
 
 export async function probeFleetbaseServer(serverUrl: string, apiKey: string): Promise<{

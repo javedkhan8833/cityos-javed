@@ -26,6 +26,12 @@ declare module "express-session" {
     activeServerId: string;
     serverName: string;
     serverOrg: string;
+    activeServerUrl?: string;
+    activeServerApiKey?: string;
+    cityosCountry?: string;
+    cityosCity?: string;
+    cityosTenant?: string;
+    cityosChannel?: string;
   }
 }
 
@@ -47,6 +53,12 @@ app.use(
 app.use(express.urlencoded({ extended: false }));
 
 const PgStore = connectPgSimple(session);
+const sessionCookieSecure =
+  process.env.SESSION_COOKIE_SECURE === "true"
+    ? true
+    : process.env.SESSION_COOKIE_SECURE === "false"
+      ? false
+      : "auto";
 
 app.use(
   session({
@@ -62,7 +74,8 @@ app.use(
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // secure in production
+      // Use auto so local HTTP Docker works, while HTTPS deployments still get secure cookies.
+      secure: sessionCookieSecure,
       sameSite: "lax",
     },
   })

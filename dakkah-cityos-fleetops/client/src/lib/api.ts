@@ -23,21 +23,51 @@ async function apiFetch<T>(url: string, options?: RequestInit): Promise<T> {
   return res.json();
 }
 
+interface ListQueryOptions {
+  query?: Record<string, string | number | boolean | null | undefined>;
+  enabled?: boolean;
+  staleTime?: number;
+  refetchInterval?: number | false;
+  refetchOnWindowFocus?: boolean;
+  retry?: boolean | number;
+}
+
 const FLEETBASE_RESOURCES = new Set([
-  "vehicles", "drivers", "orders", "places", "contacts", "vendors", "fleets",
+  "vehicles", "orders", "places", "contacts", "vendors", "fleets",
   "service-areas", "zones", "service-rates", "entities", "payloads",
   "tracking-numbers", "tracking-statuses", "service-quotes", "purchase-rates"
 ]);
+
+function buildListUrl(
+  basePath: string,
+  query?: Record<string, string | number | boolean | null | undefined>
+): string {
+  const params = new URLSearchParams();
+  for (const [paramKey, value] of Object.entries(query ?? {})) {
+    if (value === undefined || value === null || value === "") continue;
+    params.set(paramKey, String(value));
+  }
+
+  const queryString = params.toString();
+  return queryString ? `${basePath}?${queryString}` : basePath;
+}
 
 function createEntityHooks<T extends { id?: string }>(path: string) {
   const key = [path];
   const isFleetbaseResource = FLEETBASE_RESOURCES.has(path);
   const basePath = isFleetbaseResource ? `/api/fleetbase/${path}` : `/api/${path}`;
 
-  function useList() {
+  function useList(options?: ListQueryOptions) {
+    const listUrl = buildListUrl(basePath, options?.query);
+
     return useQuery<T[]>({
-      queryKey: key,
-      queryFn: () => apiFetch<T[]>(basePath),
+      queryKey: [...key, options?.query ?? {}],
+      queryFn: () => apiFetch<T[]>(listUrl),
+      enabled: options?.enabled ?? true,
+      staleTime: options?.staleTime ?? (isFleetbaseResource ? 5 * 60 * 1000 : 0),
+      refetchInterval: options?.refetchInterval,
+      refetchOnWindowFocus: options?.refetchOnWindowFocus ?? !isFleetbaseResource,
+      retry: options?.retry ?? (isFleetbaseResource ? 1 : 3),
     });
   }
 
@@ -80,7 +110,75 @@ function createEntityHooks<T extends { id?: string }>(path: string) {
 }
 
 export const ordersApi = createEntityHooks<Order>("orders");
-export const driversApi = createEntityHooks<Driver>("drivers");
+export const driversApi = (() => {
+  const key = ["drivers"];
+  const fleetbasePath = "/api/fleetbase/drivers";
+  const localPath = "/api/drivers";
+
+  function useList(options?: ListQueryOptions) {
+    const fleetbaseUrl = buildListUrl(fleetbasePath, options?.query);
+    const localUrl = buildListUrl(localPath, options?.query);
+
+    return useQuery<Driver[]>({
+      queryKey: [...key, options?.query ?? {}],
+      queryFn: async () => {
+        const fleetbaseDrivers = await apiFetch<Driver[]>(fleetbaseUrl).catch(() => null);
+        if (Array.isArray(fleetbaseDrivers) && fleetbaseDrivers.length > 0) {
+          return fleetbaseDrivers;
+        }
+
+        return apiFetch<Driver[]>(localUrl);
+      },
+      enabled: options?.enabled ?? true,
+      staleTime: options?.staleTime ?? 30 * 1000,
+      refetchInterval: options?.refetchInterval,
+      refetchOnWindowFocus: options?.refetchOnWindowFocus ?? false,
+      retry: options?.retry ?? 0,
+    });
+  }
+
+  function useById(id: string | undefined) {
+    return useQuery<Driver>({
+      queryKey: [...key, id],
+      queryFn: async () => {
+        const fleetbaseDriver = await apiFetch<Driver>(`${fleetbasePath}/${id}`).catch(() => null);
+        if (fleetbaseDriver) return fleetbaseDriver;
+        return apiFetch<Driver>(`${localPath}/${id}`);
+      },
+      enabled: !!id,
+      retry: 0,
+    });
+  }
+
+  function useCreate() {
+    const qc = useQueryClient();
+    return useMutation({
+      mutationFn: (data: Partial<Driver>) =>
+        apiFetch<Driver>(fleetbasePath, { method: "POST", body: JSON.stringify(data) }),
+      onSuccess: () => qc.invalidateQueries({ queryKey: key }),
+    });
+  }
+
+  function useUpdate() {
+    const qc = useQueryClient();
+    return useMutation({
+      mutationFn: ({ id, ...data }: { id: string } & Partial<Driver>) =>
+        apiFetch<Driver>(`${fleetbasePath}/${id}`, { method: "PATCH", body: JSON.stringify(data) }),
+      onSuccess: () => qc.invalidateQueries({ queryKey: key }),
+    });
+  }
+
+  function useDelete() {
+    const qc = useQueryClient();
+    return useMutation({
+      mutationFn: (id: string) =>
+        apiFetch<void>(`${fleetbasePath}/${id}`, { method: "DELETE" }),
+      onSuccess: () => qc.invalidateQueries({ queryKey: key }),
+    });
+  }
+
+  return { useList, useById, useCreate, useUpdate, useDelete };
+})();
 export const vehiclesApi = createEntityHooks<Vehicle>("vehicles");
 export const fleetsApi = createEntityHooks<Fleet>("fleets");
 export const placesApi = createEntityHooks<Place>("places");

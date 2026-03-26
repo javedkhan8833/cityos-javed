@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useLocation } from "wouter";
+import { Link, useLocation } from "wouter";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { MapContainer, TileLayer, Marker, Popup, ZoomControl, useMap, Polyline, Circle } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -273,16 +273,17 @@ export default function DashboardPage() {
   const [bottomPanelOpen, setBottomPanelOpen] = useState(true);
   const [activePanelTab, setActivePanelTab] = useState("vehicles");
   const [selectedEntity, setSelectedEntity] = useState<any>(null);
-  const [mapLayers, setMapLayers] = useState({ search: false, layers: false, places: true, traffic: false });
+  const [mapLayers, setMapLayers] = useState({ search: false, layers: false, places: false, traffic: false });
   const [dashboardSearch, setDashboardSearch] = useState("");
   const [panelFilter, setPanelFilter] = useState("");
   const [mapTileKey, setMapTileKey] = useState("default");
   const [mapSearchQuery, setMapSearchQuery] = useState("");
   const [mapSearchResults, setMapSearchResults] = useState<{ lat: number; lng: number; name: string }[]>([]);
   
+  const shouldLoadPlaces = mapLayers.places || activePanelTab === "places" || mapSearchQuery.trim().length > 0;
   const { data: vehicles = [] } = vehiclesApi.useList();
   const { data: drivers = [] } = driversApi.useList();
-  const { data: places = [] } = placesApi.useList();
+  const { data: places = [] } = placesApi.useList({ enabled: shouldLoadPlaces, retry: 0 });
   const { data: orders = [] } = ordersApi.useList();
 
   const isDarkMap = DARK_TILES.has(mapTileKey);
@@ -478,9 +479,9 @@ export default function DashboardPage() {
                     <Input placeholder="Search orders, drivers..." className="pl-8 h-9" value={dashboardSearch} onChange={(e) => setDashboardSearch(e.target.value)} data-testid="input-dashboard-search" />
                 </div>
                 <Button size="sm" className="h-9" asChild data-testid="button-create-order-dashboard">
-                    <a href="/operations/orders/new">
+                    <Link href="/operations/orders/new">
                       <Plus className="mr-2 h-4 w-4" /> Create Order
-                    </a>
+                    </Link>
                 </Button>
             </div>
         </div>

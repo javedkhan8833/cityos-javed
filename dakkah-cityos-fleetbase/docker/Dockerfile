@@ -101,6 +101,10 @@ RUN if [ -n "$GITHUB_AUTH_KEY" ]; then echo "{\"github-oauth\": {\"github.com\":
 # Install dependencies AFTER full copy
 RUN su www-data -s /bin/sh -c "composer install --no-scripts --optimize-autoloader --no-dev --no-cache"
 
+# Patch MySQL-only spatial SQL for PostgreSQL/PostGIS compatibility.
+COPY docker/patch-fleetbase-spatial.php /tmp/patch-fleetbase-spatial.php
+RUN php /tmp/patch-fleetbase-spatial.php
+
 # 👆👆👆 IMPORTANT FIX ENDS HERE 👆👆👆
 
 # Dump autoload

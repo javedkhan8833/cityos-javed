@@ -6,6 +6,7 @@ import {
   insertRouteSchema,
   insertIssueSchema, insertFuelReportSchema, insertDeviceSchema,
   insertWorkOrderSchema, insertPartSchema,
+  insertDriverSchema,
   insertSensorSchema, insertEventSchema, insertTelematicsRecordSchema,
   insertReportSchema, insertTransactionSchema,
   insertUserSchema, insertCustomFieldSchema,
@@ -127,6 +128,12 @@ export async function registerRoutes(
     () => storage.getParts(), (id) => storage.getPart(id),
     (data) => storage.createPart(data), (id, data) => storage.updatePart(id, data),
     (id) => storage.deletePart(id), insertPartSchema
+  );
+
+  crudRoutes(app, "drivers",
+    () => storage.getDrivers(), (id) => storage.getDriver(id),
+    (data) => storage.createDriver(data), (id, data) => storage.updateDriver(id, data),
+    (id) => storage.deleteDriver(id), insertDriverSchema
   );
 
   crudRoutes(app, "sensors",
@@ -267,6 +274,12 @@ export async function registerRoutes(
       req.session.activeServerId = server.id;
       req.session.serverName = server.name;
       req.session.serverOrg = server.organization || "";
+      req.session.activeServerUrl = server.url;
+      req.session.activeServerApiKey = server.api_key;
+      req.session.cityosCountry = server.cityos_country || undefined;
+      req.session.cityosCity = server.cityos_city || undefined;
+      req.session.cityosTenant = server.cityos_tenant || undefined;
+      req.session.cityosChannel = server.cityos_channel || undefined;
 
       res.status(201).json({
         server: { id: server.id, name: server.name, organization: server.organization, url: server.url },
@@ -293,6 +306,12 @@ export async function registerRoutes(
         req.session.activeServerId = server.id;
         req.session.serverName = server.name;
         req.session.serverOrg = server.organization || "";
+        req.session.activeServerUrl = server.url;
+        req.session.activeServerApiKey = server.api_key;
+        req.session.cityosCountry = server.cityos_country || undefined;
+        req.session.cityosCity = server.cityos_city || undefined;
+        req.session.cityosTenant = server.cityos_tenant || undefined;
+        req.session.cityosChannel = server.cityos_channel || undefined;
         return res.json({ id: server.id, name: server.name, organization: server.organization, url: server.url });
       }
 
@@ -321,6 +340,12 @@ export async function registerRoutes(
       req.session.activeServerId = server.id;
       req.session.serverName = server.name;
       req.session.serverOrg = server.organization || "";
+      req.session.activeServerUrl = server.url;
+      req.session.activeServerApiKey = server.api_key;
+      req.session.cityosCountry = server.cityos_country || undefined;
+      req.session.cityosCity = server.cityos_city || undefined;
+      req.session.cityosTenant = server.cityos_tenant || undefined;
+      req.session.cityosChannel = server.cityos_channel || undefined;
       res.json({ id: server.id, name: server.name, organization: server.organization, url: server.url });
     } catch (err: any) {
       res.status(500).json({ error: err.message });
@@ -332,11 +357,32 @@ export async function registerRoutes(
       return res.status(401).json({ error: "Not connected" });
     }
     try {
+      if (req.session.activeServerUrl) {
+        return res.json({
+          id: req.session.activeServerId,
+          name: req.session.serverName,
+          organization: req.session.serverOrg,
+          url: req.session.activeServerUrl,
+          cityos_country: req.session.cityosCountry || null,
+          cityos_city: req.session.cityosCity || null,
+          cityos_tenant: req.session.cityosTenant || null,
+          cityos_channel: req.session.cityosChannel || null,
+        });
+      }
+
       const server = await storage.getFleetbaseServer(req.session.activeServerId);
       if (!server) {
         req.session.destroy(() => {});
         return res.status(401).json({ error: "Server not found" });
       }
+      req.session.serverName = server.name;
+      req.session.serverOrg = server.organization || "";
+      req.session.activeServerUrl = server.url;
+      req.session.activeServerApiKey = server.api_key;
+      req.session.cityosCountry = server.cityos_country || undefined;
+      req.session.cityosCity = server.cityos_city || undefined;
+      req.session.cityosTenant = server.cityos_tenant || undefined;
+      req.session.cityosChannel = server.cityos_channel || undefined;
       res.json({
         id: server.id,
         name: server.name,
@@ -878,24 +924,65 @@ export async function registerRoutes(
   });
 
   // =========== Fleetbase Proxy Routes ===========
-  const { fleetbaseList, fleetbaseGet, fleetbaseCreate, fleetbaseUpdate, fleetbaseDelete, getActiveServer, getActiveServerCityOSContext, getEffectiveCityOSContext, validateServerUrl, extractCityOSContext } = await import("./fleetbaseClient");
+  const { fleetbaseList, fleetbaseListWithTimeout, fleetbaseGet, fleetbaseCreate, fleetbaseCreateWithTimeout, fleetbaseUpdate, fleetbaseDelete, getActiveServer, getActiveServerCityOSContext, getEffectiveCityOSContext, validateServerUrl, extractCityOSContext } = await import("./fleetbaseClient");
+  const fleetbaseOrderCreateTimeoutMs = parseInt(process.env.FLEETBASE_ORDER_CREATE_TIMEOUT_MS || "120000", 10);
+  const fleetbaseDriverCreateTimeoutMs = parseInt(process.env.FLEETBASE_DRIVER_CREATE_TIMEOUT_MS || process.env.FLEETBASE_ORDER_CREATE_TIMEOUT_MS || "120000", 10);
+  const fleetbaseSlowListTimeoutMs = parseInt(process.env.FLEETBASE_SLOW_LIST_TIMEOUT_MS || "120000", 10);
+  const fleetbaseDriverListTimeoutMs = parseInt(process.env.FLEETBASE_DRIVER_LIST_TIMEOUT_MS || "15000", 10);
+  const slowFleetbaseListResources = new Set(["orders", "places"]);
 
-  app.get("/api/fleetbase/status", async (_req: Request, res: Response) => {
+  function getSessionFleetbaseCredentials(req: Request): { url: string; api_key: string } | undefined {
+    if (!req.session.activeServerUrl || !req.session.activeServerApiKey) return undefined;
+    return {
+      url: req.session.activeServerUrl.replace(/\/+$/, ""),
+      api_key: req.session.activeServerApiKey,
+    };
+  }
+
+  function getSessionCityOSContext(req: Request) {
+    const country = req.session.cityosCountry;
+    const city = req.session.cityosCity;
+    const tenant = req.session.cityosTenant;
+    const channel = req.session.cityosChannel;
+
+    if (!country && !city && !tenant && !channel) return undefined;
+
+    return {
+      country,
+      city,
+      tenant,
+      channel,
+    };
+  }
+
+  async function getRequestCityOSContext(req: Request) {
+    if (req.headers["x-skip-cityos"] === "true") return undefined;
+
+    const sessionCtx = getSessionCityOSContext(req);
+    const reqCtx = extractCityOSContext(req);
+    if (sessionCtx || reqCtx) {
+      return { ...sessionCtx, ...reqCtx };
+    }
+
+    return getEffectiveCityOSContext(req);
+  }
+
+  app.get("/api/fleetbase/status", async (req: Request, res: Response) => {
     try {
-      const creds = await getActiveServer();
+      const creds = getSessionFleetbaseCredentials(req) ?? await getActiveServer();
       if (!creds) {
         return res.json({ configured: false, connected: false, error: "No active server configured" });
       }
-      const result = await testFleetbaseConnection();
+      const result = await testFleetbaseConnection(creds.url, creds.api_key);
       res.json({ configured: true, ...result });
     } catch (err: any) {
       res.json({ configured: false, connected: false, error: err.message });
     }
   });
 
-  app.get("/api/fleetbase/cityos-context", async (_req: Request, res: Response) => {
+  app.get("/api/fleetbase/cityos-context", async (req: Request, res: Response) => {
     try {
-      const ctx = await getActiveServerCityOSContext();
+      const ctx = getSessionCityOSContext(req) ?? await getActiveServerCityOSContext();
       res.json(ctx || { country: "", city: "", tenant: "", channel: "" });
     } catch (err: any) {
       res.status(500).json({ error: err.message });
@@ -903,6 +990,7 @@ export async function registerRoutes(
   });
 
   const FLEETBASE_RESOURCES = ["vehicles", "drivers", "orders", "places", "contacts", "vendors", "fleets", "service-areas", "zones", "service-rates", "entities", "payloads", "tracking-numbers", "tracking-statuses", "service-quotes", "purchase-rates"];
+  const compactFleetbaseListResources = new Set(["orders", "places"]);
 
   function fbErrorStatus(result: { status?: number }): number {
     if (result.status && result.status >= 400 && result.status < 600) return result.status;
@@ -919,19 +1007,40 @@ export async function registerRoutes(
   for (const resource of FLEETBASE_RESOURCES) {
     app.get(`/api/fleetbase/${resource}`, async (req: Request, res: Response) => {
       try {
-        const ctx = await getEffectiveCityOSContext(req);
+        const ctx = await getRequestCityOSContext(req);
+        const creds = getSessionFleetbaseCredentials(req);
         const params: Record<string, string> = {};
         if (req.query.limit) params.limit = String(req.query.limit);
         if (req.query.offset) params.offset = String(req.query.offset);
         if (req.query.page) params.page = String(req.query.page);
         if (req.query.query) params.query = String(req.query.query);
         if (req.query.sort) params.sort = String(req.query.sort);
+        if (req.query.compact) {
+          params.compact = String(req.query.compact);
+        } else if (compactFleetbaseListResources.has(resource)) {
+          params.compact = "1";
+        }
 
-        const result = await fleetbaseList(resource, Object.keys(params).length ? params : undefined, ctx);
+        const result = resource === "drivers"
+          ? await fleetbaseListWithTimeout(resource, fleetbaseDriverListTimeoutMs, Object.keys(params).length ? params : undefined, ctx, creds)
+          : slowFleetbaseListResources.has(resource)
+            ? await fleetbaseListWithTimeout(resource, fleetbaseSlowListTimeoutMs, Object.keys(params).length ? params : undefined, ctx, creds)
+            : await fleetbaseList(resource, Object.keys(params).length ? params : undefined, ctx, creds);
         if (!result.ok) {
+          if (resource === "drivers") {
+            const localDrivers = await storage.getDrivers();
+            res.setHeader("x-data-source", "local-fallback");
+            return res.json(localDrivers);
+          }
           return res.status(fbErrorStatus(result)).json({ error: result.error, source: "fleetbase" });
         }
-        res.json(Array.isArray(result.data) ? result.data : []);
+        const listData = Array.isArray(result.data) ? result.data : [];
+        if (resource === "drivers" && listData.length === 0) {
+          const localDrivers = await storage.getDrivers();
+          res.setHeader("x-data-source", "local-fallback");
+          return res.json(localDrivers);
+        }
+        res.json(listData);
       } catch (err: any) {
         res.status(502).json({ error: err.message, source: "fleetbase" });
       }
@@ -941,8 +1050,9 @@ export async function registerRoutes(
       try {
         const id = String(req.params.id);
         if (!isValidResourceId(id)) return res.status(400).json({ error: "Invalid resource ID" });
-        const ctx = await getEffectiveCityOSContext(req);
-        const result = await fleetbaseGet(resource, id, ctx);
+        const ctx = await getRequestCityOSContext(req);
+        const creds = getSessionFleetbaseCredentials(req);
+        const result = await fleetbaseGet(resource, id, ctx, creds);
         if (!result.ok) return res.status(fbErrorStatus(result)).json({ error: result.error, source: "fleetbase" });
         res.json(result.data);
       } catch (err: any) {
@@ -952,8 +1062,13 @@ export async function registerRoutes(
 
     app.post(`/api/fleetbase/${resource}`, async (req: Request, res: Response) => {
       try {
-        const ctx = await getEffectiveCityOSContext(req);
-        const result = await fleetbaseCreate(resource, req.body, ctx);
+        const ctx = await getRequestCityOSContext(req);
+        const creds = getSessionFleetbaseCredentials(req);
+        const result = resource === "orders"
+          ? await fleetbaseCreateWithTimeout(resource, req.body, fleetbaseOrderCreateTimeoutMs, ctx, creds)
+          : resource === "drivers"
+            ? await fleetbaseCreateWithTimeout(resource, req.body, fleetbaseDriverCreateTimeoutMs, ctx, creds)
+            : await fleetbaseCreate(resource, req.body, ctx, creds);
         if (!result.ok) return res.status(fbErrorStatus(result)).json({ error: result.error, source: "fleetbase" });
         res.status(201).json(result.data);
       } catch (err: any) {
@@ -965,8 +1080,9 @@ export async function registerRoutes(
       try {
         const id = String(req.params.id);
         if (!isValidResourceId(id)) return res.status(400).json({ error: "Invalid resource ID" });
-        const ctx = await getEffectiveCityOSContext(req);
-        const result = await fleetbaseUpdate(resource, id, req.body, ctx);
+        const ctx = await getRequestCityOSContext(req);
+        const creds = getSessionFleetbaseCredentials(req);
+        const result = await fleetbaseUpdate(resource, id, req.body, ctx, creds);
         if (!result.ok) return res.status(fbErrorStatus(result)).json({ error: result.error, source: "fleetbase" });
         res.json(result.data);
       } catch (err: any) {
@@ -978,8 +1094,9 @@ export async function registerRoutes(
       try {
         const id = String(req.params.id);
         if (!isValidResourceId(id)) return res.status(400).json({ error: "Invalid resource ID" });
-        const ctx = await getEffectiveCityOSContext(req);
-        const result = await fleetbaseUpdate(resource, id, req.body, ctx);
+        const ctx = await getRequestCityOSContext(req);
+        const creds = getSessionFleetbaseCredentials(req);
+        const result = await fleetbaseUpdate(resource, id, req.body, ctx, creds);
         if (!result.ok) return res.status(fbErrorStatus(result)).json({ error: result.error, source: "fleetbase" });
         res.json(result.data);
       } catch (err: any) {
@@ -995,8 +1112,9 @@ export async function registerRoutes(
       try {
         const id = String(req.params.id);
         if (!isValidResourceId(id)) return res.status(400).json({ error: "Invalid resource ID" });
-        const ctx = await getEffectiveCityOSContext(req);
-        const result = await fleetbaseDelete(resource, id, ctx);
+        const ctx = await getRequestCityOSContext(req);
+        const creds = getSessionFleetbaseCredentials(req);
+        const result = await fleetbaseDelete(resource, id, ctx, creds);
         if (!result.ok) return res.status(fbErrorStatus(result)).json({ error: result.error, source: "fleetbase" });
         res.status(204).send();
       } catch (err: any) {
@@ -1020,7 +1138,7 @@ export async function registerRoutes(
 
   app.get("/api/dashboard/stats", async (req: Request, res: Response) => {
     try {
-      const creds = await getActiveServer();
+      const creds = getSessionFleetbaseCredentials(req) ?? await getActiveServer();
       if (!creds) {
         return res.json({
           totalOrders: 0, activeDrivers: 0, totalDrivers: 0,
@@ -1029,10 +1147,10 @@ export async function registerRoutes(
         });
       }
 
-      const ctx = await getEffectiveCityOSContext(req);
+      const ctx = await getRequestCityOSContext(req);
       const [ordersRes, driversRes, vehiclesRes, fleetsRes] = await Promise.all([
-        fleetbaseList("orders", undefined, ctx), fleetbaseList("drivers", undefined, ctx),
-        fleetbaseList("vehicles", undefined, ctx), fleetbaseList("fleets", undefined, ctx),
+        fleetbaseList("orders", { compact: "1" }, ctx, creds), fleetbaseList("drivers", undefined, ctx, creds),
+        fleetbaseList("vehicles", undefined, ctx, creds), fleetbaseList("fleets", undefined, ctx, creds),
       ]);
 
       const ordersList = (ordersRes.ok && Array.isArray(ordersRes.data)) ? ordersRes.data : [];

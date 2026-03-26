@@ -15,16 +15,41 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { MapPin, CheckCircle2, ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
-import { ordersApi, contactsApi, driversApi } from "@/lib/api";
+import { ordersApi, contactsApi, driversApi, placesApi } from "@/lib/api";
+import { useAuth } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
+
+const DEFAULT_PICKUP_COORDINATES: [number, number] = [46.6753, 24.7136];
+const DEFAULT_DROPOFF_COORDINATES: [number, number] = [46.6853, 24.7236];
+
+function normalizeSearchValue(value: string) {
+  return value.trim().toLowerCase();
+}
+
+function resolveCountry(value?: string | null) {
+  const trimmed = value?.trim();
+  if (!trimmed) return "SA";
+  if (trimmed.length === 2) return trimmed.toUpperCase();
+  if (trimmed.toLowerCase().includes("saudi")) return "SA";
+  return trimmed;
+}
+
+function hasPointCoordinates(location: any): location is { coordinates: [number, number] } {
+  return Array.isArray(location?.coordinates)
+    && location.coordinates.length >= 2
+    && typeof location.coordinates[0] === "number"
+    && typeof location.coordinates[1] === "number";
+}
 
 export default function CreateOrderPage() {
   const [step, setStep] = useState(1);
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const { server } = useAuth();
   const createOrder = ordersApi.useCreate();
   const { data: contacts = [] } = contactsApi.useList();
   const { data: drivers = [] } = driversApi.useList();
+  const { data: places = [] } = placesApi.useList({ enabled: step >= 2, retry: 0 });
 
   const [formData, setFormData] = useState({
     customer: "",
@@ -71,23 +96,107 @@ export default function CreateOrderPage() {
   };
 
   const handleSubmit = async () => {
+    if (!formData.pickupAddress.trim() || !formData.dropoffAddress.trim()) {
+      toast({
+        title: "Missing Locations",
+        description: "Pickup and dropoff addresses are required before creating an order.",
+        variant: "destructive",
+      });
+      setStep(2);
+      return;
+    }
+
     const customerName = formData.customer === "new"
       ? `${formData.firstName} ${formData.lastName}`.trim()
       : contacts.find(c => c.id === formData.customer)?.name ?? `${formData.firstName} ${formData.lastName}`.trim();
 
-    const address = formData.dropoffAddress || formData.pickupAddress || "No address provided";
+    const findMatchingPlace = (address: string) => {
+      const normalizedAddress = normalizeSearchValue(address);
+      if (!normalizedAddress) return undefined;
+
+      return places.find((place) => {
+        const candidates = [
+          place.name,
+          place.street1,
+          [place.street1, place.city, place.province, place.country].filter(Boolean).join(", "),
+        ]
+          .filter(Boolean)
+          .map((candidate) => normalizeSearchValue(candidate));
+
+        return candidates.some((candidate) =>
+          candidate === normalizedAddress
+          || candidate.includes(normalizedAddress)
+          || normalizedAddress.includes(candidate)
+        );
+      });
+    };
+
+    const buildStop = (kind: "pickup" | "dropoff", address: string, unit: string) => {
+      const matchedPlace = findMatchingPlace(address);
+      const fallbackCoordinates = kind === "pickup"
+        ? DEFAULT_PICKUP_COORDINATES
+        : DEFAULT_DROPOFF_COORDINATES;
+      const coordinates = hasPointCoordinates(matchedPlace?.location)
+        ? matchedPlace.location.coordinates
+        : fallbackCoordinates;
+
+      return {
+        name: matchedPlace?.name || `${kind === "pickup" ? "Pickup" : "Dropoff"} ${customerName || "Location"}`.trim(),
+        street1: matchedPlace?.street1 || address.trim(),
+        street2: matchedPlace?.street2 || unit.trim() || undefined,
+        city: matchedPlace?.city || server?.cityos_city || "Riyadh",
+        country: resolveCountry(matchedPlace?.country || server?.cityos_country),
+        location: {
+          type: "Point",
+          coordinates,
+        },
+        meta: {
+          source: matchedPlace ? "saved_place" : "manual_entry",
+          unit: unit.trim() || undefined,
+        },
+      };
+    };
+
+    const pickup = buildStop("pickup", formData.pickupAddress, formData.pickupUnit);
+    const dropoff = buildStop("dropoff", formData.dropoffAddress, formData.dropoffUnit);
+    const scheduledAt = formData.pickupDate && formData.pickupTimeFrom
+      ? new Date(`${formData.pickupDate}T${formData.pickupTimeFrom}`).toISOString()
+      : undefined;
+    const trackingNumber = generateTrackingNumber();
 
     createOrder.mutate({
-      tracking_number: generateTrackingNumber(),
-      type: formData.type,
-      status: "pending",
-      total_amount: getPrice(),
-      currency: "SAR",
-      notes: formData.notes || null,
-      customer_uuid: formData.customer !== "new" ? formData.customer : null,
+      type: "default",
+      notes: formData.notes || undefined,
+      scheduled_at: scheduledAt,
+      pickup,
+      dropoff,
+      waypoints: [pickup, dropoff],
+      customer_uuid: formData.customer && formData.customer !== "new" ? formData.customer : undefined,
       driver_assigned_uuid: formData.driverAssignment !== "auto" && formData.driverAssignment !== "broadcast"
-        ? formData.driverAssignment : null,
-    }, {
+        ? formData.driverAssignment
+        : undefined,
+      meta: {
+        tracking_number: trackingNumber,
+        quoted_amount: getPrice(),
+        quoted_currency: "SAR",
+        service_type: formData.type,
+        item_description: formData.itemDescription || undefined,
+        item_quantity: Number(formData.itemQuantity || "1") || 1,
+        item_weight: formData.itemWeight || undefined,
+        item_length: formData.itemLength || undefined,
+        item_height: formData.itemHeight || undefined,
+        pickup_window: formData.pickupDate || formData.pickupTimeFrom || formData.pickupTimeTo
+          ? {
+              date: formData.pickupDate || undefined,
+              from: formData.pickupTimeFrom || undefined,
+              to: formData.pickupTimeTo || undefined,
+            }
+          : undefined,
+        contact_name: customerName || undefined,
+        contact_phone: formData.phone || undefined,
+        contact_email: formData.email || undefined,
+      },
+    } as any, {
       onSuccess: () => {
         toast({
           title: "Order Created",

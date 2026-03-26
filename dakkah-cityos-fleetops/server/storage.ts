@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm";
 import { db } from "./db";
 import {
   users, routes, issues, fuel_reports, devices, work_orders, parts,
+  drivers,
   sensors, events, telematics_records, reports, transactions, custom_fields,
   time_off_requests, scheduler_tasks, settings,
   api_keys, webhooks, webhook_logs, integrations, order_configs,
@@ -14,6 +15,7 @@ import {
   type WorkOrder, type InsertWorkOrder,
   type ServiceRate, type InsertServiceRate,
   type Part, type InsertPart,
+  type Driver, type InsertDriver,
   type Sensor, type InsertSensor,
   type Event, type InsertEvent,
   type TelematicsRecord, type InsertTelematicsRecord,
@@ -80,6 +82,12 @@ export interface IStorage {
   createPart(part: InsertPart): Promise<Part>;
   updatePart(id: string, data: Partial<InsertPart>): Promise<Part>;
   deletePart(id: string): Promise<void>;
+
+  getDrivers(): Promise<Driver[]>;
+  getDriver(id: string): Promise<Driver | undefined>;
+  createDriver(driver: InsertDriver): Promise<Driver>;
+  updateDriver(id: string, data: Partial<InsertDriver>): Promise<Driver>;
+  deleteDriver(id: string): Promise<void>;
 
   getSensors(): Promise<Sensor[]>;
   getSensor(id: string): Promise<Sensor | undefined>;
@@ -304,6 +312,21 @@ export class DatabaseStorage implements IStorage {
     return updated;
   }
   async deletePart(id: string): Promise<void> { await db.delete(parts).where(eq(parts.id, id)); }
+
+  async getDrivers(): Promise<Driver[]> { return db.select().from(drivers); }
+  async getDriver(id: string): Promise<Driver | undefined> {
+    const [item] = await db.select().from(drivers).where(eq(drivers.id, id));
+    return item;
+  }
+  async createDriver(driver: InsertDriver): Promise<Driver> {
+    const [created] = await db.insert(drivers).values(driver).returning();
+    return created;
+  }
+  async updateDriver(id: string, data: Partial<InsertDriver>): Promise<Driver> {
+    const [updated] = await db.update(drivers).set(data).where(eq(drivers.id, id)).returning();
+    return updated;
+  }
+  async deleteDriver(id: string): Promise<void> { await db.delete(drivers).where(eq(drivers.id, id)); }
 
   async getCustomFields(): Promise<CustomField[]> { return db.select().from(custom_fields); }
   async getCustomField(id: string): Promise<CustomField | undefined> {

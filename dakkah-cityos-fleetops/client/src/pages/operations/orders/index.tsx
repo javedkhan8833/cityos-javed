@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "wouter";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { ordersApi, driversApi } from "@/lib/api";
 import {
@@ -93,13 +94,41 @@ export default function OrdersPage() {
   const [capturedPhoto, setCapturedPhoto] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const { data: orders = [] } = ordersApi.useList();
+  const { data: orders = [], isLoading: isOrdersLoading, error: ordersError } = ordersApi.useList();
   const { data: drivers = [] } = driversApi.useList();
   const updateOrder = ordersApi.useUpdate();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [selectedOrder, setSelectedOrder] = useState<any | null>(null);
   const [viewMode, setViewMode] = useState<"list" | "board" | "map">("list");
+
+  const getOrderTrackingNumber = (order: any) => {
+    if (typeof order?.tracking_number === "string") return order.tracking_number;
+    if (order?.tracking_number && typeof order.tracking_number === "object") {
+      if (typeof order.tracking_number.tracking_number === "string") return order.tracking_number.tracking_number;
+      if (typeof order.tracking_number.id === "string") return order.tracking_number.id;
+    }
+    if (typeof order?.internal_id === "string") return order.internal_id;
+    return order?.id || "—";
+  };
+
+  const getOrderCustomerLabel = (order: any) => {
+    if (typeof order?.customer_uuid === "string" && order.customer_uuid.trim()) return order.customer_uuid;
+    if (order?.customer && typeof order.customer === "object") {
+      return order.customer.name || order.customer.id || "—";
+    }
+    return "—";
+  };
+
+  const getOrderTotalAmount = (order: any) => {
+    if (order?.total_amount !== undefined && order?.total_amount !== null && `${order.total_amount}` !== "") {
+      return `${order.total_amount}`;
+    }
+    if (order?.meta?.quoted_amount !== undefined && order?.meta?.quoted_amount !== null) {
+      return `${order.meta.quoted_amount}`;
+    }
+    return "0";
+  };
 
   const handleAssignDriver = () => {
     if (!assignOrderId || !selectedDriverId) return;
@@ -129,7 +158,7 @@ export default function OrdersPage() {
   const handleExportOrders = () => {
     const csv = [
       ["tracking_number", "customer_uuid", "status", "total_amount", "currency", "created_at"].join(","),
-      ...orders.map(o => [o.tracking_number, o.customer_uuid ?? "", o.status, o.total_amount ?? "0", o.currency, o.created_at ?? ""].join(","))
+      ...orders.map(o => [getOrderTrackingNumber(o), getOrderCustomerLabel(o), o.status, getOrderTotalAmount(o), o.currency, o.created_at ?? ""].join(","))
     ].join("\n");
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
@@ -143,8 +172,8 @@ export default function OrdersPage() {
 
   const filteredOrders = orders.filter(order => {
     const matchesSearch = 
-      (order.tracking_number || "").toLowerCase().includes(searchTerm.toLowerCase()) || 
-      (order.customer_uuid || "").toLowerCase().includes(searchTerm.toLowerCase());
+      getOrderTrackingNumber(order).toLowerCase().includes(searchTerm.toLowerCase()) || 
+      getOrderCustomerLabel(order).toLowerCase().includes(searchTerm.toLowerCase());
     
     const matchesStatus = statusFilter === "all" || order.status === statusFilter;
 
@@ -217,10 +246,10 @@ export default function OrdersPage() {
                 </Button>
             </div>
             <Button asChild>
-                <a href="/operations/orders/new">
+                <Link href="/operations/orders/new">
                     <Plus className="mr-2 h-4 w-4" />
                     Create Order
-                </a>
+                </Link>
             </Button>
           </div>
         </div>
@@ -254,10 +283,10 @@ export default function OrdersPage() {
           </div>
           <div className="flex gap-2">
             <Button asChild variant="outline">
-                <a href="/operations/orders/import">
+                <Link href="/operations/orders/import">
                     <Upload className="mr-2 h-4 w-4" />
                     Import
-                </a>
+                </Link>
             </Button>
             <Button variant="outline" onClick={handleExportOrders} data-testid="button-export-orders">
                 <Download className="mr-2 h-4 w-4" />
@@ -282,17 +311,38 @@ export default function OrdersPage() {
                     </TableRow>
                     </TableHeader>
                     <TableBody>
-                    {filteredOrders.map((order) => (
+                    {isOrdersLoading && (
+                        <TableRow>
+                            <TableCell colSpan={6} className="py-10 text-center text-muted-foreground">
+                                Loading orders...
+                            </TableCell>
+                        </TableRow>
+                    )}
+                    {!isOrdersLoading && ordersError && (
+                        <TableRow>
+                            <TableCell colSpan={6} className="py-10 text-center text-destructive">
+                                {(ordersError as Error).message || "Failed to load orders."}
+                            </TableCell>
+                        </TableRow>
+                    )}
+                    {!isOrdersLoading && !ordersError && filteredOrders.length === 0 && (
+                        <TableRow>
+                            <TableCell colSpan={6} className="py-10 text-center text-muted-foreground">
+                                No orders found.
+                            </TableCell>
+                        </TableRow>
+                    )}
+                    {!isOrdersLoading && !ordersError && filteredOrders.map((order) => (
                         <TableRow key={order.id}>
                         <TableCell className="font-medium font-mono">
                             <Button variant="link" className="p-0 h-auto font-mono" onClick={() => setSelectedOrder(order)}>
-                                {order.tracking_number}
+                                {getOrderTrackingNumber(order)}
                             </Button>
                         </TableCell>
                         <TableCell>
                             <div className="flex items-center gap-2">
                             <User className="h-3 w-3 text-muted-foreground" />
-                            {order.customer_uuid || "—"}
+                            {getOrderCustomerLabel(order)}
                             </div>
                         </TableCell>
                         <TableCell>
@@ -307,7 +357,7 @@ export default function OrdersPage() {
                             </div>
                         </TableCell>
                         <TableCell className="text-right font-medium">
-                            ${order.total_amount ?? "0"}
+                            ${getOrderTotalAmount(order)}
                         </TableCell>
                         <TableCell className="text-right">
                             <DropdownMenu>
@@ -355,11 +405,11 @@ export default function OrdersPage() {
                                             <Card key={order.id} className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => setSelectedOrder(order)}>
                                                 <CardContent className="p-3 space-y-3">
                                                     <div className="flex justify-between items-start">
-                                                        <span className="font-mono text-xs text-muted-foreground">{order.tracking_number}</span>
-                                                        <span className="font-semibold text-sm">${order.total_amount ?? "0"}</span>
+                                                        <span className="font-mono text-xs text-muted-foreground">{getOrderTrackingNumber(order)}</span>
+                                                        <span className="font-semibold text-sm">${getOrderTotalAmount(order)}</span>
                                                     </div>
                                                     <div>
-                                                        <div className="font-medium text-sm truncate">{order.customer_uuid || "—"}</div>
+                                                        <div className="font-medium text-sm truncate">{getOrderCustomerLabel(order)}</div>
                                                     </div>
                                                     <div className="flex justify-between items-center pt-2 border-t mt-2">
                                                         <div className="text-xs text-muted-foreground">
@@ -398,8 +448,8 @@ export default function OrdersPage() {
                                 position={[24.7136 + (idx * 0.008 - filteredOrders.length * 0.004), 46.6753 + (idx * 0.012 - filteredOrders.length * 0.006)]}
                             >
                                 <Popup>
-                                    <div className="font-medium">{order.tracking_number}</div>
-                                    <div className="text-sm">{order.customer_uuid || "—"}</div>
+                                    <div className="font-medium">{getOrderTrackingNumber(order)}</div>
+                                    <div className="text-sm">{getOrderCustomerLabel(order)}</div>
                                     <Badge variant="outline" className={`mt-2 ${getStatusBadgeClass(order.status)}`}>
                                         {order.status.replace("_", " ")}
                                     </Badge>
@@ -479,7 +529,7 @@ export default function OrdersPage() {
                     <SheetHeader>
                         <SheetTitle className="flex items-center gap-2">
                             <Package className="h-5 w-5 text-primary" />
-                            Order {selectedOrder.tracking_number}
+                            Order {getOrderTrackingNumber(selectedOrder)}
                         </SheetTitle>
                         <SheetDescription>
                             Created on {selectedOrder.created_at ? format(new Date(selectedOrder.created_at), "PPP p") : "—"}
@@ -497,7 +547,7 @@ export default function OrdersPage() {
                             </div>
                             <div className="space-y-1 text-right">
                                 <p className="text-sm font-medium text-muted-foreground">Total Amount</p>
-                                <p className="text-xl font-bold">${selectedOrder.total_amount ?? "0"}</p>
+                                <p className="text-xl font-bold">${getOrderTotalAmount(selectedOrder)}</p>
                             </div>
                         </div>
 
@@ -508,7 +558,7 @@ export default function OrdersPage() {
                                     <User className="h-4 w-4" /> Customer
                                 </h3>
                                 <div className="text-sm space-y-1">
-                                    <p className="font-medium">{selectedOrder.customer_uuid || "—"}</p>
+                                    <p className="font-medium">{getOrderCustomerLabel(selectedOrder)}</p>
                                     <p className="text-muted-foreground">+1 (555) 000-0000</p>
                                     <p className="text-muted-foreground">customer@example.com</p>
                                 </div>
@@ -639,7 +689,7 @@ export default function OrdersPage() {
                                if (selectedOrder) {
                                  updateOrder.mutate({ id: selectedOrder.id, status: "in_transit" } as any, {
                                    onSuccess: () => {
-                                     toast({ title: "Order Dispatched", description: `Order ${selectedOrder.tracking_number} has been dispatched.` });
+                                     toast({ title: "Order Dispatched", description: `Order ${getOrderTrackingNumber(selectedOrder)} has been dispatched.` });
                                      setSelectedOrder(null);
                                    },
                                    onError: (err) => toast({ title: "Error", description: err.message, variant: "destructive" }),
@@ -647,12 +697,12 @@ export default function OrdersPage() {
                                }
                              }}>Dispatch Order</Button>
                              <Button variant="outline" className="gap-2" data-testid="button-print-labels" onClick={() => {
-                               toast({ title: "Printing Labels", description: `Generating shipping labels for ${selectedOrder?.tracking_number}.` });
+                               toast({ title: "Printing Labels", description: `Generating shipping labels for ${selectedOrder ? getOrderTrackingNumber(selectedOrder) : "this order"}.` });
                              }}>
                                 <Printer className="h-4 w-4" /> Labels
                              </Button>
                              <Button variant="outline" size="icon" data-testid="button-qr-code" onClick={() => {
-                               toast({ title: "QR Code", description: `QR code generated for ${selectedOrder?.tracking_number}.` });
+                               toast({ title: "QR Code", description: `QR code generated for ${selectedOrder ? getOrderTrackingNumber(selectedOrder) : "this order"}.` });
                              }}>
                                 <QrCode className="h-4 w-4" />
                              </Button>
